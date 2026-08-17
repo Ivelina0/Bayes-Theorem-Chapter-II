@@ -381,159 +381,397 @@ While John Maynard Keynes, see \href{https://archive.org/details/treatiseonproba
 The controversy was therefore increasingly about the \emph{interpretation} of inverse probability rather than the validity of conditional probability itself: \textbf{could an unknown but fixed quantity legitimately be assigned a probability distribution, and how should that distribution be chosen?} These questions remained unresolved at the end of the nineteenth century. In the early twentieth century they became much sharper as \textbf{alternative theories of statistical inference} were developed. R.~A.~Fisher (1890 - 1926) would reject inverse probability as a general foundation for parameter inference and develop \textbf{likelihood-based methods} that did not require prior probabilities \cite{fisher1922}, while other mathematicians---including Harold Jeffreys (1891 - 1989), \textbf{Dorothy Wrinch} (1894 - 1976)\footnote{\textbf{Dorothy Wrinch} (1894–1976) was a mathematician and philosopher of science, and \textbf{the first woman to receive a Doctor of Science (DSc) degree from Oxford University (awarded in 1929)}. She collaborated with Harold Jeffreys on probability and scientific inference between 1919 and 1923. Their work has been identified as an important conceptual precursor to Bayesian hypothesis testing and the later Bayes factor; Jeffreys subsequently acknowledged Wrinch's substantial contribution to the foundations of his work on scientific inference. \href{https://mathshistory.st-andrews.ac.uk/Extras/Jeffreys_Probability/}{An extract from Jeffreys' book on Probability} \cite{wrinchjeffreys1919,wrinchjeffreys1921,jeffreys1973} } and Bruno de Finetti (1906 - 1985)---would instead attempt to place probabilistic inference on stronger foundations. The resulting disagreement marks the beginning of the much more explicit twentieth-century debate over how statistical inference should be performed.
 
 
-\newpage 
 
-\subsection{So what is Bayes' theorem?} 
-TOFIX...
+\subsection{So what is Bayes' theorem today?}
 
-The previous sections introduced the historical origins of Bayesian reasoning through the work of Thomas Bayes and Pierre-Simon Laplace. However, the theorem itself is often presented as a mathematical formula without explaining the intuition behind it. 
-MAYBE CHANGE WHST YOU WROTE
-In reality, Bayes' theorem is simply a rule for updating probabilities when new information becomes available. Rather than treating probability as fixed, Bayesian inference allows beliefs to change as evidence accumulates.
+An excellent introductory Probability book is written by Tijms' \textit{\textbf{Understanding Probability}} \cite{tijms2012}. \textbf{Chapter~8} develops conditional probability, the law of total probability and Bayes' rule before introducing Bayesian statistics for the discrete case. \textbf{Chapter~13} later extends these ideas to continuous random variables and continuous Bayesian models. For readers already comfortable with these probability and calculus concepts, Gelman et al.'s \textit{\textbf{Bayesian Data Analysis}} provides a natural next step \cite{gelman2013bayesian}. 
+A visual and intuitive explanation of Bayes' theorem, is provided in several \textbf{YouTube video introductions}, including \textbf{3Blue1Brown}'s \href{https://youtu.be/HZGCoVF3YvM}{geometric explanation of Bayes' theorem}, as well as further examples by \href{https://youtu.be/NLKWLBJ-b9E}{RiskByNumbers} and \href{https://youtu.be/5NMxiOGL39M}{Brandon Rohrer}. 3Blue1Brown also explores Bayes' rule through the \href{https://youtu.be/lG4VkPoG3ko}{medical test paradox}, illustrating visually why base rates and prior probabilities matter when interpreting evidence.
 
-Before introducing Bayes' theorem, it is first necessary to understand the concept of conditional probability.
+\vspace{2mm}
 
-Conditional probability measures the probability of an event occurring given that another event has already occurred. Suppose two events, (A) and (B), are defined. The conditional probability of event (A) occurring given that event (B) has occurred is written as (P(A|B)) and is defined as
+Modern introductions to Bayes' theorem usually begin with the
+\textbf{discrete case}. Suppose that $B_1,\ldots,B_k$ represent all possible hypotheses, explanations or parameter values under consideration. For example, in Bayes' experiment, the unknown
+quantity was the $\theta$ of the first ball on the table, while in Laplace's urn problem it was the unknown proportion $\mathbf{x}$ of white tickets. These are assumed to be \textbf{mutually exclusive}, so that no two can occur simultaneously, and \textbf{exhaustive}, so that one of them must occur. 
+
+Let $A$ denote some observed evidence, or collected data. In Bayes' experiment, this could be the observation that, among $n$ subsequent balls, $s$ fell to the left of the first ball and $n-s$ to its right. In Laplace's urn problem, the corresponding evidence was the observation of $p$ white tickets and $q$ black tickets. 
+
+Two results from probability theory are needed. First, \textbf{conditional probability}
+is defined by
+
+\[
+P(B_i\mid A)
+=
+\frac{P(B_i\cap A)}{P(A)}.
+\]
+
+Second, the \textbf{law of total probability} says that the probability of
+observing $A$ can be found by considering all the different hypotheses under
+which $A$ could have occurred:
+
+\[
+P(A)
+=
+\sum_{j=1}^{k}P(A\mid B_j)P(B_j).
+\]
+
+This can be visualised geometrically by dividing the event $A$ into the
+mutually exclusive pieces contributed by each possible hypothesis, as shown
+in Figure~\ref{fig:total_probability}.
+
+\begin{figure}[H] \centering \includegraphics[width=0.45\textwidth]{figs/Bayes_figs/law_total_probability_venn.png} \caption{Geometric illustration of the law of total probability. The sample space is partitioned into mutually exclusive events $B_1,\ldots,B_n$, and the probability of $A$ is obtained by adding its intersections with each part of the partition. Illustration source: \href{https://qualityengineer.weebly.com/probability/total-probability-law}{Blog by Authors: Armin Nikzad and Fatima Mosallaei}.} \label{fig:total_probability} \end{figure}
+
+Since the intersection can also be obtained by $P(A\cap B_i)=P(A\mid B_i)P(B_i)$,  substituting the law of total probability into conditional probability gives the modern discrete  form\footnote{Different textbooks provide a range of different ways to write the theorem but the underlying concept is the same. } of \textbf{Bayes' theorem}:
+
 \begin{equation}
-[
-P(A|B)=\frac{P(A\cap B)}{P(B)}.
-]
+    \boxed{
+    P(B_i\mid A)
+    =
+    \frac{P(A\mid B_i)P(B_i)}
+    {\displaystyle
+    \sum_{j=1}^{k}P(A\mid B_j)P(B_j)}
+    }.
 \end{equation}
 
-This definition states that once event (B) has occurred, the original sample space is restricted only to outcomes contained within (B). The probability of (A) must further be recalculated within this reduced set of possibilities.
+\noindent
+Further details on conditional probability and the law of total probability can be found in \cite{tijms2012}.
 
-The same joint probability may also be written in the opposite direction,
+In words, Bayes' theorem begins with probabilities assigned to the different possible hypotheses $B_i$, asks how compatible the observed evidence $A$ is with each of them, and then uses this information to revise their probabilities after the evidence has been observed. In modern Bayesian terminology this is often summarised as
+
 \begin{equation}
-[
-P(B|A)=\frac{P(A\cap B)}{P(A)}.
-]
+    \boxed{
+    \text{posterior}
+    \propto
+    \text{likelihood}
+    \times
+    \text{prior}
+    }.
 \end{equation}
 
-Since both equations describe the same joint event (P(A|B)), they can be equated,
-\begin{equation}
-[ 
-P(A|B)P(B)=P(B|A)P(A),
-]
-\end{equation}
-which, after rearranging, gives Bayes' theorem,
-\begin{equation}
-    [P(A|B)=\frac{P(B|A)P(A)}{P(B)}.]
-\end{equation}
+The same idea extends naturally to \textbf{continuous} problems. In the discrete case there is a finite or countable list of possibilities, $B_1,B_2,\ldots$. In a continuous problem, however, an unknown quantity may take any value within an interval. For example, an unknown probability might take any value between $0$ and $1$, rather than being restricted to a list of possible values. Such an unknown quantity is commonly represented by a parameter such as $\theta$.
 
-The theorem contains four quantities, each with a seperate interpretation:
-\begin{itemize}
-    \item \textbf{Prior probability (P(A)):} the initial belief about an event before observing new evidence.
-\end{itemize}   
-\begin{itemize}
-    \item \textbf{Likelihood (P(B|A)):} the probability of observing the evidence assuming the hypothesis is true.
-\end{itemize}   
-\begin{itemize}
-    \item \textbf{Evidence (P(B)):} the overall probability of observing the evidence.
-\end{itemize}
-\begin{itemize}
-    \item \textbf{Posterior probability (P(A|B)):} the updated belief after incorporating the evidence.
-\end{itemize}
-
-To summarise, rather than introducing a completely new probability, Bayes' theorem simply redistributes existing probabilities using newly acquired information. This process of continually updating beliefs is known as Bayesian inference.
-\subsubsection{A geometric interpretation}
-
-Although Bayes' theorem is usually introduced algebraically, it is often easier to understand geometrically. Imagine a rectangle representing an entire population. The width of the rectangle corresponds to the prior probability (P(A)), while the remaining width represents the complement of the event. The rectangle is then divided horizontally according to whether the observed evidence occurs. The overlapping region corresponds to the joint probability $(P(A\cap B)).$
-
-\fcolorbox{red}{red!10}{
-  \textcolor{red}{\textbf{TODO: Add an image of the Geometric interpretation of Bayes' theorem showing prior probability, likelihood and posterior probability}}
-}
-
-Viewed geometrically, Bayes' theorem asks a remarkably simple question:
-\begin{quote}
-    Of all the individuals for whom the evidence is true, what proportion actually belong to the hypothesis being investigated?
-\end{quote}
-
-Consequently, the posterior probability is obtained by dividing the area of the overlap by the total area representing the observed evidence. This geometric perspective illustrates that Bayes' theorem is not merely an algebraic identity but a natural consequence of partitioning probability space.
-
-\subsubsection{The Medical paradox}
-One of the most famous demonstrations of Bayes' theorem is the medical testing paradox. It highlights why intuitive reasoning about probabilities often leads to incorrect conclusions.
-
-Suppose a disease affects only 1\% of the population. A medical test correctly identifies an infected patient 99\% of the time (99\% sensitivity) and correctly identifies a healthy patient 95\% of the time (95\% specificity).
-
-Many people assume that receiving a positive test result means there is approximately a 99\% chance they have the disease. Bayes' theorem shows that this conclusion is incorrect because it ignores the rarity of the disease.
-
-\fcolorbox{red}{red!10}{%
-  \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
-    \raggedright
-    \textcolor{black}{%  
-      \begin{enumerate}
-        \itembf To illustrate this, imagine testing 10,000 people.
-        \item Approximately 100 people genuinely have the disease.
-        \item The test correctly identifies 99 of these individuals.
-        \item The remaining 9,900 people are healthy.
-        Since the false positive rate is 5\%, approximately 495 healthy people will also receive a positive result.
-      \end{enumerate}
-    }%
-  }%
-}%
-
-Therefore, there are
-\begin{equation}
-    99+495=594    
-\end{equation}
-
-positive test results in total, yet only 99 correspond to genuine cases.
-The probability that a person actually has the disease after receiving a positive result is therefore
-
-$\frac{99}{594}$
-$\approx0.167.$
-
-In other words, despite the test appearing highly accurate, the probability that a positive result indicates genuine disease is only about 16.7\%. The overwhelming number of healthy individuals means that false positives dominate the positive test results.
-
-
-\fcolorbox{red}{red!10}{
-  \textcolor{red}{\textbf{TODO: Add an image of a Frequency tree about the medical testing paradox}}}
-
-This phenomenon demonstrates one of the most important principles of Bayesian inference: evidence cannot be interpreted in isolation.
-The strength of new evidence depends critically on the prior probability of the event under investigation. 
-Ignoring the prior often leads to serious errors in judgement, a mistake known as the base-rate fallacy.
-Bayes' theorem therefore provides much more than a mathematical identity.
-It offers a principled framework for learning from evidence by continuously refining beliefs as additional information becomes available. 
-This seemingly simple idea would later become the mathematical foundation of modern Bayesian statistics, probabilistic machine learning, artificial intelligence, medical diagnosis, robotics, and countless other applications explored throughout the remainder of this chapter.
-
-NEED HELP WITH THE ALIGNMENT
-%Here was explain the theorem in practice with simple examples from : 
-%Explain conditional probability then bayes theorem GEOMETRICALLY
-
-%https://www.3blue1brown.com/lessons/bayes-theorem/ 
-%+ Proof
-%https://youtu.be/U_85TaXbeIo?si=B8yTYpSsGEeVEBOe 
-%The medical test paradox, and redesigning Bayes' rule: USE IMAGES
-%https://youtu.be/lG4VkPoG3ko?si=jxpWbi86mc0MeRBM
 
 
 \subsection{Bayesian developments after 1950's} 
-Despite strong criticism from Ronald Fisher and many frequentist statisticians, Bayesian statistics continued to develop throughout the twentieth century. Frequentists argued that probability should only describe long run frequencies of repeated events and rejected the idea of assigning probabilities to unknown parameters. However, Bayesian researchers believed probability could also represent uncertainty about unknown quantities, allowing prior knowledge to be combined with observed data. By the 1950s, this debate had led to two major branches of Bayesian statistics: Bayesian inference and Bayesian decision theory.
 
-Bayesian inference focused on updating beliefs using Bayes' theorem. Starting with a prior distribution, new evidence is incorporated through the likelihood function to produce a posterior distribution, representing updated beliefs about the unknown parameters. During this period, Harold Jeffreys made important contributions by introducing objective Bayesian methods. His most well known contribution, Jeffreys prior, provided a way of choosing non-informative priors using the Fisher information matrix, allowing Bayesian analyses to be performed with minimal subjective assumptions. Alongside this, statisticians continued to investigate different choices of informative and non-informative priors, including the uniform prior originally suggested by Laplace.
-%(Jeffreys, 1939)
+```latex
+\subsection{From inverse probability to modern Bayesian inference}
 
-At the same time, Bayesian decision theory developed alongside advances in statistical decision theory. Abraham Wald established the mathematical foundations of decision theory during the 1940s while working on military problems for the United States during the Second World War. One of the famous examples was the aircraft survival problem, where Wald demonstrated that armour should be placed where returning aircraft showed the least damage, since aircraft hit in those locations were less likely to survive. His work introduced the concept of minimising expected loss when making decisions under uncertainty. 
-%(Wald, 1950).
-article: https://medium.com/@penguinpress/an-excerpt-from-how-not-to-be-wrong-by-jordan-ellenberg-664e708cfc3d
+By the beginning of the twentieth century, the algebra behind inverse
+probability was no longer the main difficulty. A more fundamental question
+was how the \textbf{prior probability} should be chosen. In particular, a
+uniform prior intended to represent ``ignorance'' need not remain uniform
+after the unknown parameter is re-expressed in a different scale. R.~A.~Fisher
+responded by developing an alternative theory of statistical inference based
+on the \textbf{likelihood}, rather than assigning probabilities to unknown
+parameters. His influential 1922 paper introduced a systematic theory involving
+likelihood, sufficiency, efficiency and statistical information
+\cite{fisher1922foundations}.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.4\linewidth]{figs/Bayes_figs/ww2_plane_problem.jpeg}
-    \caption{Aircraft Survivability Diagram}
-    \label{fig:placeholder}
-\end{figure}
+At approximately the same time, however, \textbf{Dorothy Wrinch and Harold
+Jeffreys} were developing probability in the opposite direction: as a general
+method for reasoning from observations to scientific hypotheses
+\cite{wrinchjeffreys1919,wrinchjeffreys1921,wrinchjeffreys1923}.
+Jeffreys eventually attempted to overcome one of the principal objections to
+the older Laplacean approach by constructing more principled
+\textbf{non-informative}, or what would now often be called
+\textbf{objective/default}, priors. In his \textit{Theory of Probability}
+(1939), he proposed a prior derived from Fisher's own measure of information
+\cite{jeffreys1939,robert2009jeffreys}. For a single parameter $\theta$ this is
+now written
+
+\[
+\pi_J(\theta)
+\propto
+\sqrt{I(\theta)},
+\qquad
+I(\theta)
+=
+\mathbb{E}_{\theta}
+\left[
+\left(
+\frac{\partial}{\partial\theta}
+\log p(X\mid\theta)
+\right)^2
+\right],
+\]
+
+and for several parameters the corresponding rule is
+$\pi_J(\boldsymbol{\theta})\propto
+\sqrt{\det I(\boldsymbol{\theta})}$.
+The important feature is its invariance under smooth reparameterisation:
+the prior does not depend simply on which mathematical scale happens to be
+used to describe the unknown quantity \cite{robert2009jeffreys,ly2017fisher}.
+
+Bayesian inference was also being extended beyond estimating an unknown
+parameter to \textbf{comparing entire scientific hypotheses}. Wrinch and
+Jeffreys had already argued that a general scientific law could be assigned
+positive prior probability; in 1932 J.~B.~S.~Haldane gave an important
+statistical construction combining a point probability for an exact
+hypothesis with a continuous prior over alternatives
+\cite{haldane1932,etzwagenmakers2017}. Jeffreys then developed Bayesian
+significance tests explicitly in 1935 and systematically in his 1939 book
+\cite{jeffreys1935,jeffreys1939}. In modern notation, two hypotheses are
+compared through
+
+\[
+\frac{P(H_1\mid D)}{P(H_0\mid D)}
+=
+\underbrace{\frac{P(H_1)}{P(H_0)}}_{\text{prior odds}}
+\underbrace{\frac{P(D\mid H_1)}{P(D\mid H_0)}}_{\text{Bayes factor}},
+\]
+
+so that the observations measure how much the relative support for the two
+hypotheses should change. Jeffreys did not use the modern term
+``Bayes factor''; this terminology was introduced later by I.~J.~Good in
+1958 \cite{good1958}. During the Second World War, Alan Turing independently
+used closely related \textbf{factors in favour} and additive weights of
+evidence in cryptanalysis, providing an important practical application of
+this form of Bayesian reasoning \cite{turingcryptography}.
+
+A further development was to place inference inside a broader theory of
+\textbf{decision-making}. Abraham Wald's work from 1939 onward treated
+estimation and hypothesis testing as problems in which an action is chosen
+and evaluated by a loss or risk function \cite{wald1939,wald1950}. In a
+Bayesian formulation, an action $a$ may be selected by minimising posterior
+expected loss,
+\[
+a^*=\arg\min_a \mathbb{E}[L(a,\theta)\mid D],
+\]
+thereby extending Bayesian inference from the question ``what should we
+believe?'' to ``what should we do given what we now believe?''
+
+After the war, attention increasingly turned to making Bayesian calculations
+practical. Raiffa and Schlaifer's \textit{Applied Statistical Decision Theory}
+(1961) systematised \textbf{conjugate prior distributions}, for which the prior
+and posterior belong to the same distributional family
+\cite{raiffaschlaifer1961}. Conjugacy made many posterior calculations
+analytically tractable, but more complicated models still required numerical
+methods. The Metropolis algorithm of 1953 and Hastings' 1970 generalisation
+provided the foundations for the Markov chain Monte Carlo methods that would
+later transform Bayesian computation
+\cite{metropolis1953,hastings1970}.
+```
+
+% ### BibTeX entries
+
+% ```bibtex
+% @article{fisher1922foundations,
+%   author  = {Fisher, Ronald A.},
+%   title   = {On the Mathematical Foundations of Theoretical Statistics},
+%   journal = {Philosophical Transactions of the Royal Society of London.
+%              Series A},
+%   volume  = {222},
+%   pages   = {309--368},
+%   year    = {1922},
+%   url     = {https://royalsocietypublishing.org/doi/10.1098/rsta.1922.0009}
+% }
+
+% @article{wrinchjeffreys1919,
+%   author  = {Wrinch, Dorothy and Jeffreys, Harold},
+%   title   = {On Some Aspects of the Theory of Probability},
+%   journal = {The London, Edinburgh, and Dublin Philosophical Magazine
+%              and Journal of Science},
+%   volume  = {38},
+%   number  = {228},
+%   pages   = {715--731},
+%   year    = {1919},
+%   doi     = {10.1080/14786441208636005}
+% }
+
+% @article{wrinchjeffreys1921,
+%   author  = {Wrinch, Dorothy and Jeffreys, Harold},
+%   title   = {On Certain Fundamental Principles of Scientific Inquiry},
+%   journal = {The London, Edinburgh, and Dublin Philosophical Magazine
+%              and Journal of Science},
+%   volume  = {42},
+%   pages   = {369--390},
+%   year    = {1921},
+%   doi     = {10.1080/14786442108633773}
+% }
+
+% @article{wrinchjeffreys1923,
+%   author  = {Wrinch, Dorothy and Jeffreys, Harold},
+%   title   = {On Certain Fundamental Principles of Scientific Inquiry},
+%   journal = {The London, Edinburgh, and Dublin Philosophical Magazine
+%              and Journal of Science},
+%   volume  = {45},
+%   pages   = {368--374},
+%   year    = {1923}
+% }
+
+% @article{haldane1932,
+%   author  = {Haldane, J. B. S.},
+%   title   = {A Note on Inverse Probability},
+%   journal = {Mathematical Proceedings of the Cambridge Philosophical Society},
+%   volume  = {28},
+%   number  = {1},
+%   pages   = {55--61},
+%   year    = {1932},
+%   doi     = {10.1017/S0305004100010495}
+% }
+
+% @article{jeffreys1935,
+%   author  = {Jeffreys, Harold},
+%   title   = {Some Tests of Significance, Treated by the Theory of Probability},
+%   journal = {Mathematical Proceedings of the Cambridge Philosophical Society},
+%   volume  = {31},
+%   number  = {2},
+%   pages   = {203--222},
+%   year    = {1935},
+%   doi     = {10.1017/S030500410001330X}
+% }
+
+% @book{jeffreys1939,
+%   author    = {Jeffreys, Harold},
+%   title     = {Theory of Probability},
+%   publisher = {Clarendon Press},
+%   address   = {Oxford},
+%   year      = {1939},
+%   url       = {https://archive.org/details/in.ernet.dli.2015.2608}
+% }
+
+% @article{robert2009jeffreys,
+%   author  = {Robert, Christian P. and Chopin, Nicolas and Rousseau, Judith},
+%   title   = {Harold Jeffreys's Theory of Probability Revisited},
+%   journal = {Statistical Science},
+%   volume  = {24},
+%   number  = {2},
+%   pages   = {141--172},
+%   year    = {2009},
+%   doi     = {10.1214/09-STS284},
+%   url     = {https://arxiv.org/abs/0804.3173}
+% }
+
+% @article{ly2017fisher,
+%   author  = {Ly, Alexander and Marsman, Maarten and Verhagen, Josine
+%              and Grasman, Raoul and Wagenmakers, Eric-Jan},
+%   title   = {A Tutorial on Fisher Information},
+%   journal = {Journal of Mathematical Psychology},
+%   volume  = {80},
+%   pages   = {40--55},
+%   year    = {2017},
+%   doi     = {10.1016/j.jmp.2017.05.006},
+%   url     = {https://arxiv.org/abs/1705.01064}
+% }
+
+% @article{etzwagenmakers2017,
+%   author  = {Etz, Alexander and Wagenmakers, Eric-Jan},
+%   title   = {J. B. S. Haldane's Contribution to the Bayes Factor
+%              Hypothesis Test},
+%   journal = {Statistical Science},
+%   volume  = {32},
+%   number  = {2},
+%   pages   = {313--329},
+%   year    = {2017},
+%   doi     = {10.1214/16-STS599},
+%   url     = {https://arxiv.org/abs/1511.08180}
+% }
+
+% @article{good1958,
+%   author  = {Good, I. J.},
+%   title   = {Significance Tests in Parallel and in Series},
+%   journal = {Journal of the American Statistical Association},
+%   volume  = {53},
+%   number  = {284},
+%   pages   = {799--813},
+%   year    = {1958}
+% }
+
+% @misc{turingcryptography,
+%   author = {Turing, Alan M.},
+%   title  = {The Applications of Probability to Cryptography},
+%   note   = {Second World War research paper; typeset version by Ian Taylor},
+%   year   = {1941},
+%   url    = {https://arxiv.org/abs/1505.04714}
+% }
+
+% @article{wald1939,
+%   author  = {Wald, Abraham},
+%   title   = {Contributions to the Theory of Statistical Estimation
+%              and Testing Hypotheses},
+%   journal = {The Annals of Mathematical Statistics},
+%   volume  = {10},
+%   number  = {4},
+%   pages   = {299--326},
+%   year    = {1939},
+%   doi     = {10.1214/aoms/1177732144}
+% }
+
+% @book{wald1950,
+%   author    = {Wald, Abraham},
+%   title     = {Statistical Decision Functions},
+%   publisher = {John Wiley \& Sons},
+%   address   = {New York},
+%   year      = {1950},
+%   url       = {https://archive.org/details/statisticaldecis0000abra_t1e7}
+% }
+
+% @book{raiffaschlaifer1961,
+%   author    = {Raiffa, Howard and Schlaifer, Robert},
+%   title     = {Applied Statistical Decision Theory},
+%   publisher = {Division of Research, Graduate School of Business
+%                Administration, Harvard University},
+%   address   = {Boston},
+%   year      = {1961},
+%   url       = {https://books.google.com/books?id=SpO0KFcFQDsC}
+% }
+
+% @article{metropolis1953,
+%   author  = {Metropolis, Nicholas and Rosenbluth, Arianna W.
+%              and Rosenbluth, Marshall N. and Teller, Augusta H.
+%              and Teller, Edward},
+%   title   = {Equation of State Calculations by Fast Computing Machines},
+%   journal = {The Journal of Chemical Physics},
+%   volume  = {21},
+%   number  = {6},
+%   pages   = {1087--1092},
+%   year    = {1953},
+%   doi     = {10.1063/1.1699114}
+% }
+
+% @article{hastings1970,
+%   author  = {Hastings, W. K.},
+%   title   = {Monte Carlo Sampling Methods Using Markov Chains
+%              and Their Applications},
+%   journal = {Biometrika},
+%   volume  = {57},
+%   number  = {1},
+%   pages   = {97--109},
+%   year    = {1970},
+%   doi     = {10.1093/biomet/57.1.97}
+% }
+% ```
 
 
 
-Leonard J. Savage later combined Wald's statistical decision framework with Bayesian probability. In The Foundations of Statistics (1954), Savage argued that rational decisions should be based on posterior probabilities together with a utility or loss function. Rather than selecting the most likely outcome alone, Bayesian decision theory chooses the action that minimises expected loss or maximises expected utility. This framework closely links to utility theory and provides a practical extension of Bayesian inference from estimating unknown quantities to making optimal decisions.
+
+% Despite strong criticism from Ronald Fisher and many frequentist statisticians, Bayesian statistics continued to develop throughout the twentieth century. Frequentists argued that probability should only describe long run frequencies of repeated events and rejected the idea of assigning probabilities to unknown parameters. However, Bayesian researchers believed probability could also represent uncertainty about unknown quantities, allowing prior knowledge to be combined with observed data. By the 1950s, this debate had led to two major branches of Bayesian statistics: Bayesian inference and Bayesian decision theory.
+
+% Bayesian inference focused on updating beliefs using Bayes' theorem. Starting with a prior distribution, new evidence is incorporated through the likelihood function to produce a posterior distribution, representing updated beliefs about the unknown parameters. During this period, Harold Jeffreys made important contributions by introducing objective Bayesian methods. His most well known contribution, Jeffreys prior, provided a way of choosing non-informative priors using the Fisher information matrix, allowing Bayesian analyses to be performed with minimal subjective assumptions. Alongside this, statisticians continued to investigate different choices of informative and non-informative priors, including the uniform prior originally suggested by Laplace.
+% %(Jeffreys, 1939)
+
+% At the same time, Bayesian decision theory developed alongside advances in statistical decision theory. Abraham Wald established the mathematical foundations of decision theory during the 1940s while working on military problems for the United States during the Second World War. One of the famous examples was the aircraft survival problem, where Wald demonstrated that armour should be placed where returning aircraft showed the least damage, since aircraft hit in those locations were less likely to survive. His work introduced the concept of minimising expected loss when making decisions under uncertainty. 
+% %(Wald, 1950).
+% article: https://medium.com/@penguinpress/an-excerpt-from-how-not-to-be-wrong-by-jordan-ellenberg-664e708cfc3d
+
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.4\linewidth]{figs/Bayes_figs/ww2_plane_problem.jpeg}
+%     \caption{Aircraft Survivability Diagram}
+%     \label{fig:placeholder}
+% \end{figure}
 
 
-Today, these two branches are rarely separated. Modern Bayesian methods first use inference to estimate a posterior distribution and then apply decision theory to determine the optimal action. This combination forms the basis of many artificial intelligence and machine learning systems, where posterior distributions quantify uncertainty while loss functions guide decision making. Applications now span medicine, economics, robotics, autonomous systems, and natural language processing, demonstrating how Bayesian inference and Bayesian decision theory together provide a principled framework for learning from data and making decisions under uncertainty.
+
+% Leonard J. Savage later combined Wald's statistical decision framework with Bayesian probability. In The Foundations of Statistics (1954), Savage argued that rational decisions should be based on posterior probabilities together with a utility or loss function. Rather than selecting the most likely outcome alone, Bayesian decision theory chooses the action that minimises expected loss or maximises expected utility. This framework closely links to utility theory and provides a practical extension of Bayesian inference from estimating unknown quantities to making optimal decisions.
 
 
-These developments also laid the foundations for probabilistic reasoning in computing. During the 1930s, Alan Turing studied at Princeton University, where he became acquainted with John von Neumann, whose work on computing and game theory would later complement Bayesian ideas about rational decision making. At the same time, Turing was familiar with Harold Jeffreys' work on probability, and these ideas would later influence his approach to reasoning under uncertainty during the Second World War. This connection provides a natural transition from the theoretical development of Bayesian statistics to one of its earliest practical applications: Turing's Bayesian methods for breaking the German Enigma cipher at Bletchley Park.
+% Today, these two branches are rarely separated. Modern Bayesian methods first use inference to estimate a posterior distribution and then apply decision theory to determine the optimal action. This combination forms the basis of many artificial intelligence and machine learning systems, where posterior distributions quantify uncertainty while loss functions guide decision making. Applications now span medicine, economics, robotics, autonomous systems, and natural language processing, demonstrating how Bayesian inference and Bayesian decision theory together provide a principled framework for learning from data and making decisions under uncertainty.
 
-CHECK WITH IVE IF ANY INFO IS REPEATED
+
+% These developments also laid the foundations for probabilistic reasoning in computing. During the 1930s, Alan Turing studied at Princeton University, where he became acquainted with John von Neumann, whose work on computing and game theory would later complement Bayesian ideas about rational decision making. At the same time, Turing was familiar with Harold Jeffreys' work on probability, and these ideas would later influence his approach to reasoning under uncertainty during the Second World War. This connection provides a natural transition from the theoretical development of Bayesian statistics to one of its earliest practical applications: Turing's Bayesian methods for breaking the German Enigma cipher at Bletchley Park.
+
+% CHECK WITH IVE IF ANY INFO IS REPEATED
 
 
 %Bayesian methods contiued to be developed and attempted to be enhanced regardless of Fishers and other frequentist statisticians protests and refusal to acknowledge the concepts. 
@@ -1034,6 +1272,406 @@ neuclear weapon from Neumann..
 medical paradox - https://www.youtube.com/watch?v=lG4VkPoG3ko 
 
 
+
+\newpage
+
+\section*{Appendix}
+
+\subsection{So what is modern-day Bayes' theorem?}
+
+In modern probability textbooks, Bayes' theorem is usually introduced first
+as a consequence of conditional probability. For two events $A$ and $B$, with
+$P(B)>0$,
+
+\begin{equation}
+    P(A\mid B)
+    =
+    \frac{P(B\mid A)P(A)}{P(B)}.
+\end{equation}
+
+The theorem therefore allows us to reverse a conditional probability: from
+the probability of observing $B$ when $A$ is true, $P(B\mid A)$, to the
+probability that $A$ is true after observing $B$, $P(A\mid B)$.
+Tijms develops Bayes' rule in this form from conditional probability before
+turning to its use in statistical inference \cite[Ch.~8]{tijms2012}.
+
+In modern Bayesian statistics, the same rule is usually written in terms of
+an unknown quantity or parameter $\theta$ and observed data $x$:
+
+\begin{equation}
+    p(\theta\mid x)
+    =
+    \frac{p(x\mid\theta)p(\theta)}
+         {p(x)}.
+\end{equation}
+
+Here $p(\theta)$ is the \textbf{prior}, representing what is known or assumed
+about $\theta$ before observing the data; $p(x\mid\theta)$ is the
+\textbf{likelihood}, describing how probable the observed data are for each
+possible value of $\theta$; and $p(\theta\mid x)$ is the
+\textbf{posterior}, representing what is known about $\theta$ after the data
+have been observed.  In the concise form used throughout modern Bayesian
+statistics,
+
+\begin{equation}
+    \boxed{
+    \text{posterior}
+    \propto
+    \text{likelihood}\times\text{prior}
+    }.
+\end{equation}
+
+The only difference between the discrete and continuous versions is how the
+posterior is normalised.  If $\theta$ can take values
+$\theta_1,\ldots,\theta_n$, then
+
+\begin{equation}
+    P(\theta_i\mid x)
+    =
+    \frac{P(x\mid\theta_i)P(\theta_i)}
+    {\displaystyle\sum_{j=1}^{n}
+    P(x\mid\theta_j)P(\theta_j)}.
+\end{equation}
+
+If $\theta$ is continuous, the sum is replaced by an integral,
+
+\begin{equation}
+    f(\theta\mid x)
+    =
+    \frac{L(x\mid\theta)f_0(\theta)}
+    {\displaystyle\int
+    L(x\mid u)f_0(u)\,du},
+\end{equation}
+
+as described by Tijms in his treatment of continuous Bayesian statistics
+\cite[pp.~428--430]{tijms2012}.  Thus, what is now called
+\textit{Bayes' theorem} is not a new theorem replacing the work of Bayes or
+Laplace.  Rather, it is the modern notation and general framework through
+which their central idea---using observed evidence to revise probabilities
+assigned to unknown quantities---is expressed.
+```
+
+
+
+\newpage
+TOFIX...
+
+The previous sections introduced the historical origins of Bayesian reasoning through the work of Thomas Bayes and Pierre-Simon Laplace. However, the theorem itself is often presented as a mathematical formula without explaining the intuition behind it. 
+MAYBE CHANGE WHST YOU WROTE
+In reality, Bayes' theorem is simply a rule for updating probabilities when new information becomes available. Rather than treating probability as fixed, Bayesian inference allows beliefs to change as evidence accumulates.
+
+Before introducing Bayes' theorem, it is first necessary to understand the concept of conditional probability.
+
+Conditional probability measures the probability of an event occurring given that another event has already occurred. Suppose two events, (A) and (B), are defined. The conditional probability of event (A) occurring given that event (B) has occurred is written as (P(A|B)) and is defined as
+\begin{equation}
+[
+P(A|B)=\frac{P(A\cap B)}{P(B)}.
+]
+\end{equation}
+
+This definition states that once event (B) has occurred, the original sample space is restricted only to outcomes contained within (B). The probability of (A) must further be recalculated within this reduced set of possibilities.
+
+The same joint probability may also be written in the opposite direction,
+\begin{equation}
+[
+P(B|A)=\frac{P(A\cap B)}{P(A)}.
+]
+\end{equation}
+
+Since both equations describe the same joint event (P(A|B)), they can be equated,
+\begin{equation}
+[ 
+P(A|B)P(B)=P(B|A)P(A),
+]
+\end{equation}
+which, after rearranging, gives Bayes' theorem,
+\begin{equation}
+    [P(A|B)=\frac{P(B|A)P(A)}{P(B)}.]
+\end{equation}
+
+The theorem contains four quantities, each with a seperate interpretation:
+\begin{itemize}
+    \item \textbf{Prior probability (P(A)):} the initial belief about an event before observing new evidence.
+\end{itemize}   
+\begin{itemize}
+    \item \textbf{Likelihood (P(B|A)):} the probability of observing the evidence assuming the hypothesis is true.
+\end{itemize}   
+\begin{itemize}
+    \item \textbf{Evidence (P(B)):} the overall probability of observing the evidence.
+\end{itemize}
+\begin{itemize}
+    \item \textbf{Posterior probability (P(A|B)):} the updated belief after incorporating the evidence.
+\end{itemize}
+
+To summarise, rather than introducing a completely new probability, Bayes' theorem simply redistributes existing probabilities using newly acquired information. This process of continually updating beliefs is known as Bayesian inference.
+\subsubsection{A geometric interpretation}
+
+Although Bayes' theorem is usually introduced algebraically, it is often easier to understand geometrically. Imagine a rectangle representing an entire population. The width of the rectangle corresponds to the prior probability (P(A)), while the remaining width represents the complement of the event. The rectangle is then divided horizontally according to whether the observed evidence occurs. The overlapping region corresponds to the joint probability $(P(A\cap B)).$
+
+\fcolorbox{red}{red!10}{
+  \textcolor{red}{\textbf{TODO: Add an image of the Geometric interpretation of Bayes' theorem showing prior probability, likelihood and posterior probability}}
+}
+
+Viewed geometrically, Bayes' theorem asks a remarkably simple question:
+\begin{quote}
+    Of all the individuals for whom the evidence is true, what proportion actually belong to the hypothesis being investigated?
+\end{quote}
+
+Consequently, the posterior probability is obtained by dividing the area of the overlap by the total area representing the observed evidence. This geometric perspective illustrates that Bayes' theorem is not merely an algebraic identity but a natural consequence of partitioning probability space.
+
+\subsubsection{The Medical paradox}
+One of the most famous demonstrations of Bayes' theorem is the medical testing paradox. It highlights why intuitive reasoning about probabilities often leads to incorrect conclusions.
+
+Suppose a disease affects only 1\% of the population. A medical test correctly identifies an infected patient 99\% of the time (99\% sensitivity) and correctly identifies a healthy patient 95\% of the time (95\% specificity).
+
+Many people assume that receiving a positive test result means there is approximately a 99\% chance they have the disease. Bayes' theorem shows that this conclusion is incorrect because it ignores the rarity of the disease.
+
+\fcolorbox{red}{red!10}{%
+  \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+    \raggedright
+    \textcolor{black}{%  
+      \begin{enumerate}
+        \itembf To illustrate this, imagine testing 10,000 people.
+        \item Approximately 100 people genuinely have the disease.
+        \item The test correctly identifies 99 of these individuals.
+        \item The remaining 9,900 people are healthy.
+        Since the false positive rate is 5\%, approximately 495 healthy people will also receive a positive result.
+      \end{enumerate}
+    }%
+  }%
+}%
+
+Therefore, there are
+\begin{equation}
+    99+495=594    
+\end{equation}
+
+positive test results in total, yet only 99 correspond to genuine cases.
+The probability that a person actually has the disease after receiving a positive result is therefore
+
+$\frac{99}{594}$
+$\approx0.167.$
+
+In other words, despite the test appearing highly accurate, the probability that a positive result indicates genuine disease is only about 16.7\%. The overwhelming number of healthy individuals means that false positives dominate the positive test results.
+
+
+\fcolorbox{red}{red!10}{
+  \textcolor{red}{\textbf{TODO: Add an image of a Frequency tree about the medical testing paradox}}}
+
+This phenomenon demonstrates one of the most important principles of Bayesian inference: evidence cannot be interpreted in isolation.
+The strength of new evidence depends critically on the prior probability of the event under investigation. 
+Ignoring the prior often leads to serious errors in judgement, a mistake known as the base-rate fallacy.
+Bayes' theorem therefore provides much more than a mathematical identity.
+It offers a principled framework for learning from evidence by continuously refining beliefs as additional information becomes available. 
+This seemingly simple idea would later become the mathematical foundation of modern Bayesian statistics, probabilistic machine learning, artificial intelligence, medical diagnosis, robotics, and countless other applications explored throughout the remainder of this chapter.
+
+NEED HELP WITH THE ALIGNMENT
+%Here was explain the theorem in practice with simple examples from : 
+%Explain conditional probability then bayes theorem GEOMETRICALLY
+
+%https://www.3blue1brown.com/lessons/bayes-theorem/ 
+%+ Proof
+%https://youtu.be/U_85TaXbeIo?si=B8yTYpSsGEeVEBOe 
+%The medical test paradox, and redesigning Bayes' rule: USE IMAGES
+%https://youtu.be/lG4VkPoG3ko?si=jxpWbi86mc0MeRBM
+
+
+
+
+\newpage
+
+```latex
+\subsection{So what is Bayes' theorem today?}
+
+For readers unfamiliar with the basic concepts of probability, a particularly
+accessible introduction is Tijms' \textit{Understanding Probability}
+\cite{tijms2012}. Chapter~8 develops conditional probability, the law of total
+probability and Bayes' rule before introducing Bayesian statistics for the
+discrete case. Chapter~13 later extends these ideas to continuous random
+variables and continuous Bayesian models. For readers already comfortable
+with these probability concepts, Gelman et al.'s
+\textit{Bayesian Data Analysis} provides a natural next step, developing the
+same ideas within a much broader framework for modern Bayesian inference
+\cite{gelman2013bayesian}.
+
+Modern introductions to Bayes' theorem usually begin with the
+\textbf{discrete case}. Suppose that $B_1,\ldots,B_k$ represent all possible
+hypotheses, explanations or parameter values under consideration. These are assumed to be \textbf{mutually exclusive}, so that no two can occur simultaneously, and \textbf{exhaustive}, so that one of them must occur. Let $A$ denote some observed evidence. 
+
+Two basic results from probability are needed. First, \textbf{conditional probability}
+is defined by
+
+\[
+P(B_i\mid A)
+=
+\frac{P(B_i\cap A)}{P(A)}.
+\]
+
+Second, the \textbf{law of total probability} says that the probability of
+observing $A$ can be found by considering all the different hypotheses under
+which $A$ could have occurred:
+
+\[
+P(A)
+=
+\sum_{j=1}^{k}P(A\mid B_j)P(B_j).
+\]
+
+This can be visualised geometrically by dividing the event $A$ into the
+mutually exclusive pieces contributed by each possible hypothesis, as shown
+in Figure~\ref{fig:total_probability}.
+
+\begin{figure}[H] \centering \includegraphics[width=0.45\textwidth]{figs/Bayes_figs/law_total_probability_venn.png} \caption{Geometric illustration of the law of total probability. The sample space is partitioned into mutually exclusive events $B_1,\ldots,B_n$, and the probability of $A$ is obtained by adding its intersections with each part of the partition. Source: \href{https://qualityengineer.weebly.com/probability/total-probability-law}{Blog by Authors: Armin Nikzad and Fatima Mosallaei}.} \label{fig:total_probability} \end{figure}
+
+Since the intersection can also be obtained by $P(A\cap B_i)=P(A\mid B_i)P(B_i)$,  substituting the law of total probability into conditional probability gives the modern discrete form\footnote{Different textbooks provide a range of different ways to write the theorem but the underlying concept is the same. } of \textbf{Bayes' theorem}:
+
+\begin{equation}
+    \boxed{
+    P(B_i\mid A)
+    =
+    \frac{P(A\mid B_i)P(B_i)}
+    {\displaystyle
+    \sum_{j=1}^{k}P(A\mid B_j)P(B_j)}
+    }.
+\end{equation}
+
+\noindent
+Further details on conditional probability and the law of total probability can be found in \cite{tijms2012}.
+
+In words, Bayes' theorem begins with probabilities assigned to the different
+possible hypotheses $B_i$, asks how compatible the observed evidence $A$ is
+with each of them, and then uses this information to revise their
+probabilities after the evidence has been observed. In modern Bayesian
+terminology this is often summarised as
+
+\begin{equation}
+    \boxed{
+    \text{posterior}
+    \propto
+    \text{likelihood}
+    \times
+    \text{prior}
+    }.
+\end{equation}
+
+The same idea extends naturally to \textbf{continuous} problems. In the
+discrete case there is a finite or countable list of possibilities,
+$B_1,B_2,\ldots$. In a continuous problem, however, an unknown quantity may
+take any value within an interval. For example, an unknown probability might
+take any value between $0$ and $1$, rather than being restricted to a list of
+possible values. Such an unknown quantity is commonly represented by a
+parameter such as $\theta$.
+
+
+
+\newpage
+
+Modern introductions to Bayes' theorem usually begin with the \textbf{discrete case}. Suppose that $B_1,\ldots,B_k$ represent all possible hypotheses or explanations or parameter values under consideration. These are assumed to be \textbf{mutually exclusive} and \textbf{exhaustive} "events": only one can occur, and one of them must occur. 
+
+Let $A$ denote some observed evidence. Two basic results from probability are needed. First, conditional probability is defined by \[ P(B_i\mid A)=\frac{P(B_i\cap A)}{P(B)}. \] 
+
+
+Second, the \textbf{law of total probability} says that the probability of observing $B$ can be found by considering all the different hypotheses under which $B$ could have occurred: 
+
+\[ P(B) = \sum_{j=1}^{k}P(A\mid B_j)P(B_j). \] 
+
+
+
+This can be pictured as dividing the event $A$ into the mutually exclusive pieces contributed by each possible hypothesis: 
+
+\begin{figure}[H] \centering \includegraphics[width=0.45\textwidth]{figs/Bayes_figs/law_total_probability_venn.png} \caption{Geometric illustration of the law of total probability. The sample space is partitioned into mutually exclusive events $B_1,\ldots,B_n$, and the probability of $A$ is obtained by adding its intersections with each part of the partition. Source: \href{https://qualityengineer.weebly.com/probability/total-probability-law}{Blog by Authors: Armin Nikzad and Fatima Mosallaei}.} \label{fig:total_probability} \end{figure}
+
+
+
+% Since \[ P(E\cap H_j)=P(E\mid H_j)P(H_j), \] adding these pieces together gives the total probability of observing $E$. 
+
+Further details on conditional probability and the law of total probability can be found in Chapter~8 of Tijms \cite{tijms2012}. 
+
+Substituting these results into conditional probability gives the modern discrete form of Bayes' theorem: 
+
+\begin{equation} \boxed{ P(H_i\mid E) = \frac{P(E\mid H_i)P(H_i)} {\displaystyle \sum_{j=1}^{k}P(E\mid H_j)P(H_j)} }. \end{equation}
+
+In words, Bayes' theorem begins with probabilities assigned to the different possible hypotheses, asks how compatible the observed evidence is with each of them, and then uses this information to revise their probabilities after the evidence has been observed. 
+
+
+In modern Bayesian terminology this is often summarised as 
+
+\begin{equation} \boxed{ \text{posterior} \propto \text{likelihood} \times \text{prior} }. \end{equation} 
+
+
+The same idea extends naturally to \textbf{continuous} problems. In the discrete case there is a finite or countable list of possibilities, $H_1,H_2,\ldots$. In a continuous problem, however, an unknown quantity may take any value within an interval. For example, an unknown probability might take any value between $0$ and $1$, rather than being restricted to a list of possible values. Such an unknown quantity is commonly represented by a parameter such as $\theta$.
+
+
+\newpage
+
+
+Modern introductions to Bayes' theorem usually begin with the
+\textbf{discrete case}. Suppose that $B_1,\ldots,B_k$ represent all possible
+hypotheses, explanations or parameter values under consideration. These are assumed to be \textbf{mutually exclusive}, so that no two can occur simultaneously, and \textbf{exhaustive}, so that one of them must occur. Let $A$ denote some observed evidence. 
+
+Two basic results from probability are needed. First, \textbf{conditional probability}
+is defined by
+
+\[
+P(B_i\mid A)
+=
+\frac{P(B_i\cap A)}{P(A)}.
+\]
+
+Second, the \textbf{law of total probability} says that the probability of
+observing $A$ can be found by considering all the different hypotheses under
+which $A$ could have occurred:
+
+\[
+P(A)
+=
+\sum_{j=1}^{k}P(A\mid B_j)P(B_j).
+\]
+
+This can be visualised geometrically by dividing the event $A$ into the
+mutually exclusive pieces contributed by each possible hypothesis, as shown
+in Figure~\ref{fig:total_probability}.
+
+\begin{figure}[H] \centering \includegraphics[width=0.45\textwidth]{figs/Bayes_figs/law_total_probability_venn.png} \caption{Geometric illustration of the law of total probability. The sample space is partitioned into mutually exclusive events $B_1,\ldots,B_n$, and the probability of $A$ is obtained by adding its intersections with each part of the partition. Source: \href{https://qualityengineer.weebly.com/probability/total-probability-law}{Blog by Authors: Armin Nikzad and Fatima Mosallaei}.} \label{fig:total_probability} \end{figure}
+
+Since the intersection can also be obtained by $P(A\cap B_i)=P(A\mid B_i)P(B_i)$,  substituting the law of total probability into conditional probability gives the modern discrete form of \textbf{Bayes' theorem}:
+
+\begin{equation}
+    \boxed{
+    P(B_i\mid A)
+    =
+    \frac{P(A\mid B_i)P(B_i)}
+    {\displaystyle
+    \sum_{j=1}^{k}P(A\mid B_j)P(B_j)}
+    }.
+\end{equation}
+
+\noindent
+Further details on conditional probability and the law of total probability can be found in \cite{tijms2012}.
+
+In words, Bayes' theorem begins with probabilities assigned to the different
+possible hypotheses $B_i$, asks how compatible the observed evidence $A$ is
+with each of them, and then uses this information to revise their
+probabilities after the evidence has been observed. In modern Bayesian
+terminology this is often summarised as
+
+\begin{equation}
+    \boxed{
+    \text{posterior}
+    \propto
+    \text{likelihood}
+    \times
+    \text{prior}
+    }.
+\end{equation}
+
+The same idea extends naturally to \textbf{continuous} problems. In the
+discrete case there is a finite or countable list of possibilities,
+$B_1,B_2,\ldots$. In a continuous problem, however, an unknown quantity may
+take any value within an interval. For example, an unknown probability might
+take any value between $0$ and $1$, rather than being restricted to a list of
+possible values. Such an unknown quantity is commonly represented by a
+parameter such as $\theta$.
 
 
 
