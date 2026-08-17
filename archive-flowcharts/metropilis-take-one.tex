@@ -1,0 +1,594 @@
+
+% % \subsection{From statistical mechanics to Bayesian computation: Metropolis, Hastings and Gibbs sampling}
+% \label{sec:metropolis-hastings-gibbs}
+
+% The preceding sections showed how Bayes, Laplace and Jeffreys constructed probability distributions representing uncertainty about unknown quantities. In the simplest conjugate models, the posterior distribution could be obtained symbolically. For example, a beta prior combined with binomial data again produces a beta posterior. This analytical convenience, however, concealed a serious limitation. In a realistic model containing many unknown parameters, latent variables or non-conjugate prior distributions, Bayes' theorem gives
+% [
+% \pi(\theta\mid y)
+% =
+% \frac{p(y\mid\theta)\pi_0(\theta)}
+% {\displaystyle \int_{\Theta}p(y\mid u)\pi_0(u),du},
+% ]
+% but the denominator
+% [
+% p(y)=\int_{\Theta}p(y\mid u)\pi_0(u),du
+% ]
+% may be an intractable high-dimensional integral.
+
+% The development of Markov chain Monte Carlo did not initially arise from Bayesian statistics. It emerged from statistical mechanics, where physicists faced an almost identical mathematical problem: how can one calculate expectations with respect to a complicated probability distribution when its normalising constant cannot be evaluated?
+
+% \subsubsection{What problem was being studied, and why?}
+
+% In the canonical ensemble of statistical mechanics, the probability assigned to a molecular configuration (x) is proportional to its Boltzmann weight,
+% [
+% \widetilde{\pi}(x)=\exp{-\beta E(x)},
+% \qquad
+% \beta=\frac{1}{kT},
+% ]
+% where (E(x)) is the energy of the configuration, (T) is temperature and (k) is Boltzmann's constant. The corresponding normalised density is
+% [
+% \pi(x)
+% =
+% \frac{\exp{-\beta E(x)}}{Z},
+% \qquad
+% Z
+% =
+% \int_{\mathcal X}\exp{-\beta E(u)},du,
+% ]
+% where (Z) is the partition function.
+
+% A macroscopic physical quantity (F), such as pressure or average potential energy, is therefore obtained from
+% [
+% \mathbb E_{\pi}[F(X)]
+% =
+% \frac{
+% \displaystyle
+% \int_{\mathcal X}F(x)\exp{-\beta E(x)},dx
+% }{
+% \displaystyle
+% \int_{\mathcal X}\exp{-\beta E(x)},dx
+% }.
+% \label{eq:canonical-expectation}
+% ]
+
+% Metropolis, Arianna Rosenbluth, Marshall Rosenbluth, Augusta Teller and Edward Teller considered this problem in their 1953 paper
+% \emph{Equation of State Calculations by Fast Computing Machines}
+% \cite{metropolis1953}. Their published numerical experiment contained (224) particles in a two-dimensional periodic square. Once the momentum variables had been integrated out, the remaining integral was over (2N=448) position coordinates. Even a crude grid containing ten values in each coordinate would require
+% [
+% 10^{448}
+% ]
+% function evaluations.
+
+% The authors therefore turned to Monte Carlo integration. The most direct Monte Carlo procedure would generate independent configurations uniformly over the square, calculate their energies, and weight them by (\exp{-\beta E(x)}). For a dense system, however, most independently generated configurations place particles extremely close together or cause them to overlap. Such configurations have very high energy and consequently almost zero Boltzmann weight. Most of the computation would therefore be spent evaluating states that contribute negligibly to the integral.
+
+% The problem was not simply that the integral was high-dimensional. The more important problem was that almost all of its contribution came from a comparatively small region of configuration space.
+
+% \subsubsection{Who provided the mathematical and computational solution?}
+
+% The 1953 article was jointly authored by Nicholas Metropolis, Arianna W. Rosenbluth, Marshall N. Rosenbluth, Augusta H. Teller and Edward Teller
+% \cite{metropolis1953}. The paper itself does not contain a statement assigning individual contributions. Later recollections and historical reconstructions attribute much of the mathematical development to Marshall Rosenbluth and identify Arianna Rosenbluth as the person who completed the MANIAC implementation used to produce the published numerical results
+% \cite{gubernatis2005}. This attribution should therefore be presented as a retrospective historical reconstruction rather than as an explicit claim made in the original paper.
+
+% Arianna Rosenbluth's role is nevertheless historically important. She had completed a doctorate in physics at Harvard and possessed the unusual combination of theoretical knowledge and experience programming an early electronic computer. At the time there was no modern programming language, software library or statistical package that implemented the procedure automatically. The physical model, random moves, storage of particle coordinates, energy comparisons, accept--reject rule and numerical averages all had to be translated into instructions for the MANIAC.
+
+% The original paper reports that its pseudorandom numbers were generated using the middle-square method. It does not, however, document the detailed programming of transcendental functions or the debugging procedure. Claims about particular Taylor expansions, register manipulations or front-panel debugging should consequently be omitted unless supported by further archival evidence.
+
+% \subsubsection{The Metropolis solution: sample important states directly}
+
+% The central idea was to stop generating each configuration independently. Instead, the authors constructed a sequence
+% [
+% X_0,X_1,X_2,\ldots
+% ]
+% in which the proposed configuration (X_{m+1}) depended on the current configuration (X_m). The resulting sequence was a Markov chain.
+
+% Starting from an admissible configuration (x), one particle was displaced by a small random amount, giving a proposed configuration (y). If
+% [
+% \Delta E=E(y)-E(x)
+% ]
+% was negative, the proposed move was accepted. If (\Delta E>0), it was accepted with probability
+% [
+% \exp{-\beta\Delta E}.
+% ]
+
+% Equivalently, the Metropolis acceptance probability was
+% [
+% \alpha(x,y)
+% =
+% \min\left{
+% 1,
+% \frac{\widetilde{\pi}(y)}
+% {\widetilde{\pi}(x)}
+% \right}
+% =
+% \min\left{
+% 1,
+% \exp[-\beta{E(y)-E(x)}]
+% \right}.
+% \label{eq:metropolis-acceptance}
+% ]
+
+% The algorithm may be written as follows.
+
+% \begin{enumerate}
+% \item Choose an initial configuration (X_0=x_0).
+% \item Given (X_m=x), generate a proposed state
+% [
+% Y\sim q(,\cdot\mid x),
+% ]
+% where the original proposal displaced one particle symmetrically around its current location.
+% \item Generate (U\sim\operatorname{Uniform}(0,1)).
+% \item Set
+% [
+% X_{m+1}
+% =
+% \begin{cases}
+% Y,
+% & U\leq \alpha(X_m,Y),[1mm]
+% X_m,
+% & U>\alpha(X_m,Y).
+% \end{cases}
+% ]
+% \end{enumerate}
+
+% A rejected state must be recorded again. Removing rejected observations would alter the proportion of time spent in different states and would therefore produce the wrong distribution.
+
+% The procedure is sometimes described as a ``guided random walk'', but this description must be interpreted carefully. It is not an optimisation algorithm that always moves downhill. Lower-energy proposals are accepted automatically, but some higher-energy proposals are deliberately accepted. These uphill moves prevent the chain from behaving like deterministic gradient descent and allow it to explore the complete equilibrium distribution.
+
+% \begin{proposition}[Cancellation of the normalising constant]
+% \label{prop:normalising-constant-cancellation}
+% Suppose that
+% [
+% \pi(x)=\frac{\widetilde{\pi}(x)}{Z},
+% ]
+% where (Z) is unknown. The Metropolis acceptance probability depends only on
+% [
+% \frac{\pi(y)}{\pi(x)}
+% =
+% \frac{\widetilde{\pi}(y)}
+% {\widetilde{\pi}(x)};
+% ]
+% hence (Z) is not required.
+% \end{proposition}
+
+% This apparently simple cancellation explains the later importance of the method to Bayesian statistics. In a Bayesian model,
+% [
+% \widetilde{\pi}(\theta\mid y)
+% =
+% p(y\mid\theta)\pi_0(\theta)
+% ]
+% can usually be evaluated even when the marginal likelihood
+% [
+% p(y)=\int p(y\mid\theta)\pi_0(\theta),d\theta
+% ]
+% cannot.
+
+% \subsubsection{What mathematical theorem explains why it works?}
+
+% There is no single theorem that was created fully formed in the 1953 paper and is now called the ``Metropolis--Hastings theorem''. The justification developed through the interaction of several ideas: reversibility, stationarity, irreducibility and Markov-chain ergodic theory.
+
+% Let (P(x,dy)) denote the transition kernel of a Markov chain.
+
+% \begin{theorem}[Detailed balance implies invariance]
+% \label{thm:detailed-balance}
+% Suppose that a probability distribution (\pi) and a transition kernel (P) satisfy
+% [
+% \pi(dx)P(x,dy)
+% =
+% \pi(dy)P(y,dx).
+% \label{eq:detailed-balance}
+% ]
+% Then (\pi) is invariant for (P); that is,
+% [
+% \int_{\mathcal X}\pi(dx)P(x,A)=\pi(A)
+% ]
+% for every measurable set (A\subseteq\mathcal X).
+% \end{theorem}
+
+% For the Metropolis transition rule with a symmetric proposal,
+% [
+% q(y\mid x)=q(x\mid y),
+% ]
+% we have
+% \begin{align*}
+% \pi(x)q(y\mid x)\alpha(x,y)
+% &=
+% \pi(x)q(y\mid x)
+% \min\left{1,\frac{\pi(y)}{\pi(x)}\right}\
+% &=
+% q(y\mid x)\min{\pi(x),\pi(y)}\
+% &=
+% \pi(y)q(x\mid y)\alpha(y,x).
+% \end{align*}
+% Thus the accepted moves satisfy detailed balance. Including the probability of remaining at the current state after rejection completes the transition kernel and preserves (\pi).
+
+% Stationarity alone is not enough. A chain could possess (\pi) as an invariant distribution while remaining trapped in only one part of the state space. Conditions ensuring that the chain can reach all relevant regions are therefore required.
+
+% \begin{theorem}[Markov-chain ergodic theorem for MCMC]
+% \label{thm:mcmc-ergodic}
+% Let ({X_m}*{m\geq0}) be a positive Harris recurrent, irreducible and aperiodic Markov chain with invariant distribution (\pi). If
+% [
+% \int*{\mathcal X}|h(x)|,\pi(dx)<\infty,
+% ]
+% then
+% [
+% \frac{1}{M}\sum_{m=1}^{M}h(X_m)
+% \longrightarrow
+% \int_{\mathcal X}h(x),\pi(dx)
+% ]
+% almost surely as (M\rightarrow\infty).
+% \end{theorem}
+
+% Consequently, after constructing an appropriate chain, an otherwise intractable expectation may be estimated using
+% [
+% \widehat{\mathbb E_{\pi}[h]}
+% =
+% \frac{1}{M}\sum_{m=1}^{M}h(X_m).
+% ]
+
+% Under additional regularity conditions, including suitable rates of convergence and moment assumptions, a Markov-chain central limit theorem gives
+% [
+% \sqrt{M}
+% \left[
+% \frac{1}{M}\sum_{m=1}^{M}h(X_m)
+% -
+% \mathbb E_{\pi}[h(X)]
+% \right]
+% \xrightarrow{d}
+% \mathcal N(0,\sigma_h^2).
+% ]
+% The general-state-space theory required to state these results precisely was developed and consolidated considerably later than the original algorithm
+% \cite{tierney1994}.
+
+% \subsubsection{Hastings' 1970 generalisation}
+
+% The original Metropolis construction assumed a symmetric proposal. In 1970, the Canadian statistician W. K. Hastings showed how to use an arbitrary proposal density (q(y\mid x))
+% \cite{hastings1970}.
+
+% If the proposal is asymmetric, the probability of proposing (x\rightarrow y) need not equal the probability of proposing (y\rightarrow x). The acceptance probability must therefore correct for both the target-density ratio and the proposal imbalance:
+% [
+% \alpha_{\mathrm{MH}}(x,y)
+% =
+% \min\left{
+% 1,
+% \frac{
+% \widetilde{\pi}(y)q(x\mid y)
+% }{
+% \widetilde{\pi}(x)q(y\mid x)
+% }
+% \right}.
+% \label{eq:mh-acceptance}
+% ]
+
+% Indeed,
+% \begin{align*}
+% &\pi(x)q(y\mid x)\alpha_{\mathrm{MH}}(x,y)\
+% &\qquad
+% =======
+
+% \min{
+% \pi(x)q(y\mid x),
+% \pi(y)q(x\mid y)
+% },
+% \end{align*}
+% which is unchanged when (x) and (y) are exchanged. Detailed balance therefore follows immediately.
+
+% Hastings also emphasised an important disadvantage of the method: the observations generated by the chain are correlated. Ordinary Monte Carlo standard-error formulae based on independent observations cannot be applied without modification. His paper discussed autocorrelation, rejection rates and methods for estimating the variance of Monte Carlo averages.
+
+% The Metropolis algorithm is recovered when
+% [
+% q(y\mid x)=q(x\mid y).
+% ]
+% The Hastings correction therefore transformed a physically motivated algorithm into a flexible method for constructing Markov chains on much more general probability spaces.
+
+% \subsubsection{Gibbs sampling and the Bayesian restoration of images}
+
+% A second important development came from image analysis. In 1984, Stuart Geman and Donald Geman published
+% \emph{Stochastic Relaxation, Gibbs Distributions, and the Bayesian Restoration of Images}
+% \cite{geman1984}.
+
+% Their observed data were degraded digital images. Let (G) denote the observed noisy or blurred image and let (F) denote the unknown original image. Bayesian restoration begins from
+% [
+% \pi(f\mid g)
+% \propto
+% p(g\mid f)\pi_0(f).
+% ]
+
+% The pixels of an image are not independent. Neighbouring pixels are more likely to have similar intensities, except where an edge or boundary occurs. Geman and Geman represented this local dependence through a Markov random field and an associated Gibbs distribution,
+% [
+% \pi(f)
+% =
+% \frac{1}{Z}
+% \exp\left{-\frac{U(f)}{T}\right},
+% ]
+% where the energy (U(f)) was assembled from local interactions between neighbouring pixels.
+
+% The complete joint distribution of all pixels was difficult to calculate or normalise. Its local conditional distributions, however, were much simpler. This suggested updating one pixel or one group of pixels at a time.
+
+% For a vector
+% [
+% X=(X_1,\ldots,X_d)
+% ]
+% with joint target distribution (\pi), one systematic sweep of a Gibbs sampler performs
+% \begin{align*}
+% X_1^{(m+1)}
+% &\sim
+% \pi\left(
+% x_1\mid
+% X_2^{(m)},\ldots,X_d^{(m)}
+% \right),\
+% X_2^{(m+1)}
+% &\sim
+% \pi\left(
+% x_2\mid
+% X_1^{(m+1)},X_3^{(m)},\ldots,X_d^{(m)}
+% \right),\
+% &\ \vdots\
+% X_d^{(m+1)}
+% &\sim
+% \pi\left(
+% x_d\mid
+% X_1^{(m+1)},\ldots,X_{d-1}^{(m+1)}
+% \right).
+% \end{align*}
+
+% Although the global normalising constant of (\pi) is unknown, it cancels from each full conditional:
+% [
+% \pi(x_i\mid x_{-i})
+% =
+% \frac{
+% \widetilde{\pi}(x_i,x_{-i})
+% }{
+% \displaystyle
+% \int
+% \widetilde{\pi}(u,x_{-i}),du
+% }.
+% ]
+% The remaining denominator is often one-dimensional or belongs to a familiar parametric family.
+
+% \begin{proposition}[Gibbs sampling as Metropolis--Hastings]
+% \label{prop:gibbs-as-mh}
+% A Gibbs coordinate update is a Metropolis--Hastings update whose proposal is the corresponding full conditional distribution. Every proposed move has acceptance probability one.
+% \end{proposition}
+
+% To see this, suppose that (x) and (y) differ only in coordinate (i), and propose
+% [
+% q(y\mid x)=\pi(y_i\mid x_{-i}).
+% ]
+% Since (x_{-i}=y_{-i}),
+% [
+% \frac{\pi(y)q(x\mid y)}
+% {\pi(x)q(y\mid x)}
+% =
+% \frac{
+% \pi(x_{-i})\pi(y_i\mid x_{-i})
+% \pi(x_i\mid x_{-i})
+% }{
+% \pi(x_{-i})\pi(x_i\mid x_{-i})
+% \pi(y_i\mid x_{-i})
+% }
+% =1.
+% ]
+
+% Geman and Geman proved convergence results for their finite image models. At a fixed positive temperature, and provided that every site continued to be updated, the distribution of the stochastic-relaxation process converged to the corresponding Gibbs distribution. They also studied simulated annealing, in which temperature is gradually reduced so that probability becomes concentrated on global energy minima.
+
+% In a simplified form, their annealing theorem required a logarithmically slow schedule. If (N) is the number of image sites and
+% [
+% \Delta
+% =
+% \max_{\omega}U(\omega)
+% -
+% \min_{\omega}U(\omega),
+% ]
+% a sufficient condition was of the form
+% [
+% T(m)
+% \geq
+% \frac{N\Delta}{\log m}
+% ]
+% for sufficiently large (m). Under the stated finite-state assumptions, the chain then converges towards the set of global minimisers of (U), corresponding to MAP restorations. The authors themselves observed that this theoretically sufficient schedule could be prohibitively slow in practice.
+
+% It is therefore important to distinguish two uses of the Gibbs mechanism:
+
+% \begin{enumerate}
+% \item at fixed temperature, Gibbs updates generate observations from a target distribution and permit the calculation of expectations;
+% \item under decreasing temperature, the same local updates become a simulated-annealing algorithm for locating a global posterior mode.
+% \end{enumerate}
+
+% \subsubsection{What other problems were these methods used to solve?}
+
+% The original Metropolis algorithm was a computational-physics method for equations of state and interacting-particle systems. Hastings' generalisation showed that the same construction could be applied whenever a target density could be evaluated up to proportionality.
+
+% The connection with Bayesian inference became especially influential during the 1980s and early 1990s. Tanner and Wong developed data-augmentation methods in which unobserved variables were introduced to simplify posterior calculations
+% \cite{tannerwong1987}. Gelfand and Smith then demonstrated how Gibbs and related sampling procedures could calculate marginal posterior distributions in a broad class of statistical models
+% \cite{gelfandsmith1990}. General-purpose software such as BUGS subsequently allowed users to specify hierarchical models while the program constructed many of the required conditional updates automatically
+% \cite{gilks1994}.
+
+% MCMC consequently made Bayesian inference possible in models containing:
+
+% \begin{itemize}
+% \item several interacting parameters;
+% \item latent or missing variables;
+% \item hierarchical dependence;
+% \item spatial and image structure;
+% \item mixture distributions;
+% \item non-conjugate likelihood--prior combinations.
+% \end{itemize}
+
+% The conceptual change was profound. Priors no longer had to be selected primarily because they produced a posterior distribution with a convenient closed form. The posterior could instead be represented by a dependent sample.
+
+% \subsubsection{What were the alternative methods?}
+
+% Several alternatives existed, both historically and mathematically.
+
+% \paragraph{Analytical approximation.}
+% In the original molecular problem, theoretical approximations included virial expansions, free-volume formulae and cell models. These methods were computationally cheap but depended on physical approximations that could fail at particular densities or near phase transitions.
+
+% \paragraph{Ordinary quadrature.}
+% Numerical integration on a grid can be extremely accurate in one or two dimensions. Its computational cost, however, grows exponentially with dimension.
+
+% \paragraph{Independent importance sampling.}
+% One may sample independently from a proposal density (q) and use weights
+% [
+% w(x)=\frac{\widetilde{\pi}(x)}{q(x)}.
+% ]
+% This avoids Markov dependence, but it can fail catastrophically when (q) does not cover all important regions of the target. A few observations then receive almost all the weight.
+
+% \paragraph{Rejection sampling.}
+% Rejection sampling produces independent exact draws when a proposal envelope is available. In high dimensions, its acceptance probability often becomes extremely small.
+
+% \paragraph{Deterministic optimisation.}
+% MAP optimisation, the EM algorithm and related methods locate a mode rather than approximate the entire posterior distribution. They may be suitable when only a point estimate is required, but they do not automatically provide posterior expectations or credible intervals.
+
+% \paragraph{Laplace and variational approximations.}
+% These replace the posterior by a tractable approximation. They can be considerably faster than MCMC, but their accuracy depends on whether the approximating family can represent skewness, heavy tails, dependence and multiple modes.
+
+% \subsubsection{Advantages, disadvantages and failure mechanisms}
+
+% \paragraph{Advantages of Metropolis--Hastings.}
+
+% The method requires only an unnormalised target density. It can be applied to discrete, continuous and mixed state spaces, and it allows the proposal mechanism to be adapted to the geometry of a particular problem. Under the required assumptions, Monte Carlo error can be made arbitrarily small by increasing the simulation length.
+
+% \paragraph{Proposal-scale failure.}
+
+% If a random-walk proposal makes extremely small moves, most proposals are accepted but the chain explores the target very slowly. If it makes extremely large moves, most proposals land in low-density regions and are rejected. The original 1953 paper already recognised this trade-off when discussing the maximum particle displacement.
+
+% \paragraph{Multimodality.}
+
+% A chain can remain in one posterior mode for a very long time when different modes are separated by regions of low probability. A simulation may therefore appear stable while representing only one part of the target distribution.
+
+% \paragraph{Failure of irreducibility.}
+
+% If the proposal cannot move between two components of the target's support, the chain is reducible. No increase in the simulation length will repair this problem: the result depends permanently on the initial component.
+
+% \paragraph{Improper posteriors.}
+
+% MCMC does not make an improper posterior proper. If
+% [
+% \int_{\Theta}
+% p(y\mid\theta)\pi_0(\theta),d\theta
+% =
+% \infty,
+% ]
+% there is no posterior probability distribution to which the chain can converge, even though the computer output may look plausible.
+
+% \paragraph{Autocorrelation.}
+
+% For correlated MCMC observations,
+% [
+% \operatorname{Var}
+% \left(
+% \frac{1}{M}\sum_{m=1}^{M}h(X_m)
+% \right)
+% \approx
+% \frac{\operatorname{Var}*{\pi}(h)}{M}
+% \left(
+% 1+2\sum*{k=1}^{\infty}\rho_k
+% \right),
+% ]
+% where (\rho_k) is the lag-(k) autocorrelation of (h(X_m)). The integrated autocorrelation time is
+% [
+% \tau_{\mathrm{int}}
+% =
+% 1+2\sum_{k=1}^{\infty}\rho_k,
+% ]
+% and the corresponding effective sample size is approximately
+% [
+% M_{\mathrm{eff}}
+% =
+% \frac{M}{\tau_{\mathrm{int}}}.
+% ]
+% Thus ten thousand MCMC iterations need not contain the same information as ten thousand independent observations.
+
+% \paragraph{Failures particular to Gibbs sampling.}
+
+% Gibbs sampling is attractive when every full conditional distribution is easy to sample. If even one full conditional is non-standard or computationally expensive, a pure Gibbs algorithm is no longer available and a Metropolis-within-Gibbs update may be required.
+
+% It can also mix very slowly when coordinates are strongly dependent. For example, let
+% [
+% \begin{pmatrix}X\Y\end{pmatrix}
+% \sim
+% \mathcal N
+% \left[
+% \begin{pmatrix}0\0\end{pmatrix},
+% \begin{pmatrix}
+% 1 & \rho\
+% \rho & 1
+% \end{pmatrix}
+% \right].
+% ]
+% The full conditionals are
+% [
+% X\mid Y=y
+% \sim
+% \mathcal N\bigl(\rho y,1-\rho^2\bigr),
+% ]
+% and
+% [
+% Y\mid X=x
+% \sim
+% \mathcal N\bigl(\rho x,1-\rho^2\bigr).
+% ]
+% After one complete Gibbs sweep,
+% [
+% \operatorname{Corr}(Y_{m+1},Y_m)=\rho^2,
+% ]
+% and at stationarity
+% [
+% \operatorname{Corr}(Y_{m+k},Y_m)=\rho^{2k}.
+% ]
+% The integrated autocorrelation time is consequently
+% [
+% \tau_{\mathrm{int}}
+% =
+% \frac{1+\rho^2}{1-\rho^2},
+% ]
+% which diverges as (|\rho|\rightarrow1). The conditional distributions remain easy to simulate, but the resulting chain becomes increasingly inefficient.
+
+% \subsubsection{How does this lead to the next development?}
+
+% Metropolis--Hastings and Gibbs sampling answered the question
+% [
+% \text{How can we explore one complicated, fixed posterior distribution?}
+% ]
+
+% They did not directly answer a different question:
+% [
+% \text{How should a posterior distribution be updated as observations arrive through time?}
+% ]
+
+% For a time-indexed hidden state (X_t) and observations (Y_{1:t}), the target changes after every new measurement,
+% [
+% p(x_t\mid y_{1:t-1})
+% \longrightarrow
+% p(x_t\mid y_{1:t}).
+% ]
+% Repeatedly restarting a long MCMC calculation after every observation may be too expensive. This leads naturally to recursive Bayesian methods: the Kalman filter for linear Gaussian state-space models
+% \cite{kalman1960}, and later sequential Monte Carlo or particle filtering for nonlinear and non-Gaussian systems
+% \cite{gordon1993}.
+
+% The historical development therefore moves from sampling a static equilibrium distribution to propagating an entire posterior distribution through time.
+
+
+% %% End, updated 21-07-2026 -----------------------------------------------------
+% %% -----------------------------------------------------
+
+\subsection{The path from distributions to optimisation: variational methods}
+
+- women, other countries
+
+% \subsection{Bayesian Statistics powers Generative Language Models}
+
+
+
+\subsection{Dark side of Bayes Theorem}
+
+Sally Clark 
+https://theconversation.com/bayes-theorem-the-maths-tool-we-probably-use-every-day-but-what-is-it-76140
+
+
+Data Privacy Issues - inverse engineer NHS data.
+-- cases where somehting has happened 
+
+neuclear weapon from Neumann.. 
+
+medical paradox - https://www.youtube.com/watch?

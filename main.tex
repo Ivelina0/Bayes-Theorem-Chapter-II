@@ -1,0 +1,57 @@
+\documentclass{report}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[utf8]{inputenc}   % see note below
+\usepackage[spanish, english]{babel}
+\usepackage{blindtext}
+\usepackage{textcomp}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepackage[margin=1in]{geometry}
+
+\pgfplotsset{compat=1.17}
+\usetikzlibrary{shapes.geometric, calc}
+\usepackage{caption}
+\usepackage{svg,scalerel}
+\usepackage{float}
+\usepackage[round,authoryear]{natbib}
+% Load hyperref after natbib
+\usepackage[hidelinks]{hyperref}
+\usepackage{hyperref}
+\usepackage[hang,flushmargin]{footmisc}
+\usepackage[most]{tcolorbox}
+\usepackage{tikz}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage[table,xcdraw]{xcolor}
+
+\usepackage[edges]{forest}
+\usepackage{xcolor}
+
+\title{Probability and Randomness}
+\author{Ivelina P. Mladenova}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+% \include{bayes}
+\include{bayes_29_07_2026}
+
+% bayes.tex, begins with \chapter{Bayes' Theorem}
+% \include{mcmc}           % mcmc.tex, begins with \chapter{...}
+% \include{filters}        % filters.tex, begins with \chapter{...}
+
+\newpage
+
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+\end{document}

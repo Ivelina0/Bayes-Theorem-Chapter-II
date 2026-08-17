@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage[table,xcdraw]{xcolor}
+
+\begin{document}
+
+\begin{table}[htbp]
+\centering
+\caption{Bayesian Inference Method Selection Guide}
+\label{tab:bayes_selection}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{l l l X l}
+\toprule
+\textbf{Data Type} & \textbf{Data Scale ($N$)} & \textbf{Latent Space ($z$)} & \textbf{Key Model Property} & \textbf{Recommended Method} \\
+\midrule
+\multirow{2}{*}{\textbf{Simulation Only}} & Any & Low--Moderate $D$ & Intractable Likelihood $p(x|z)$ & \textbf{ABC / Neural SBI} \\
+ & Any & Dynamic / Streaming & Simulator State-Space & \textbf{ABC-SMC} \\
+\midrule
+\multirow{5}{*}{\textbf{Dynamic / Stream}} & Streaming & Continuous (Low $D$) & Linear-Gaussian Dynamics & \textbf{Kalman Filter (KF)} \\
+ & Streaming & Continuous (Low $D$) & Mildly Non-Linear Dynamics & \textbf{EKF / UKF} \\
+ & Streaming & Continuous/Discrete & Severe Non-Linearity / Non-Gaussian & \textbf{SIR Particle Filter} \\
+ & Time-Series & Dynamic + Static & Joint State-Parameter Inference & \textbf{PMCMC / SMC$^2$} \\
+ & Discrete & Discrete Latents & State Sequence Estimation & \textbf{HMM (Viterbi / Fwd-Bwd)} \\
+\midrule
+\multirow{6}{*}{\textbf{Static Dataset}} & Massive ($N > 10^5$) & High-$D$ Continuous & Deep Generative Models & \textbf{Amortized VI (VAE)} \\
+ & Massive ($N > 10^5$) & Moderate Continuous & Mini-batchable Likelihood & \textbf{Stochastic VI / SGLD} \\
+ \cline{2-5}
+ & Moderate / Small & Continuous ($D > 20$) & Differentiable $\nabla_z \log p(x,z)$ & \textbf{HMC / NUTS} \\
+ & Moderate / Small & Continuous ($D \le 20$) & Non-Differentiable / Correlated & \textbf{Random-Walk MH / Slice} \\
+ & Moderate / Small & Discrete / Mixed & Highly Multimodal Target & \textbf{Annealed SMC} \\
+ & Moderate / Small & Discrete / Mixed & Unimodal / Lattice Structure & \textbf{Gibbs Sampling / MH} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\end{document}

@@ -1,0 +1,152 @@
+\documentclass{article}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage[table,xcdraw]{xcolor}
+
+% \begin{document}
+\begin{landscape}
+\begin{figure}[p]
+\centering
+% Your original landscape TikZ code here...
+\caption{Master Decision Tree for Bayesian Inference Methods.}
+\end{figure}
+\end{landscape}
+
+% --- START OF FIT-TO-PAGE DECISION TREE ---
+\begin{figure}[htbp]
+\centering
+
+% Color Palette
+\definecolor{primary}{HTML}{1A365D}    % Deep Blue
+\definecolor{decision}{HTML}{2C5282}   % Slate Blue
+\definecolor{leaf}{HTML}{276749}       % Forest Green
+
+% Guaranteed page-width fit
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[
+    auto,
+    node distance = 0.9cm and 0.8cm,
+    font = \sffamily\small,
+    % Decision Box (Rhombus/Diamond)
+    question/.style = {
+        diamond,
+        draw=decision,
+        fill=decision!12,
+        thick,
+        text width=2.8cm,
+        align=center,
+        inner sep=0pt,
+        drop shadow={opacity=0.15, shadow xshift=1pt, shadow yshift=-1pt}
+    },
+    % Algorithm/Leaf Box (Rectangle)
+    leaf/.style = {
+        rectangle,
+        rounded corners=3pt,
+        draw=leaf,
+        fill=leaf!12,
+        thick,
+        text width=3.2cm,
+        align=center,
+        minimum height=0.7cm,
+        inner sep=3pt,
+        drop shadow={opacity=0.15, shadow xshift=1pt, shadow yshift=-1pt}
+    },
+    branch/.style = {
+        font=\sffamily\bfseries\scriptsize,
+        color=primary
+    },
+    line/.style = {
+        draw=primary,
+        -Stealth,
+        thick
+    }
+]
+
+% ==================== NODES ====================
+
+% Level 1: Q1 Likelihood
+\node [question] (q1) {\textbf{Q1: Likelihood}\\Is $p(x|z)$ computable?};
+\node [leaf, left=0.8cm of q1] (lfi) {\textbf{Likelihood-Free Inference}\\Classical ABC / Neural SBI};
+
+% Level 2: Q2 Data Type
+\node [question, below=0.8cm of q1] (q2) {\textbf{Q2: Data Type}\\Dynamic / streaming?};
+
+% Branch Q2 -> YES (Streaming Sub-tree)
+\node [question, right=0.8cm of q2] (q2a) {\textbf{Q2a: State}\\Continuous or Discrete?};
+\node [leaf, above right=0.1cm and 0.8cm of q2a] (hmm) {\textbf{HMM}\\Forward-Backward / Viterbi};
+
+\node [question, below=0.7cm of q2a] (q2b) {\textbf{Q2b: Dynamics}\\Linear \& Gaussian?};
+\node [leaf, right=0.8cm of q2b] (kf) {\textbf{Kalman Filter (KF)}};
+
+\node [question, below=0.7cm of q2b] (q2c) {\textbf{Q2c: Dynamics}\\Severity of non-linearity?};
+\node [leaf, right=0.8cm of q2c] (ekf) {\textbf{EKF / UKF}};
+
+\node [question, below=0.7cm of q2c] (q2d) {\textbf{Q2d: Parameters}\\Need static params ($\theta$)?};
+\node [leaf, right=0.8cm of q2d] (smc) {\textbf{SIR Particle Filter}};
+\node [leaf, below=0.3cm of smc] (pmcmc) {\textbf{PMCMC / SMC$^2$}};
+
+% Branch Q2 -> NO (Static Data)
+\node [question, below=3.8cm of q2] (q3) {\textbf{Q3: Data Scale}\\Massive dataset ($N > 10^5$)?};
+
+% Branch Q3 -> YES (Massive N)
+\node [question, right=0.8cm of q3] (q3a) {\textbf{Q3a: Latents}\\High-D continuous generative model?};
+\node [leaf, above right=0.1cm and 0.8cm of q3a] (vae) {\textbf{Amortized VI (VAE)}};
+\node [leaf, below right=0.1cm and 0.8cm of q3a] (svi) {\textbf{Stochastic VI / SGLD}};
+
+% Branch Q3 -> NO (Moderate/Small Data)
+\node [question, below=1.8cm of q3] (q4) {\textbf{Q4: Parameters}\\Continuous or Discrete?};
+
+% Branch Q4 -> Discrete
+\node [question, right=0.8cm of q4] (q4a) {\textbf{Q4a: Target}\\Multimodal / Combinatorial?};
+\node [leaf, above right=0.1cm and 0.8cm of q4a] (asmc) {\textbf{Annealed SMC}};
+\node [leaf, below right=0.1cm and 0.8cm of q4a] (gibbs) {\textbf{Gibbs / MH}};
+
+% Branch Q4 -> Continuous
+\node [question, below=1.6cm of q4] (q4b) {\textbf{Q4b: Dimension}\\High-D ($D > 20$) or Correlated?};
+\node [leaf, right=0.8cm of q4b] (hmc) {\textbf{HMC / NUTS}\\($\nabla_z \log p(x,z)$)};
+\node [leaf, below=0.3cm of hmc] (rwm) {\textbf{Random-Walk MH / Slice}};
+
+
+% ==================== PATHS & CONNECTIONS ====================
+
+% Main Spine
+\draw [line] (q1) -- node [branch, left] {NO} (lfi);
+\draw [line] (q1) -- node [branch, right] {YES} (q2);
+\draw [line] (q2) -- node [branch, right] {NO (Static)} (q3);
+\draw [line] (q3) -- node [branch, right] {NO} (q4);
+
+% Dynamic Branch (Q2)
+\draw [line] (q2) -- node [branch, above] {YES} (q2a);
+\draw [line] (q2a) |- node [branch, near start, above] {Discrete} (hmm);
+\draw [line] (q2a) -- node [branch, right] {Continuous} (q2b);
+\draw [line] (q2b) -- node [branch, above] {YES} (kf);
+\draw [line] (q2b) -- node [branch, right] {NO} (q2c);
+\draw [line] (q2c) -- node [branch, above] {Mild} (ekf);
+\draw [line] (q2c) -- node [branch, right] {Severe} (q2d);
+\draw [line] (q2d) -- node [branch, above] {NO} (smc);
+\draw [line] (q2d) |- node [branch, near start, right] {YES} (pmcmc);
+
+% Massive Scale Branch (Q3)
+\draw [line] (q3) -- node [branch, above] {YES} (q3a);
+\draw [line] (q3a) |- node [branch, near start, above] {YES} (vae);
+\draw [line] (q3a) |- node [branch, near start, below] {NO} (svi);
+
+% Parameter Space Branches (Q4)
+\draw [line] (q4) -- node [branch, above] {Discrete / Mixed} (q4a);
+\draw [line] (q4) -- node [branch, right] {Continuous} (q4b);
+
+\draw [line] (q4a) |- node [branch, near start, above] {YES} (asmc);
+\draw [line] (q4a) |- node [branch, near start, below] {NO} (gibbs);
+
+\draw [line] (q4b) -- node [branch, above] {YES} (hmc);
+\draw [line] (q4b) |- node [branch, near start, right] {NO} (rwm);
+
+\end{tikzpicture}%
+}
+\caption{Master Decision Tree for Selecting Bayesian Inference Methods.}
+\label{fig:bayes_decision_tree}
+\end{figure}
+% --- END OF FIT-TO-PAGE DECISION TREE ---
+
+\end{document}

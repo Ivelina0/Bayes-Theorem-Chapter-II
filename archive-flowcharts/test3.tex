@@ -1,0 +1,57 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{caption}
+\usepackage{array}
+
+% Color Definitions
+\definecolor{tableheader}{RGB}{235, 240, 248}
+
+% Custom Column Types
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\begin{document}
+
+\begin{table}[htbp]
+\centering
+\caption{\textbf{Bayesian Inference Method Selection Guide}}
+\label{tab:bayesian_selection}
+\small
+\renewcommand{\arraystretch}{1.35}
+\begin{tabularx}{\textwidth}{@{} L{2.1cm} L{2.2cm} L{2.4cm} L{3.1cm} Y @{}}
+\toprule
+\rowcolor{tableheader}
+\textbf{Tractability} & \textbf{Data Type} & \textbf{Data Scale ($N$)} & \textbf{Param Dim / Structure} & \textbf{Recommended Method(s)} \\
+\midrule
+
+% Group 1: Intractable
+\textbf{Intractable} & Any & Any & Low--Moderate & Likelihood-Free Inference (ABC-SMC, Neural NPE/NLE) \\
+\midrule
+
+% Group 2: Dynamic / Time-Series
+\multirow{4}{*}{\textbf{Computable}} & \multirow{4}{=}{Dynamic / Time-Series} & \multirow{4}{=}{Streaming ($t$)} 
+& Discrete States & HMM (Forward-Backward / Viterbi) \\
+& & & Linear-Gaussian & Kalman Filter (KF) \\
+& & & Mild Non-Linear & Extended / Unscented KF (EKF/UKF) \\
+& & & Non-Gaussian / Non-linear & SIR Particle Filter / PMCMC (if static params) \\
+\midrule
+
+% Group 3: Static Data - Massive Scale
+\multirow{5}{*}{\textbf{Computable}} & \multirow{5}{=}{Static Data} & Massive ($N > 10^5$) & High-D Latents & Amortized VI (VAE) \\
+& & & Continuous Latents & Stochastic VI (SVI) / SGLD \\
+\cmidrule(l{0.5em}r{0.5em}){3-5}
+
+% Group 3: Static Data - Small to Moderate Scale
+& & \multirow{3}{=}{Small--Moderate ($N \le 10^5$)} & Discrete / Multimodal & Annealed SMC / Gibbs Sampling \\
+& & & Continuous ($D > 20$) & HMC / NUTS (requires $\nabla_z \log p$) \\
+& & & Continuous ($D \le 20$) & Random-Walk MH / Slice Sampling \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\end{document}
