@@ -239,7 +239,7 @@ P(C_i\mid E)\propto P(E\mid C_i).
 % \noindent
 % for the probability assigned to possible values of $\theta$ after observing the data \cite{laplace1774}. In modern terminology this is the same Beta-type posterior that arises in Bayes' original problem. Laplace's contribution was therefore not simply a rediscovery of Bayes' calculation, but a broader formulation of inverse reasoning that could be applied to unknown causes, parameters and future observations \cite{stigler1986laplace,stigler1986}.
 
-```latex
+% ```latex
 \begin{tcolorbox}[
     title={Laplace's urn problem: from past observations to future probability},
     colback=gray!5,
@@ -325,7 +325,6 @@ more general analytical method for inverse probability
 \cite{stigler1986laplace,stigler1986}.
 
 \end{tcolorbox}
-```
 
 
 
@@ -451,9 +450,8 @@ The same idea extends naturally to \textbf{continuous} problems. In the discrete
 
 
 
-\subsection{Bayesian developments after 1950's} 
+% \subsection{Bayesian developments after 1950's} 
 
-```latex
 \subsection{From inverse probability to modern Bayesian inference}
 
 By the beginning of the twentieth century, the algebra behind inverse
@@ -1116,145 +1114,145 @@ This necessitates \emph{sequential Bayesian filtering}: evaluating $p(x_t \mid y
 
 % \subsection{Bayesian Statistics powers Generative Language Models}
 
-\newpage
+% \newpage
 
-% --- START OF FIT-TO-PAGE DECISION TREE ---
-\begin{figure}[htbp]
-\centering
+% % --- START OF FIT-TO-PAGE DECISION TREE ---
+% \begin{figure}[htbp]
+% \centering
 
-% Color Palette
-\definecolor{primary}{HTML}{1A365D}    % Deep Blue
-\definecolor{decision}{HTML}{2C5282}   % Slate Blue
-\definecolor{leaf}{HTML}{276749}       % Forest Green
+% % Color Palette
+% \definecolor{primary}{HTML}{1A365D}    % Deep Blue
+% \definecolor{decision}{HTML}{2C5282}   % Slate Blue
+% \definecolor{leaf}{HTML}{276749}       % Forest Green
 
-% Guaranteed page-width fit
-\resizebox{\linewidth}{!}{%
-\begin{tikzpicture}[
-    auto,
-    node distance = 0.9cm and 0.8cm,
-    font = \sffamily\small,
-    % Decision Box (Rhombus/Diamond)
-    question/.style = {
-        diamond,
-        draw=decision,
-        fill=decision!12,
-        thick,
-        text width=2.8cm,
-        align=center,
-        inner sep=0pt,
-        drop shadow={opacity=0.15, shadow xshift=1pt, shadow yshift=-1pt}
-    },
-    % Algorithm/Leaf Box (Rectangle)
-    leaf/.style = {
-        rectangle,
-        rounded corners=3pt,
-        draw=leaf,
-        fill=leaf!12,
-        thick,
-        text width=3.2cm,
-        align=center,
-        minimum height=0.7cm,
-        inner sep=3pt,
-        drop shadow={opacity=0.15, shadow xshift=1pt, shadow yshift=-1pt}
-    },
-    branch/.style = {
-        font=\sffamily\bfseries\scriptsize,
-        color=primary
-    },
-    line/.style = {
-        draw=primary,
-        -Stealth,
-        thick
-    }
-]
+% % Guaranteed page-width fit
+% \resizebox{\linewidth}{!}{%
+% \begin{tikzpicture}[
+%     auto,
+%     node distance = 0.9cm and 0.8cm,
+%     font = \sffamily\small,
+%     % Decision Box (Rhombus/Diamond)
+%     question/.style = {
+%         diamond,
+%         draw=decision,
+%         fill=decision!12,
+%         thick,
+%         text width=2.8cm,
+%         align=center,
+%         inner sep=0pt,
+%         drop shadow={opacity=0.15, shadow xshift=1pt, shadow yshift=-1pt}
+%     },
+%     % Algorithm/Leaf Box (Rectangle)
+%     leaf/.style = {
+%         rectangle,
+%         rounded corners=3pt,
+%         draw=leaf,
+%         fill=leaf!12,
+%         thick,
+%         text width=3.2cm,
+%         align=center,
+%         minimum height=0.7cm,
+%         inner sep=3pt,
+%         drop shadow={opacity=0.15, shadow xshift=1pt, shadow yshift=-1pt}
+%     },
+%     branch/.style = {
+%         font=\sffamily\bfseries\scriptsize,
+%         color=primary
+%     },
+%     line/.style = {
+%         draw=primary,
+%         -Stealth,
+%         thick
+%     }
+% ]
 
-% ==================== NODES ====================
+% % ==================== NODES ====================
 
-% Level 1: Q1 Likelihood
-\node [question] (q1) {\textbf{Q1: Likelihood}\\Is $p(x|z)$ computable?};
-\node [leaf, left=0.8cm of q1] (lfi) {\textbf{Likelihood-Free Inference}\\Classical ABC / Neural SBI};
+% % Level 1: Q1 Likelihood
+% \node [question] (q1) {\textbf{Q1: Likelihood}\\Is $p(x|z)$ computable?};
+% \node [leaf, left=0.8cm of q1] (lfi) {\textbf{Likelihood-Free Inference}\\Classical ABC / Neural SBI};
 
-% Level 2: Q2 Data Type
-\node [question, below=0.8cm of q1] (q2) {\textbf{Q2: Data Type}\\Dynamic / streaming?};
+% % Level 2: Q2 Data Type
+% \node [question, below=0.8cm of q1] (q2) {\textbf{Q2: Data Type}\\Dynamic / streaming?};
 
-% Branch Q2 -> YES (Streaming Sub-tree)
-\node [question, right=0.8cm of q2] (q2a) {\textbf{Q2a: State}\\Continuous or Discrete?};
-\node [leaf, above right=0.1cm and 0.8cm of q2a] (hmm) {\textbf{HMM}\\Forward-Backward / Viterbi};
+% % Branch Q2 -> YES (Streaming Sub-tree)
+% \node [question, right=0.8cm of q2] (q2a) {\textbf{Q2a: State}\\Continuous or Discrete?};
+% \node [leaf, above right=0.1cm and 0.8cm of q2a] (hmm) {\textbf{HMM}\\Forward-Backward / Viterbi};
 
-\node [question, below=0.7cm of q2a] (q2b) {\textbf{Q2b: Dynamics}\\Linear \& Gaussian?};
-\node [leaf, right=0.8cm of q2b] (kf) {\textbf{Kalman Filter (KF)}};
+% \node [question, below=0.7cm of q2a] (q2b) {\textbf{Q2b: Dynamics}\\Linear \& Gaussian?};
+% \node [leaf, right=0.8cm of q2b] (kf) {\textbf{Kalman Filter (KF)}};
 
-\node [question, below=0.7cm of q2b] (q2c) {\textbf{Q2c: Dynamics}\\Severity of non-linearity?};
-\node [leaf, right=0.8cm of q2c] (ekf) {\textbf{EKF / UKF}};
+% \node [question, below=0.7cm of q2b] (q2c) {\textbf{Q2c: Dynamics}\\Severity of non-linearity?};
+% \node [leaf, right=0.8cm of q2c] (ekf) {\textbf{EKF / UKF}};
 
-\node [question, below=0.7cm of q2c] (q2d) {\textbf{Q2d: Parameters}\\Need static params ($\theta$)?};
-\node [leaf, right=0.8cm of q2d] (smc) {\textbf{SIR Particle Filter}};
-\node [leaf, below=0.3cm of smc] (pmcmc) {\textbf{PMCMC / SMC$^2$}};
+% \node [question, below=0.7cm of q2c] (q2d) {\textbf{Q2d: Parameters}\\Need static params ($\theta$)?};
+% \node [leaf, right=0.8cm of q2d] (smc) {\textbf{SIR Particle Filter}};
+% \node [leaf, below=0.3cm of smc] (pmcmc) {\textbf{PMCMC / SMC$^2$}};
 
-% Branch Q2 -> NO (Static Data)
-\node [question, below=3.8cm of q2] (q3) {\textbf{Q3: Data Scale}\\Massive dataset ($N > 10^5$)?};
+% % Branch Q2 -> NO (Static Data)
+% \node [question, below=3.8cm of q2] (q3) {\textbf{Q3: Data Scale}\\Massive dataset ($N > 10^5$)?};
 
-% Branch Q3 -> YES (Massive N)
-\node [question, right=0.8cm of q3] (q3a) {\textbf{Q3a: Latents}\\High-D continuous generative model?};
-\node [leaf, above right=0.1cm and 0.8cm of q3a] (vae) {\textbf{Amortized VI (VAE)}};
-\node [leaf, below right=0.1cm and 0.8cm of q3a] (svi) {\textbf{Stochastic VI / SGLD}};
+% % Branch Q3 -> YES (Massive N)
+% \node [question, right=0.8cm of q3] (q3a) {\textbf{Q3a: Latents}\\High-D continuous generative model?};
+% \node [leaf, above right=0.1cm and 0.8cm of q3a] (vae) {\textbf{Amortized VI (VAE)}};
+% \node [leaf, below right=0.1cm and 0.8cm of q3a] (svi) {\textbf{Stochastic VI / SGLD}};
 
-% Branch Q3 -> NO (Moderate/Small Data)
-\node [question, below=1.8cm of q3] (q4) {\textbf{Q4: Parameters}\\Continuous or Discrete?};
+% % Branch Q3 -> NO (Moderate/Small Data)
+% \node [question, below=1.8cm of q3] (q4) {\textbf{Q4: Parameters}\\Continuous or Discrete?};
 
-% Branch Q4 -> Discrete
-\node [question, right=0.8cm of q4] (q4a) {\textbf{Q4a: Target}\\Multimodal / Combinatorial?};
-\node [leaf, above right=0.1cm and 0.8cm of q4a] (asmc) {\textbf{Annealed SMC}};
-\node [leaf, below right=0.1cm and 0.8cm of q4a] (gibbs) {\textbf{Gibbs / MH}};
+% % Branch Q4 -> Discrete
+% \node [question, right=0.8cm of q4] (q4a) {\textbf{Q4a: Target}\\Multimodal / Combinatorial?};
+% \node [leaf, above right=0.1cm and 0.8cm of q4a] (asmc) {\textbf{Annealed SMC}};
+% \node [leaf, below right=0.1cm and 0.8cm of q4a] (gibbs) {\textbf{Gibbs / MH}};
 
-% Branch Q4 -> Continuous
-\node [question, below=1.6cm of q4] (q4b) {\textbf{Q4b: Dimension}\\High-D ($D > 20$) or Correlated?};
-\node [leaf, right=0.8cm of q4b] (hmc) {\textbf{HMC / NUTS}\\($\nabla_z \log p(x,z)$)};
-\node [leaf, below=0.3cm of hmc] (rwm) {\textbf{Random-Walk MH / Slice}};
+% % Branch Q4 -> Continuous
+% \node [question, below=1.6cm of q4] (q4b) {\textbf{Q4b: Dimension}\\High-D ($D > 20$) or Correlated?};
+% \node [leaf, right=0.8cm of q4b] (hmc) {\textbf{HMC / NUTS}\\($\nabla_z \log p(x,z)$)};
+% \node [leaf, below=0.3cm of hmc] (rwm) {\textbf{Random-Walk MH / Slice}};
 
 
-% ==================== PATHS & CONNECTIONS ====================
+% % ==================== PATHS & CONNECTIONS ====================
 
-% Main Spine
-\draw [line] (q1) -- node [branch, left] {NO} (lfi);
-\draw [line] (q1) -- node [branch, right] {YES} (q2);
-\draw [line] (q2) -- node [branch, right] {NO (Static)} (q3);
-\draw [line] (q3) -- node [branch, right] {NO} (q4);
+% % Main Spine
+% \draw [line] (q1) -- node [branch, left] {NO} (lfi);
+% \draw [line] (q1) -- node [branch, right] {YES} (q2);
+% \draw [line] (q2) -- node [branch, right] {NO (Static)} (q3);
+% \draw [line] (q3) -- node [branch, right] {NO} (q4);
 
-% Dynamic Branch (Q2)
-\draw [line] (q2) -- node [branch, above] {YES} (q2a);
-\draw [line] (q2a) |- node [branch, near start, above] {Discrete} (hmm);
-\draw [line] (q2a) -- node [branch, right] {Continuous} (q2b);
-\draw [line] (q2b) -- node [branch, above] {YES} (kf);
-\draw [line] (q2b) -- node [branch, right] {NO} (q2c);
-\draw [line] (q2c) -- node [branch, above] {Mild} (ekf);
-\draw [line] (q2c) -- node [branch, right] {Severe} (q2d);
-\draw [line] (q2d) -- node [branch, above] {NO} (smc);
-\draw [line] (q2d) |- node [branch, near start, right] {YES} (pmcmc);
+% % Dynamic Branch (Q2)
+% \draw [line] (q2) -- node [branch, above] {YES} (q2a);
+% \draw [line] (q2a) |- node [branch, near start, above] {Discrete} (hmm);
+% \draw [line] (q2a) -- node [branch, right] {Continuous} (q2b);
+% \draw [line] (q2b) -- node [branch, above] {YES} (kf);
+% \draw [line] (q2b) -- node [branch, right] {NO} (q2c);
+% \draw [line] (q2c) -- node [branch, above] {Mild} (ekf);
+% \draw [line] (q2c) -- node [branch, right] {Severe} (q2d);
+% \draw [line] (q2d) -- node [branch, above] {NO} (smc);
+% \draw [line] (q2d) |- node [branch, near start, right] {YES} (pmcmc);
 
-% Massive Scale Branch (Q3)
-\draw [line] (q3) -- node [branch, above] {YES} (q3a);
-\draw [line] (q3a) |- node [branch, near start, above] {YES} (vae);
-\draw [line] (q3a) |- node [branch, near start, below] {NO} (svi);
+% % Massive Scale Branch (Q3)
+% \draw [line] (q3) -- node [branch, above] {YES} (q3a);
+% \draw [line] (q3a) |- node [branch, near start, above] {YES} (vae);
+% \draw [line] (q3a) |- node [branch, near start, below] {NO} (svi);
 
-% Parameter Space Branches (Q4)
-\draw [line] (q4) -- node [branch, above] {Discrete / Mixed} (q4a);
-\draw [line] (q4) -- node [branch, right] {Continuous} (q4b);
+% % Parameter Space Branches (Q4)
+% \draw [line] (q4) -- node [branch, above] {Discrete / Mixed} (q4a);
+% \draw [line] (q4) -- node [branch, right] {Continuous} (q4b);
 
-\draw [line] (q4a) |- node [branch, near start, above] {YES} (asmc);
-\draw [line] (q4a) |- node [branch, near start, below] {NO} (gibbs);
+% \draw [line] (q4a) |- node [branch, near start, above] {YES} (asmc);
+% \draw [line] (q4a) |- node [branch, near start, below] {NO} (gibbs);
 
-\draw [line] (q4b) -- node [branch, above] {YES} (hmc);
-\draw [line] (q4b) |- node [branch, near start, right] {NO} (rwm);
+% \draw [line] (q4b) -- node [branch, above] {YES} (hmc);
+% \draw [line] (q4b) |- node [branch, near start, right] {NO} (rwm);
 
-\end{tikzpicture}%
-}
-\caption{Master Decision Tree for Selecting Bayesian Inference Methods.}
-\label{fig:bayes_decision_tree}
-\end{figure}
-% --- END OF FIT-TO-PAGE DECISION TREE ---
+% \end{tikzpicture}%
+% }
+% \caption{Master Decision Tree for Selecting Bayesian Inference Methods.}
+% \label{fig:bayes_decision_tree}
+% \end{figure}
+% % --- END OF FIT-TO-PAGE DECISION TREE ---
 
-\newpage
+% \newpage
 
 
 
@@ -1276,404 +1274,3 @@ medical paradox - https://www.youtube.com/watch?v=lG4VkPoG3ko
 \newpage
 
 \section*{Appendix}
-
-\subsection{So what is modern-day Bayes' theorem?}
-
-In modern probability textbooks, Bayes' theorem is usually introduced first
-as a consequence of conditional probability. For two events $A$ and $B$, with
-$P(B)>0$,
-
-\begin{equation}
-    P(A\mid B)
-    =
-    \frac{P(B\mid A)P(A)}{P(B)}.
-\end{equation}
-
-The theorem therefore allows us to reverse a conditional probability: from
-the probability of observing $B$ when $A$ is true, $P(B\mid A)$, to the
-probability that $A$ is true after observing $B$, $P(A\mid B)$.
-Tijms develops Bayes' rule in this form from conditional probability before
-turning to its use in statistical inference \cite[Ch.~8]{tijms2012}.
-
-In modern Bayesian statistics, the same rule is usually written in terms of
-an unknown quantity or parameter $\theta$ and observed data $x$:
-
-\begin{equation}
-    p(\theta\mid x)
-    =
-    \frac{p(x\mid\theta)p(\theta)}
-         {p(x)}.
-\end{equation}
-
-Here $p(\theta)$ is the \textbf{prior}, representing what is known or assumed
-about $\theta$ before observing the data; $p(x\mid\theta)$ is the
-\textbf{likelihood}, describing how probable the observed data are for each
-possible value of $\theta$; and $p(\theta\mid x)$ is the
-\textbf{posterior}, representing what is known about $\theta$ after the data
-have been observed.  In the concise form used throughout modern Bayesian
-statistics,
-
-\begin{equation}
-    \boxed{
-    \text{posterior}
-    \propto
-    \text{likelihood}\times\text{prior}
-    }.
-\end{equation}
-
-The only difference between the discrete and continuous versions is how the
-posterior is normalised.  If $\theta$ can take values
-$\theta_1,\ldots,\theta_n$, then
-
-\begin{equation}
-    P(\theta_i\mid x)
-    =
-    \frac{P(x\mid\theta_i)P(\theta_i)}
-    {\displaystyle\sum_{j=1}^{n}
-    P(x\mid\theta_j)P(\theta_j)}.
-\end{equation}
-
-If $\theta$ is continuous, the sum is replaced by an integral,
-
-\begin{equation}
-    f(\theta\mid x)
-    =
-    \frac{L(x\mid\theta)f_0(\theta)}
-    {\displaystyle\int
-    L(x\mid u)f_0(u)\,du},
-\end{equation}
-
-as described by Tijms in his treatment of continuous Bayesian statistics
-\cite[pp.~428--430]{tijms2012}.  Thus, what is now called
-\textit{Bayes' theorem} is not a new theorem replacing the work of Bayes or
-Laplace.  Rather, it is the modern notation and general framework through
-which their central idea---using observed evidence to revise probabilities
-assigned to unknown quantities---is expressed.
-```
-
-
-
-\newpage
-TOFIX...
-
-The previous sections introduced the historical origins of Bayesian reasoning through the work of Thomas Bayes and Pierre-Simon Laplace. However, the theorem itself is often presented as a mathematical formula without explaining the intuition behind it. 
-MAYBE CHANGE WHST YOU WROTE
-In reality, Bayes' theorem is simply a rule for updating probabilities when new information becomes available. Rather than treating probability as fixed, Bayesian inference allows beliefs to change as evidence accumulates.
-
-Before introducing Bayes' theorem, it is first necessary to understand the concept of conditional probability.
-
-Conditional probability measures the probability of an event occurring given that another event has already occurred. Suppose two events, (A) and (B), are defined. The conditional probability of event (A) occurring given that event (B) has occurred is written as (P(A|B)) and is defined as
-\begin{equation}
-[
-P(A|B)=\frac{P(A\cap B)}{P(B)}.
-]
-\end{equation}
-
-This definition states that once event (B) has occurred, the original sample space is restricted only to outcomes contained within (B). The probability of (A) must further be recalculated within this reduced set of possibilities.
-
-The same joint probability may also be written in the opposite direction,
-\begin{equation}
-[
-P(B|A)=\frac{P(A\cap B)}{P(A)}.
-]
-\end{equation}
-
-Since both equations describe the same joint event (P(A|B)), they can be equated,
-\begin{equation}
-[ 
-P(A|B)P(B)=P(B|A)P(A),
-]
-\end{equation}
-which, after rearranging, gives Bayes' theorem,
-\begin{equation}
-    [P(A|B)=\frac{P(B|A)P(A)}{P(B)}.]
-\end{equation}
-
-The theorem contains four quantities, each with a seperate interpretation:
-\begin{itemize}
-    \item \textbf{Prior probability (P(A)):} the initial belief about an event before observing new evidence.
-\end{itemize}   
-\begin{itemize}
-    \item \textbf{Likelihood (P(B|A)):} the probability of observing the evidence assuming the hypothesis is true.
-\end{itemize}   
-\begin{itemize}
-    \item \textbf{Evidence (P(B)):} the overall probability of observing the evidence.
-\end{itemize}
-\begin{itemize}
-    \item \textbf{Posterior probability (P(A|B)):} the updated belief after incorporating the evidence.
-\end{itemize}
-
-To summarise, rather than introducing a completely new probability, Bayes' theorem simply redistributes existing probabilities using newly acquired information. This process of continually updating beliefs is known as Bayesian inference.
-\subsubsection{A geometric interpretation}
-
-Although Bayes' theorem is usually introduced algebraically, it is often easier to understand geometrically. Imagine a rectangle representing an entire population. The width of the rectangle corresponds to the prior probability (P(A)), while the remaining width represents the complement of the event. The rectangle is then divided horizontally according to whether the observed evidence occurs. The overlapping region corresponds to the joint probability $(P(A\cap B)).$
-
-\fcolorbox{red}{red!10}{
-  \textcolor{red}{\textbf{TODO: Add an image of the Geometric interpretation of Bayes' theorem showing prior probability, likelihood and posterior probability}}
-}
-
-Viewed geometrically, Bayes' theorem asks a remarkably simple question:
-\begin{quote}
-    Of all the individuals for whom the evidence is true, what proportion actually belong to the hypothesis being investigated?
-\end{quote}
-
-Consequently, the posterior probability is obtained by dividing the area of the overlap by the total area representing the observed evidence. This geometric perspective illustrates that Bayes' theorem is not merely an algebraic identity but a natural consequence of partitioning probability space.
-
-\subsubsection{The Medical paradox}
-One of the most famous demonstrations of Bayes' theorem is the medical testing paradox. It highlights why intuitive reasoning about probabilities often leads to incorrect conclusions.
-
-Suppose a disease affects only 1\% of the population. A medical test correctly identifies an infected patient 99\% of the time (99\% sensitivity) and correctly identifies a healthy patient 95\% of the time (95\% specificity).
-
-Many people assume that receiving a positive test result means there is approximately a 99\% chance they have the disease. Bayes' theorem shows that this conclusion is incorrect because it ignores the rarity of the disease.
-
-\fcolorbox{red}{red!10}{%
-  \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
-    \raggedright
-    \textcolor{black}{%  
-      \begin{enumerate}
-        \itembf To illustrate this, imagine testing 10,000 people.
-        \item Approximately 100 people genuinely have the disease.
-        \item The test correctly identifies 99 of these individuals.
-        \item The remaining 9,900 people are healthy.
-        Since the false positive rate is 5\%, approximately 495 healthy people will also receive a positive result.
-      \end{enumerate}
-    }%
-  }%
-}%
-
-Therefore, there are
-\begin{equation}
-    99+495=594    
-\end{equation}
-
-positive test results in total, yet only 99 correspond to genuine cases.
-The probability that a person actually has the disease after receiving a positive result is therefore
-
-$\frac{99}{594}$
-$\approx0.167.$
-
-In other words, despite the test appearing highly accurate, the probability that a positive result indicates genuine disease is only about 16.7\%. The overwhelming number of healthy individuals means that false positives dominate the positive test results.
-
-
-\fcolorbox{red}{red!10}{
-  \textcolor{red}{\textbf{TODO: Add an image of a Frequency tree about the medical testing paradox}}}
-
-This phenomenon demonstrates one of the most important principles of Bayesian inference: evidence cannot be interpreted in isolation.
-The strength of new evidence depends critically on the prior probability of the event under investigation. 
-Ignoring the prior often leads to serious errors in judgement, a mistake known as the base-rate fallacy.
-Bayes' theorem therefore provides much more than a mathematical identity.
-It offers a principled framework for learning from evidence by continuously refining beliefs as additional information becomes available. 
-This seemingly simple idea would later become the mathematical foundation of modern Bayesian statistics, probabilistic machine learning, artificial intelligence, medical diagnosis, robotics, and countless other applications explored throughout the remainder of this chapter.
-
-NEED HELP WITH THE ALIGNMENT
-%Here was explain the theorem in practice with simple examples from : 
-%Explain conditional probability then bayes theorem GEOMETRICALLY
-
-%https://www.3blue1brown.com/lessons/bayes-theorem/ 
-%+ Proof
-%https://youtu.be/U_85TaXbeIo?si=B8yTYpSsGEeVEBOe 
-%The medical test paradox, and redesigning Bayes' rule: USE IMAGES
-%https://youtu.be/lG4VkPoG3ko?si=jxpWbi86mc0MeRBM
-
-
-
-
-\newpage
-
-```latex
-\subsection{So what is Bayes' theorem today?}
-
-For readers unfamiliar with the basic concepts of probability, a particularly
-accessible introduction is Tijms' \textit{Understanding Probability}
-\cite{tijms2012}. Chapter~8 develops conditional probability, the law of total
-probability and Bayes' rule before introducing Bayesian statistics for the
-discrete case. Chapter~13 later extends these ideas to continuous random
-variables and continuous Bayesian models. For readers already comfortable
-with these probability concepts, Gelman et al.'s
-\textit{Bayesian Data Analysis} provides a natural next step, developing the
-same ideas within a much broader framework for modern Bayesian inference
-\cite{gelman2013bayesian}.
-
-Modern introductions to Bayes' theorem usually begin with the
-\textbf{discrete case}. Suppose that $B_1,\ldots,B_k$ represent all possible
-hypotheses, explanations or parameter values under consideration. These are assumed to be \textbf{mutually exclusive}, so that no two can occur simultaneously, and \textbf{exhaustive}, so that one of them must occur. Let $A$ denote some observed evidence. 
-
-Two basic results from probability are needed. First, \textbf{conditional probability}
-is defined by
-
-\[
-P(B_i\mid A)
-=
-\frac{P(B_i\cap A)}{P(A)}.
-\]
-
-Second, the \textbf{law of total probability} says that the probability of
-observing $A$ can be found by considering all the different hypotheses under
-which $A$ could have occurred:
-
-\[
-P(A)
-=
-\sum_{j=1}^{k}P(A\mid B_j)P(B_j).
-\]
-
-This can be visualised geometrically by dividing the event $A$ into the
-mutually exclusive pieces contributed by each possible hypothesis, as shown
-in Figure~\ref{fig:total_probability}.
-
-\begin{figure}[H] \centering \includegraphics[width=0.45\textwidth]{figs/Bayes_figs/law_total_probability_venn.png} \caption{Geometric illustration of the law of total probability. The sample space is partitioned into mutually exclusive events $B_1,\ldots,B_n$, and the probability of $A$ is obtained by adding its intersections with each part of the partition. Source: \href{https://qualityengineer.weebly.com/probability/total-probability-law}{Blog by Authors: Armin Nikzad and Fatima Mosallaei}.} \label{fig:total_probability} \end{figure}
-
-Since the intersection can also be obtained by $P(A\cap B_i)=P(A\mid B_i)P(B_i)$,  substituting the law of total probability into conditional probability gives the modern discrete form\footnote{Different textbooks provide a range of different ways to write the theorem but the underlying concept is the same. } of \textbf{Bayes' theorem}:
-
-\begin{equation}
-    \boxed{
-    P(B_i\mid A)
-    =
-    \frac{P(A\mid B_i)P(B_i)}
-    {\displaystyle
-    \sum_{j=1}^{k}P(A\mid B_j)P(B_j)}
-    }.
-\end{equation}
-
-\noindent
-Further details on conditional probability and the law of total probability can be found in \cite{tijms2012}.
-
-In words, Bayes' theorem begins with probabilities assigned to the different
-possible hypotheses $B_i$, asks how compatible the observed evidence $A$ is
-with each of them, and then uses this information to revise their
-probabilities after the evidence has been observed. In modern Bayesian
-terminology this is often summarised as
-
-\begin{equation}
-    \boxed{
-    \text{posterior}
-    \propto
-    \text{likelihood}
-    \times
-    \text{prior}
-    }.
-\end{equation}
-
-The same idea extends naturally to \textbf{continuous} problems. In the
-discrete case there is a finite or countable list of possibilities,
-$B_1,B_2,\ldots$. In a continuous problem, however, an unknown quantity may
-take any value within an interval. For example, an unknown probability might
-take any value between $0$ and $1$, rather than being restricted to a list of
-possible values. Such an unknown quantity is commonly represented by a
-parameter such as $\theta$.
-
-
-
-\newpage
-
-Modern introductions to Bayes' theorem usually begin with the \textbf{discrete case}. Suppose that $B_1,\ldots,B_k$ represent all possible hypotheses or explanations or parameter values under consideration. These are assumed to be \textbf{mutually exclusive} and \textbf{exhaustive} "events": only one can occur, and one of them must occur. 
-
-Let $A$ denote some observed evidence. Two basic results from probability are needed. First, conditional probability is defined by \[ P(B_i\mid A)=\frac{P(B_i\cap A)}{P(B)}. \] 
-
-
-Second, the \textbf{law of total probability} says that the probability of observing $B$ can be found by considering all the different hypotheses under which $B$ could have occurred: 
-
-\[ P(B) = \sum_{j=1}^{k}P(A\mid B_j)P(B_j). \] 
-
-
-
-This can be pictured as dividing the event $A$ into the mutually exclusive pieces contributed by each possible hypothesis: 
-
-\begin{figure}[H] \centering \includegraphics[width=0.45\textwidth]{figs/Bayes_figs/law_total_probability_venn.png} \caption{Geometric illustration of the law of total probability. The sample space is partitioned into mutually exclusive events $B_1,\ldots,B_n$, and the probability of $A$ is obtained by adding its intersections with each part of the partition. Source: \href{https://qualityengineer.weebly.com/probability/total-probability-law}{Blog by Authors: Armin Nikzad and Fatima Mosallaei}.} \label{fig:total_probability} \end{figure}
-
-
-
-% Since \[ P(E\cap H_j)=P(E\mid H_j)P(H_j), \] adding these pieces together gives the total probability of observing $E$. 
-
-Further details on conditional probability and the law of total probability can be found in Chapter~8 of Tijms \cite{tijms2012}. 
-
-Substituting these results into conditional probability gives the modern discrete form of Bayes' theorem: 
-
-\begin{equation} \boxed{ P(H_i\mid E) = \frac{P(E\mid H_i)P(H_i)} {\displaystyle \sum_{j=1}^{k}P(E\mid H_j)P(H_j)} }. \end{equation}
-
-In words, Bayes' theorem begins with probabilities assigned to the different possible hypotheses, asks how compatible the observed evidence is with each of them, and then uses this information to revise their probabilities after the evidence has been observed. 
-
-
-In modern Bayesian terminology this is often summarised as 
-
-\begin{equation} \boxed{ \text{posterior} \propto \text{likelihood} \times \text{prior} }. \end{equation} 
-
-
-The same idea extends naturally to \textbf{continuous} problems. In the discrete case there is a finite or countable list of possibilities, $H_1,H_2,\ldots$. In a continuous problem, however, an unknown quantity may take any value within an interval. For example, an unknown probability might take any value between $0$ and $1$, rather than being restricted to a list of possible values. Such an unknown quantity is commonly represented by a parameter such as $\theta$.
-
-
-\newpage
-
-
-Modern introductions to Bayes' theorem usually begin with the
-\textbf{discrete case}. Suppose that $B_1,\ldots,B_k$ represent all possible
-hypotheses, explanations or parameter values under consideration. These are assumed to be \textbf{mutually exclusive}, so that no two can occur simultaneously, and \textbf{exhaustive}, so that one of them must occur. Let $A$ denote some observed evidence. 
-
-Two basic results from probability are needed. First, \textbf{conditional probability}
-is defined by
-
-\[
-P(B_i\mid A)
-=
-\frac{P(B_i\cap A)}{P(A)}.
-\]
-
-Second, the \textbf{law of total probability} says that the probability of
-observing $A$ can be found by considering all the different hypotheses under
-which $A$ could have occurred:
-
-\[
-P(A)
-=
-\sum_{j=1}^{k}P(A\mid B_j)P(B_j).
-\]
-
-This can be visualised geometrically by dividing the event $A$ into the
-mutually exclusive pieces contributed by each possible hypothesis, as shown
-in Figure~\ref{fig:total_probability}.
-
-\begin{figure}[H] \centering \includegraphics[width=0.45\textwidth]{figs/Bayes_figs/law_total_probability_venn.png} \caption{Geometric illustration of the law of total probability. The sample space is partitioned into mutually exclusive events $B_1,\ldots,B_n$, and the probability of $A$ is obtained by adding its intersections with each part of the partition. Source: \href{https://qualityengineer.weebly.com/probability/total-probability-law}{Blog by Authors: Armin Nikzad and Fatima Mosallaei}.} \label{fig:total_probability} \end{figure}
-
-Since the intersection can also be obtained by $P(A\cap B_i)=P(A\mid B_i)P(B_i)$,  substituting the law of total probability into conditional probability gives the modern discrete form of \textbf{Bayes' theorem}:
-
-\begin{equation}
-    \boxed{
-    P(B_i\mid A)
-    =
-    \frac{P(A\mid B_i)P(B_i)}
-    {\displaystyle
-    \sum_{j=1}^{k}P(A\mid B_j)P(B_j)}
-    }.
-\end{equation}
-
-\noindent
-Further details on conditional probability and the law of total probability can be found in \cite{tijms2012}.
-
-In words, Bayes' theorem begins with probabilities assigned to the different
-possible hypotheses $B_i$, asks how compatible the observed evidence $A$ is
-with each of them, and then uses this information to revise their
-probabilities after the evidence has been observed. In modern Bayesian
-terminology this is often summarised as
-
-\begin{equation}
-    \boxed{
-    \text{posterior}
-    \propto
-    \text{likelihood}
-    \times
-    \text{prior}
-    }.
-\end{equation}
-
-The same idea extends naturally to \textbf{continuous} problems. In the
-discrete case there is a finite or countable list of possibilities,
-$B_1,B_2,\ldots$. In a continuous problem, however, an unknown quantity may
-take any value within an interval. For example, an unknown probability might
-take any value between $0$ and $1$, rather than being restricted to a list of
-possible values. Such an unknown quantity is commonly represented by a
-parameter such as $\theta$.
-
-
-
-
-
