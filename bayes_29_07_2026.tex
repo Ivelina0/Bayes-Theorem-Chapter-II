@@ -511,11 +511,11 @@ interpretations of statistical testing were not identical. Nevertheless, in mode
 Meanwhile, Dorothy Wrinch (1894--1976) and Harold Jeffreys (1891--1989)
 were developing almost the opposite programme. Between 1919 and 1923 they
 treated probability as a logic for reasoning about scientific propositions
-\cite{wrinchjeffreys1919,wrinchjeffreys1921,wrinchjeffreys1923}. They argued
-that evidence could alter the probability assigned not merely to a parameter
-but to an entire scientific law.
+\cite{wrinchjeffreys1919,wrinchjeffreys1921,wrinchjeffreys1923}. In 1921 they wrote that
 
-In 1921 they wrote that
+% They argued that evidence could alter the probability assigned not merely to a parameter but to an entire scientific law.
+
+% In 1921 they wrote that
 
 \begin{quote}
 ``an inference drawn from a simple scientific law may have a very high
@@ -527,30 +527,33 @@ probability, not far from unity''
 % described their joint work as the basis of his subsequent programme of
 % scientific inference \cite{hodgkinjeffreys1976}.
 
-J.~B.~S.~Haldane (1892--1964) supplied an important mathematical step in
-1932 by allowing an exact hypothesis to receive positive prior probability
-while the alternatives were represented by a continuous distribution
-\cite{haldane1932,etzwagenmakers2017}. Jeffreys then developed Bayesian
-significance tests in 1935 and systematically in his
-\textit{Theory of Probability} (1939)
-\cite{jeffreys1935,jeffreys1939}.
+% J.~B.~S.~Haldane (1892--1964) supplied an important mathematical step in
+% 1932 by allowing an exact hypothesis to receive positive prior probability
+% while the alternatives were represented by a continuous distribution
+% \cite{haldane1932,etzwagenmakers2017}. Jeffreys then developed Bayesian
+% significance tests in 1935 and systematically in his
+% \textit{Theory of Probability} (1939)
+% \cite{jeffreys1935,jeffreys1939}.
 
-In modern notation the central comparison becomes
+J.~B.~S.~Haldane (1892--1964) introduced a prior combining positive probability on an exact hypothesis with a continuous distribution over alternatives \cite{haldane1932,etzwagenmakers2017}. Jeffreys then developed Bayesian significance tests in 1935 and systematically in \textit{Theory of Probability} (1939) \cite{jeffreys1935,jeffreys1939}.
 
-\[
-\frac{P(H_1\mid D)}{P(H_0\mid D)}
-=
-\frac{P(H_1)}{P(H_0)}
-\frac{P(D\mid H_1)}{P(D\mid H_0)}.
-\]
+% In modern notation the central comparison becomes
 
-The final ratio was later called the \textbf{Bayes factor}
-\cite{good1958}. Unlike a (frequentist) $p$-value, it asks directly how the observed evidence changes the relative support for two hypotheses.
+% \[
+% \frac{P(H_1\mid D)}{P(H_0\mid D)}
+% =
+% \frac{P(H_1)}{P(H_0)}
+% \frac{P(D\mid H_1)}{P(D\mid H_0)}.
+% \]
+
+% The final ratio was later called the \textbf{Bayes factor}
+% \cite{good1958}. Unlike a (frequentist) $p$-value, it asks directly how the observed evidence changes the relative support for two hypotheses.
 
 Jeffreys also returned to the old difficulty of choosing a prior. His 1939
 book developed invariant approaches to prior choice, and his 1946 paper gave
 the general Fisher-information rule $\pi_J(\boldsymbol{\theta})
-\propto \sqrt{\det I(\boldsymbol{\theta})},$
+\propto \sqrt{\det I(\boldsymbol{\theta})},$ which remains invariant under smooth reparameterisation
+\cite{jeffreys1939,jeffreys1946}.
 
 % \[
 % \pi_J(\boldsymbol{\theta})
@@ -558,10 +561,9 @@ the general Fisher-information rule $\pi_J(\boldsymbol{\theta})
 % \sqrt{\det I(\boldsymbol{\theta})},
 % \]
 
-which remains invariant under smooth reparameterisation
-\cite{jeffreys1939,jeffreys1946}.
+% which remains invariant under smooth reparameterisation
+% \cite{jeffreys1939,jeffreys1946}.
 
-```latex
 \paragraph{Wald and Savage: inference becomes decision-making
 (1939--1954).}
 
