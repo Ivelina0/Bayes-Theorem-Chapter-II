@@ -465,11 +465,11 @@ developed an explicitly frequency-based interpretation. The mathematical develop
 probability axiomatically as a measure on a space of events
 \cite{hilbert1900,borel1909,vonmises1919,kolmogorov1933}.
 
-But the question of inverse probability persisted: \textit{what exactly may be assigned a probability?} If $\theta$ is unknown but fixed, can we legitimately speak of $P(\theta\mid D)$? During the following decades of the 20-th century, several different answers were developed.
+But the question of inverse probability persisted: \textit{what exactly may be assigned a probability?} If $\theta$ is unknown but fixed quantity, can we meaningfully speak of $P(\theta\mid D)$? During the following decades of the 20-th century, several different answers were developed.
 
 \paragraph{Fisher: likelihood instead of inverse probability (1922--1935).}
 
-Ronald Aylmer Fisher (1890--1962) developed a non-Bayesian programme of statistical inference based on \textbf{likelihood}, \textbf{maximum likelihood estimation}, \textbf{significance testing} and later \textbf{fiducial inference}, together with the concepts of sufficiency, efficiency and statistical information \cite{fisher1922foundations,fisher1925statistical,fisher1930inverse, fisher1935fiducial,aldrich1997}. For Fisher, the data were random but the unknown parameter was fixed: likelihood could compare parameter values without assigning them prior probabilities. His rejection of inverse probability was explicit. In 1930 he described it as a doctrine that appeared to \begin{quote} ``a succession of sound writers to be \textit{fundamentally false and devoid of foundation}'' \cite[p.~528]{fisher1930inverse}. \end{quote}
+Ronald Aylmer Fisher (1890--1962) developed a non-Bayesian framework of statistical inference in which \textbf{likelihood} provided a way of comparing possible values of an unknown parameter without assigning probabilities to those values. He then developed \textbf{maximum likelihood estimation} and introduced concepts for assessing how much information about a parameter could be extracted from data, including \textbf{sufficiency}, \textbf{efficiency} and \textbf{statistical information}. In parallel, he developed \textbf{significance testing} and \textbf{fiducial inference} as an alternative way of making inferential statements about unknown parameters without introducing Bayesian prior probabilities \cite{fisher1922foundations,fisher1925statistical,fisher1930inverse, fisher1935fiducial,aldrich1997}. While his rejection of inverse probability was explicit. In 1930 he described it as a doctrine that appeared to \begin{quote} ``a succession of sound writers to be \textit{fundamentally false and devoid of foundation}'' \cite[p.~528]{fisher1930inverse}. \end{quote}
 
 At Rothamsted, Fisher worked closely with his first statistical assistant, \textbf{Winifred Alice Mackenzie (1896--1954)}, who co-authored studies on rainfall, bacterial counts and crop variation, including an important 1923 paper connected with the early development of analysis of variance  \cite{fishermackenzie1923,tayloraldrich2022}. Historians have additionally documented the substantial workforce of women employed as computing assistants at Rothamsted, whose computational labour was rarely acknowledged in conventional accounts of the development of statistics \cite{parolini2015}.
 
@@ -478,15 +478,26 @@ At Rothamsted, Fisher worked closely with his first statistical assistant, \text
 \paragraph{Neyman and Pearson: hypothesis testing and error control
 (1928--1937).}
 
-Jerzy Neyman (1894--1981) and Egon Pearson (1895--1980) developed another non-Bayesian answer. Their work between 1928 and 1933 treated testing as a choice between hypotheses and evaluated a procedure through its repeated performance: \textbf{Type I error}, \textbf{Type II error} and \textbf{power} \cite{neymanpearson1928,neymanpearson1933}.
+Jerzy Neyman (1894--1981) and Egon Pearson (1895--1980) developed another non-Bayesian approach to statistical inference. Their work between 1928 and 1933 treated hypothesis testing as a decision between a \textbf{null hypothesis} $H_0$ and an \textbf{alternative hypothesis} $H_1$ \cite{neymanpearson1928,neymanpearson1933}. Instead of assigning probabilities to the hypotheses themselves, they asked how often a testing rule would make the wrong decision if the same experiment were performed many times under the same conditions:
 
-Thus the question was no longer $P(H\mid D)=?$ but, roughly,
+\begin{equation}
+\underbrace{P(\text{reject }H_0 \mid H_0 \text{ is true})}_{\text{Type I error }(\alpha)}
+\qquad\text{and}\qquad
+\underbrace{P(\text{do not reject }H_0 \mid H_1 \text{ is true})}_{\text{Type II error }(\beta)}.
+\end{equation}
 
-\[
-P(\text{our procedure makes an error}\mid H)=?
-\]
+The \textbf{power} of the test is the probability of correctly rejecting
+$H_0$ when $H_1$ is true:
 
-Neyman's 1937 theory of \textbf{confidence intervals} extended the same repeated-sampling philosophy to estimation \cite{neyman1937}. Fisher and Neyman--Pearson are therefore often grouped together today, but their interpretations of statistical testing were not identical. Although Fisher and Neyman--Pearson are now commonly grouped under the broad label ‘frequentist’, their theories of testing differed substantially. Later textbooks on Statisitcs often combined Fisherian p-values/significance testing with Neyman–Pearson terminology and error-control machinery, despite disagreements between their founders
+\begin{equation}
+P(\text{reject }H_0 \mid H_1 \text{ is true})
+=
+1-\beta.
+\end{equation}
+
+% Neyman's 1937 theory of \textbf{confidence intervals} applied the same idea to estimation: a confidence-interval procedure was designed so that, over many repetitions of the experiment, a specified proportion of the intervals would contain the true parameter \cite{neyman1937}. 
+
+Neyman applied the same idea to his 1937 theory of \textbf{confidence intervals}. Fisher and Neyman--Pearson are now often grouped together as ``frequentist'', although their interpretations of statistical testing differed substantially. Later textbooks on Statisitcs often combined Fisherian p-values/significance testing with Neyman–Pearson terminology and error-control machinery, despite disagreements between their founders
 
 % Nevertheless, in modern times their combined "frequentist" approach provides hypothesis-testing problems that can be studied with the binomial and Normal distributions already available at A-level, without requiring an additional theory of prior distributions and posterior integration.
 
