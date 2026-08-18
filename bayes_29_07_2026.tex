@@ -733,181 +733,181 @@ Wald's sequential decision theory influenced Richard Bellman's (1920--1984) deve
 
 
 
-\newpage
+% \newpage
 
 
-At the beginning of the twentieth century, probability itself was being placed
-on firmer mathematical foundations. Hilbert's sixth problem (1900) had called
-for an axiomatic treatment of probability; work by Borel and Lebesgue connected
-probability with measure theory, while von Mises developed a frequency
-interpretation based on repeated observations. These developments culminated
-mathematically in Kolmogorov's \textit{Grundbegriffe der
-Wahrscheinlichkeitsrechnung} (1933), which formulated probability using the
-axioms of a measure on a space of events
-\cite{hilbert1900,borel1909,vonmises1919,kolmogorov1933}.
+% At the beginning of the twentieth century, probability itself was being placed
+% on firmer mathematical foundations. Hilbert's sixth problem (1900) had called
+% for an axiomatic treatment of probability; work by Borel and Lebesgue connected
+% probability with measure theory, while von Mises developed a frequency
+% interpretation based on repeated observations. These developments culminated
+% mathematically in Kolmogorov's \textit{Grundbegriffe der
+% Wahrscheinlichkeitsrechnung} (1933), which formulated probability using the
+% axioms of a measure on a space of events
+% \cite{hilbert1900,borel1909,vonmises1919,kolmogorov1933}.
 
-This mathematical clarification did not, however, settle a different question:
-\textit{what may legitimately be assigned a probability?} In particular, if
-$\theta$ is an unknown but fixed parameter, may we speak of
-$P(\theta\mid D)$ at all? It was over this question---rather than over the
-algebra of Bayes' theorem---that several competing theories of statistical
-inference developed.
+% This mathematical clarification did not, however, settle a different question:
+% \textit{what may legitimately be assigned a probability?} In particular, if
+% $\theta$ is an unknown but fixed parameter, may we speak of
+% $P(\theta\mid D)$ at all? It was over this question---rather than over the
+% algebra of Bayes' theorem---that several competing theories of statistical
+% inference developed.
 
-\paragraph{Fisher: likelihood instead of inverse probability.}
+% \paragraph{Fisher: likelihood instead of inverse probability.}
 
-R.~A.~Fisher's answer was largely \textbf{no}. In his 1922 paper
-\textit{On the Mathematical Foundations of Theoretical Statistics}, he
-separated \textbf{likelihood} from probability and developed maximum
-likelihood estimation together with the concepts of sufficiency, efficiency
-and statistical information \cite{fisher1922foundations,aldrich1997}.
-For Fisher, the observations were random while an unknown parameter was fixed;
-a likelihood function could therefore measure how strongly different parameter
-values were supported by the observations without turning those values into a
-probability distribution.
+% R.~A.~Fisher's answer was largely \textbf{no}. In his 1922 paper
+% \textit{On the Mathematical Foundations of Theoretical Statistics}, he
+% separated \textbf{likelihood} from probability and developed maximum
+% likelihood estimation together with the concepts of sufficiency, efficiency
+% and statistical information \cite{fisher1922foundations,aldrich1997}.
+% For Fisher, the observations were random while an unknown parameter was fixed;
+% a likelihood function could therefore measure how strongly different parameter
+% values were supported by the observations without turning those values into a
+% probability distribution.
 
-His rejection of the older inverse-probability argument became explicit. In
-1930 Fisher described inverse probability as a doctrine that had appeared to
-``a succession of sound writers to be \textit{fundamentally false and devoid
-of foundation}'' \cite[p.~528]{fisher1930inverse}.
+% His rejection of the older inverse-probability argument became explicit. In
+% 1930 Fisher described inverse probability as a doctrine that had appeared to
+% ``a succession of sound writers to be \textit{fundamentally false and devoid
+% of foundation}'' \cite[p.~528]{fisher1930inverse}.
 
-Fisher consequently developed a different collection of inferential tools:
-\textbf{maximum likelihood} for estimating parameters and
-\textbf{significance tests} for assessing whether observations were unusually
-incompatible with a null hypothesis \cite{fisher1925statistical}. A small
-$p$-value was not the posterior probability that the null hypothesis was
-false. Fisher also developed \textbf{fiducial inference} in an attempt to make
-probability statements about unknown parameters without introducing a Bayesian
-prior \cite{fisher1930inverse,fisher1935fiducial}.
+% Fisher consequently developed a different collection of inferential tools:
+% \textbf{maximum likelihood} for estimating parameters and
+% \textbf{significance tests} for assessing whether observations were unusually
+% incompatible with a null hypothesis \cite{fisher1925statistical}. A small
+% $p$-value was not the posterior probability that the null hypothesis was
+% false. Fisher also developed \textbf{fiducial inference} in an attempt to make
+% probability statements about unknown parameters without introducing a Bayesian
+% prior \cite{fisher1930inverse,fisher1935fiducial}.
 
-\paragraph{Neyman and Pearson: errors and repeated decisions.}
+% \paragraph{Neyman and Pearson: errors and repeated decisions.}
 
-Jerzy Neyman and Egon Pearson developed another non-Bayesian theory. Their
-papers of 1928--1933 replaced Fisher's single significance test with an
-explicit comparison between a null hypothesis $H_0$ and an alternative
-$H_1$ \cite{neymanpearson1928,neymanpearson1933}. The central quantities were
-not posterior probabilities but the long-run behaviour of a testing rule:
-the probability of a \textbf{Type I error}, the probability of a
-\textbf{Type II error}, and the \textbf{power} of the test.
+% Jerzy Neyman and Egon Pearson developed another non-Bayesian theory. Their
+% papers of 1928--1933 replaced Fisher's single significance test with an
+% explicit comparison between a null hypothesis $H_0$ and an alternative
+% $H_1$ \cite{neymanpearson1928,neymanpearson1933}. The central quantities were
+% not posterior probabilities but the long-run behaviour of a testing rule:
+% the probability of a \textbf{Type I error}, the probability of a
+% \textbf{Type II error}, and the \textbf{power} of the test.
 
-The Neyman--Pearson lemma then identified most-powerful tests for simple
-hypotheses at a prescribed Type I error rate. Neyman's 1937 theory of
-\textbf{confidence intervals} extended the same repeated-sampling philosophy
-to estimation \cite{neyman1937}. Thus Fisher and Neyman--Pearson both rejected
-ordinary inverse probability, but their alternatives were themselves
-different: Fisher emphasised evidence supplied by the observed experiment,
-whereas Neyman and Pearson emphasised the long-run performance of a rule.
+% The Neyman--Pearson lemma then identified most-powerful tests for simple
+% hypotheses at a prescribed Type I error rate. Neyman's 1937 theory of
+% \textbf{confidence intervals} extended the same repeated-sampling philosophy
+% to estimation \cite{neyman1937}. Thus Fisher and Neyman--Pearson both rejected
+% ordinary inverse probability, but their alternatives were themselves
+% different: Fisher emphasised evidence supplied by the observed experiment,
+% whereas Neyman and Pearson emphasised the long-run performance of a rule.
 
-\paragraph{Wrinch and Jeffreys: probabilities of scientific hypotheses.}
+% \paragraph{Wrinch and Jeffreys: probabilities of scientific hypotheses.}
 
-A very different programme had already been developing at Cambridge.
-Between 1919 and 1923, mathematician \textbf{Dorothy Wrinch} and geophysicist
-\textbf{Harold Jeffreys} published a series of papers treating probability as
-a general logic of scientific inference
-\cite{wrinchjeffreys1919,wrinchjeffreys1921,wrinchjeffreys1923}. They argued
-that evidence could alter the probability assigned not merely to an unknown
-parameter but to a scientific law itself. In 1921 they wrote that
+% A very different programme had already been developing at Cambridge.
+% Between 1919 and 1923, mathematician \textbf{Dorothy Wrinch} and geophysicist
+% \textbf{Harold Jeffreys} published a series of papers treating probability as
+% a general logic of scientific inference
+% \cite{wrinchjeffreys1919,wrinchjeffreys1921,wrinchjeffreys1923}. They argued
+% that evidence could alter the probability assigned not merely to an unknown
+% parameter but to a scientific law itself. In 1921 they wrote that
 
-\begin{quote}
-``an inference drawn from a simple scientific law may have a very high
-probability, not far from unity''
-\cite[p.~380]{wrinchjeffreys1921}.
-\end{quote}
+% \begin{quote}
+% ``an inference drawn from a simple scientific law may have a very high
+% probability, not far from unity''
+% \cite[p.~380]{wrinchjeffreys1921}.
+% \end{quote}
 
-Wrinch's role in this development is easily understated. After her death,
-Jeffreys explicitly acknowledged the ``substantial contribution'' she had
-made to their joint work, which he described as ``the basis of all my later
-work on scientific inference'' \cite{hodgkinjeffreys1976}.
+% Wrinch's role in this development is easily understated. After her death,
+% Jeffreys explicitly acknowledged the ``substantial contribution'' she had
+% made to their joint work, which he described as ``the basis of all my later
+% work on scientific inference'' \cite{hodgkinjeffreys1976}.
 
-This idea required an exact scientific law---for example,
-$H_0:\theta=0$---to receive positive prior probability. J.~B.~S.~Haldane
-provided an important mathematical construction in 1932 by combining a point
-probability at the exact hypothesis with a continuous distribution over the
-remaining values of $\theta$ \cite{haldane1932,etzwagenmakers2017}. Jeffreys
-then developed explicit Bayesian significance tests in 1935 and a systematic
-theory in \textit{Theory of Probability} (1939)
-\cite{jeffreys1935,jeffreys1939}.
+% This idea required an exact scientific law---for example,
+% $H_0:\theta=0$---to receive positive prior probability. J.~B.~S.~Haldane
+% provided an important mathematical construction in 1932 by combining a point
+% probability at the exact hypothesis with a continuous distribution over the
+% remaining values of $\theta$ \cite{haldane1932,etzwagenmakers2017}. Jeffreys
+% then developed explicit Bayesian significance tests in 1935 and a systematic
+% theory in \textit{Theory of Probability} (1939)
+% \cite{jeffreys1935,jeffreys1939}.
 
-Jeffreys described the inferential problem succinctly:
+% Jeffreys described the inferential problem succinctly:
 
-\begin{quote}
-``our problem is to compare a suggested value of a new parameter, often 0,
-with the aggregate of other possible values''
-\cite[p.~193]{jeffreys1939}.
-\end{quote}
+% \begin{quote}
+% ``our problem is to compare a suggested value of a new parameter, often 0,
+% with the aggregate of other possible values''
+% \cite[p.~193]{jeffreys1939}.
+% \end{quote}
 
-In modern notation this comparison is
+% In modern notation this comparison is
 
-\[
-\frac{P(H_1\mid D)}{P(H_0\mid D)}
-=
-\frac{P(H_1)}{P(H_0)}
-\underbrace{
-\frac{P(D\mid H_1)}{P(D\mid H_0)}
-}_{BF_{10}},
-\]
+% \[
+% \frac{P(H_1\mid D)}{P(H_0\mid D)}
+% =
+% \frac{P(H_1)}{P(H_0)}
+% \underbrace{
+% \frac{P(D\mid H_1)}{P(D\mid H_0)}
+% }_{BF_{10}},
+% \]
 
-where the second ratio later became known as the
-\textbf{Bayes factor} \cite{good1958}. Thus Jeffreys' procedure answered a
-different question from a Fisherian $p$-value or a Neyman--Pearson test:
-it measured how the observed data changed the relative probability of two
-hypotheses.
+% where the second ratio later became known as the
+% \textbf{Bayes factor} \cite{good1958}. Thus Jeffreys' procedure answered a
+% different question from a Fisherian $p$-value or a Neyman--Pearson test:
+% it measured how the observed data changed the relative probability of two
+% hypotheses.
 
-Jeffreys also addressed the older problem of how prior ignorance should be
-represented. His 1939 book developed invariant approaches to prior choice,
-and in 1946 he gave the general Fisher-information rule
-\cite{jeffreys1939,jeffreys1946},
+% Jeffreys also addressed the older problem of how prior ignorance should be
+% represented. His 1939 book developed invariant approaches to prior choice,
+% and in 1946 he gave the general Fisher-information rule
+% \cite{jeffreys1939,jeffreys1946},
 
-\[
-\pi_J(\boldsymbol{\theta})
-\propto
-\sqrt{\det I(\boldsymbol{\theta})}.
-\]
+% \[
+% \pi_J(\boldsymbol{\theta})
+% \propto
+% \sqrt{\det I(\boldsymbol{\theta})}.
+% \]
 
-Unlike a prior chosen merely to be uniform on one particular scale, this rule
-transforms consistently under smooth reparameterisation.
+% Unlike a prior chosen merely to be uniform on one particular scale, this rule
+% transforms consistently under smooth reparameterisation.
 
-\paragraph{Wald: inference as a decision problem.}
+% \paragraph{Wald: inference as a decision problem.}
 
-A fourth approach asked a different question again. Beginning in 1939,
-\textbf{Abraham Wald} treated estimation and hypothesis testing as
-\textbf{decision problems}: an investigator chooses an action, incurs a loss
-$L(a,\theta)$, and evaluates procedures through their risk
-\cite{wald1939,wald1950}. Decision theory was therefore not itself an
-alternative definition of probability and was not inherently Bayesian.
+% A fourth approach asked a different question again. Beginning in 1939,
+% \textbf{Abraham Wald} treated estimation and hypothesis testing as
+% \textbf{decision problems}: an investigator chooses an action, incurs a loss
+% $L(a,\theta)$, and evaluates procedures through their risk
+% \cite{wald1939,wald1950}. Decision theory was therefore not itself an
+% alternative definition of probability and was not inherently Bayesian.
 
-Within a Bayesian analysis, however, the natural rule is to minimise posterior
-expected loss,
+% Within a Bayesian analysis, however, the natural rule is to minimise posterior
+% expected loss,
 
-\[
-a^*
-=
-\arg\min_a
-\mathbb{E}\!\left[L(a,\theta)\mid D\right].
-\]
+% \[
+% a^*
+% =
+% \arg\min_a
+% \mathbb{E}\!\left[L(a,\theta)\mid D\right].
+% \]
 
-Wald's framework could also be used without a prior through frequentist ideas
-such as minimax risk. Leonard Savage's
-\textit{The Foundations of Statistics} (1954) later connected decision theory
-much more explicitly with \textbf{subjective probability}, providing another
-foundation for Bayesian inference \cite{savage1954}.
+% Wald's framework could also be used without a prior through frequentist ideas
+% such as minimax risk. Leonard Savage's
+% \textit{The Foundations of Statistics} (1954) later connected decision theory
+% much more explicitly with \textbf{subjective probability}, providing another
+% foundation for Bayesian inference \cite{savage1954}.
 
-By the middle of the twentieth century there was therefore no single
-replacement for inverse probability. Fisher had developed
-\textbf{likelihood and significance testing}; Neyman and Pearson,
-\textbf{error-controlled hypothesis testing and confidence intervals};
-Wrinch, Haldane and Jeffreys, \textbf{probabilities of hypotheses, Bayesian
-testing and principled priors}; and Wald, a general
-\textbf{theory of statistical decisions}. The modern distinction between
-Bayesian and frequentist inference emerged from these competing answers to
-what probability could legitimately say about an unknown quantity after data
-had been observed.
+% By the middle of the twentieth century there was therefore no single
+% replacement for inverse probability. Fisher had developed
+% \textbf{likelihood and significance testing}; Neyman and Pearson,
+% \textbf{error-controlled hypothesis testing and confidence intervals};
+% Wrinch, Haldane and Jeffreys, \textbf{probabilities of hypotheses, Bayesian
+% testing and principled priors}; and Wald, a general
+% \textbf{theory of statistical decisions}. The modern distinction between
+% Bayesian and frequentist inference emerged from these competing answers to
+% what probability could legitimately say about an unknown quantity after data
+% had been observed.
 
-During the Second World War, Alan Turing also used odds and additive weights
-of evidence in cryptanalytic work at Bletchley Park; his statistical methods
-were later documented by I.~J.~Good
-\cite{turing1941,good1979turing}. This was an important application of the
-same probabilistic logic, rather than a separate theoretical development.
-```
+% During the Second World War, Alan Turing also used odds and additive weights
+% of evidence in cryptanalytic work at Bletchley Park; his statistical methods
+% were later documented by I.~J.~Good
+% \cite{turing1941,good1979turing}. This was an important application of the
+% same probabilistic logic, rather than a separate theoretical development.
+% ```
 
 
 
