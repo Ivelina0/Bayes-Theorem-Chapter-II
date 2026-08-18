@@ -452,7 +452,287 @@ The same idea extends naturally to \textbf{continuous} problems. In the discrete
 
 % \subsection{Bayesian developments after 1950's} 
 
-\subsection{From inverse probability to competing theories of statistical inference}
+\subsection{From inverse probability to competing theories of statistical inference
+(c.~1900--1954)}
+
+\paragraph{A new foundation for probability (1900--1933).}
+
+At the beginning of the twentieth century, probability itself was being
+reconstructed on firmer mathematical foundations. David Hilbert
+(1862--1943) called for its axiomatization in his sixth problem of 1900;
+Émile Borel (1871--1956) and Henri Lebesgue (1875--1941) connected probability
+with the emerging theory of measure, while Richard von Mises (1883--1953)
+developed an explicitly frequency-based interpretation. The mathematical
+development culminated in Andrey Kolmogorov's (1903--1987)
+\textit{Grundbegriffe der Wahrscheinlichkeitsrechnung} (1933), which defined
+probability axiomatically as a measure on a space of events
+\cite{hilbert1900,borel1909,vonmises1919,kolmogorov1933}.
+
+But the question of inverse probability persisted: \textit{what exactly may be assigned a probability?} If $\theta$ is unknown but fixed, can we legitimately speak of $P(\theta\mid D)$? During the following decades of the 20-th century, several different answers were developed.
+
+\paragraph{Fisher: likelihood instead of inverse probability (1922--1935).}
+
+Ronald Aylmer Fisher (1890--1962) developed a non-Bayesian programme of statistical inference based on \textbf{likelihood}, \textbf{maximum likelihood estimation}, \textbf{significance testing} and later \textbf{fiducial inference}, together with the concepts of sufficiency, efficiency and statistical information \cite{fisher1922foundations,fisher1925statistical,fisher1930inverse, fisher1935fiducial,aldrich1997}. For Fisher, the data were random but the unknown parameter was fixed: likelihood could compare parameter values without assigning them prior probabilities. His rejection of inverse probability was explicit. In 1930 he described it as a doctrine that appeared to \begin{quote} ``a succession of sound writers to be \textit{fundamentally false and devoid of foundation}'' \cite[p.~528]{fisher1930inverse}. \end{quote}
+
+At Rothamsted, Fisher worked closely with his first statistical assistant,
+\textbf{Winifred Alice Mackenzie (1896--1954)}, who co-authored studies on
+rainfall, bacterial counts and crop variation, including an important 1923
+paper connected with the early development of analysis of variance
+\cite{fishermackenzie1923,tayloraldrich2022}. Historians have additionally
+pointed out that much of Rothamsted's hand computation was carried out by women
+who rarely became visible in the usual history of statistics
+\cite{parolini2015}.
+
+
+
+\paragraph{Neyman and Pearson: hypothesis testing and error control
+(1928--1937).}
+
+Jerzy Neyman (1894--1981) and Egon Pearson (1895--1980) developed another
+non-Bayesian answer. Their work between 1928 and 1933 treated testing as a
+choice between hypotheses and evaluated a procedure through its repeated
+performance: \textbf{Type I error}, \textbf{Type II error} and
+\textbf{power} \cite{neymanpearson1928,neymanpearson1933}.
+
+Thus the question was no longer $P(H\mid D)=?$ but, roughly,
+
+\[
+P(\text{our procedure makes an error}\mid H)=?
+\]
+
+Neyman's 1937 theory of \textbf{confidence intervals} extended the same
+repeated-sampling philosophy to estimation \cite{neyman1937}. Fisher and
+Neyman--Pearson are therefore often grouped together today, but their
+interpretations of statistical testing were not identical. Nevertheless, in modern times their combined "frequentist" approach provides hypothesis-testing problems that can be studied with the binomial and Normal distributions already available at A-level, without requiring an additional theory of prior distributions and posterior integration.
+
+\paragraph{Wrinch, Haldane and Jeffreys: probabilities of hypotheses
+(1919--1946).}
+
+Meanwhile, Dorothy Wrinch (1894--1976) and Harold Jeffreys (1891--1989)
+were developing almost the opposite programme. Between 1919 and 1923 they
+treated probability as a logic for reasoning about scientific propositions
+\cite{wrinchjeffreys1919,wrinchjeffreys1921,wrinchjeffreys1923}. They argued
+that evidence could alter the probability assigned not merely to a parameter
+but to an entire scientific law.
+
+In 1921 they wrote that
+
+\begin{quote}
+``an inference drawn from a simple scientific law may have a very high
+probability, not far from unity''
+\cite[p.~380]{wrinchjeffreys1921}.
+\end{quote}
+
+% Wrinch's contribution was substantial rather than incidental. Jeffreys later
+% described their joint work as the basis of his subsequent programme of
+% scientific inference \cite{hodgkinjeffreys1976}.
+
+J.~B.~S.~Haldane (1892--1964) supplied an important mathematical step in
+1932 by allowing an exact hypothesis to receive positive prior probability
+while the alternatives were represented by a continuous distribution
+\cite{haldane1932,etzwagenmakers2017}. Jeffreys then developed Bayesian
+significance tests in 1935 and systematically in his
+\textit{Theory of Probability} (1939)
+\cite{jeffreys1935,jeffreys1939}.
+
+In modern notation the central comparison becomes
+
+\[
+\frac{P(H_1\mid D)}{P(H_0\mid D)}
+=
+\frac{P(H_1)}{P(H_0)}
+\frac{P(D\mid H_1)}{P(D\mid H_0)}.
+\]
+
+The final ratio was later called the \textbf{Bayes factor}
+\cite{good1958}. Unlike a (frequentist) $p$-value, it asks directly how the observed evidence changes the relative support for two hypotheses.
+
+Jeffreys also returned to the old difficulty of choosing a prior. His 1939
+book developed invariant approaches to prior choice, and his 1946 paper gave
+the general Fisher-information rule $\pi_J(\boldsymbol{\theta})
+\propto \sqrt{\det I(\boldsymbol{\theta})},$
+
+% \[
+% \pi_J(\boldsymbol{\theta})
+% \propto
+% \sqrt{\det I(\boldsymbol{\theta})},
+% \]
+
+which remains invariant under smooth reparameterisation
+\cite{jeffreys1939,jeffreys1946}.
+
+```latex
+\paragraph{Wald and Savage: inference becomes decision-making
+(1939--1954).}
+
+Abraham Wald (1902--1950) reframed the problem again. From 1939 onward he
+treated estimation and hypothesis testing as instances of a more general
+\textbf{decision problem}: after observing data, a statistician must choose
+some action $a$. This action is evaluated through a \textbf{loss function}
+$L(a,\theta)$, which measures the cost of taking action $a$ when the true,
+but unknown, model parameter is $\theta$ \cite{wald1939,wald1950}.
+
+For example, an action might be an estimate of an unknown parameter, a
+decision to accept or reject a hypothesis, or some other choice made from the
+observed data. A \textbf{decision rule}, written $\delta(X)$, is therefore a
+rule that tells us which action to take for each possible dataset $X$.
+
+Because the observed data are random, the action $\delta(X)$ may also vary
+from one sample to another. Wald therefore evaluated a decision rule through
+its \textbf{risk function},
+
+\[
+R(\theta,\delta)
+=
+\mathbb{E}_{\theta}
+\left[
+L(\delta(X),\theta)
+\right].
+\]
+
+Here, $\mathbb{E}_{\theta}$ means that the loss is averaged over all possible
+datasets that could be generated when the true parameter has the fixed value
+$\theta$. Thus $R(\theta,\delta)$ measures the \textbf{long-run expected
+loss} of using the rule $\delta$ when $\theta$ is the true parameter.
+
+This framework was not intrinsically Bayesian. A frequentist could compare
+decision rules according to their long-run risk
+\cite{wald1945}. A Bayesian instead assigns a probability distribution to
+the unknown parameter $\theta$ and updates this distribution after observing
+the actual data $D$. The Bayesian then chooses the action with the smallest
+\textbf{posterior expected loss},
+
+\[
+\delta^*(D)
+=
+\arg\min_a
+\mathbb{E}
+\left[
+L(a,\theta)\mid D
+\right].
+\]
+
+Here, $\mathbb{E}[L(a,\theta)\mid D]$ is the average loss of action $a$ over
+the posterior distribution of $\theta$ after observing $D$, while
+$\arg\min_a$ means ``choose the value of $a$ that makes this expected loss as
+small as possible.'' The notation $\delta^*(D)$ therefore represents the
+optimal action prescribed by the Bayesian decision rule after the data have
+been observed.
+
+Wald's sequential decision theory influenced Richard Bellman's (1920--1984) development of \textbf{dynamic programming}, extending decision-making to multi-stage problems \cite{wald1950,bellman1957}. Dynamic programming later became foundational to optimal control, Markov decision processes and reinforcement learning.
+
+
+% \paragraph{Wald and Savage: inference becomes decision-making
+% (1939--1954).}
+
+% Abraham Wald (1902--1950) reframed the problem again. From 1939 onward he
+% treated estimation and testing as instances of a more general
+% \textbf{decision problem}: an action $a$ is evaluated through a
+% \textbf{loss function} $L(a,\theta)$, which measures the cost of taking
+% action $a$ when the true model parameter is $\theta$ \cite{wald1939,wald1950}.
+
+% For a decision rule $\delta(X)$, its \textbf{risk function} is the expected
+% loss over repeated samples,
+
+% \[
+% R(\theta,\delta)
+% =
+% \mathbb{E}_{\theta}
+% \left[
+% L(\delta(X),\theta)
+% \right].
+% \]
+
+% This framework was not intrinsically Bayesian. A frequentist could evaluate
+% the long-run risk of a decision rule \cite{wald1945}; a Bayesian could instead
+% minimise posterior expected loss,
+
+% \[
+% a^*
+% =
+% \arg\min_a
+% \mathbb{E}[L(a,\theta)\mid D].
+% \]
+
+% Abraham Wald (1902--1950) reframed the problem again. From 1939 onward he
+% treated estimation and testing as instances of a more general
+% \textbf{decision problem}: an action $a$ is chosen and evaluated through a loss function $L(a,\theta)$, that depends on a model parameter $\theta$ and its associated risk
+% \cite{wald1939,wald1950}.
+
+% This framework was not intrinsically Bayesian. A frequentist could evaluate the long-run risk of a decision rule \cite{wald1945}; a Bayesian could instead minimise posterior expected loss,
+
+% \[
+% a^*
+% =
+% \arg\min_a
+% \mathbb{E}[L(a,\theta)\mid D].
+% \]
+
+% Leonard J.~Savage (1917--1971) subsequently connected decision theory,
+% subjective probability and Bayesian updating in
+% \textit{The Foundations of Statistics} (1954)
+% \cite{savage1954}.
+
+% The Second World War also supplied practical examples: Alan Turing
+% (1912--1954) used likelihood ratios and additive weights of evidence in
+% cryptanalysis at Bletchley Park, work later described by I.~J.~Good
+% (1916--2009) \cite{turing1941,good1979turing}. These applications are best
+% seen here as evidence that probabilistic updating was already being used in
+% practice rather than as another separate theoretical school.
+
+% \paragraph{When did ``Bayesian'' and ``frequentist'' become names?
+% (c.~1950 onward).}
+
+% Interestingly, the statisticians above did not originally describe themselves
+% using the neat modern opposition ``Bayesian versus frequentist''. They spoke
+% instead of \textit{inverse probability}, likelihood, significance tests,
+% confidence methods, prior probabilities and decision rules.
+
+% The adjective \textbf{``Bayesian''} only entered statistical usage around
+% 1950. Ironically, one of its earliest documented uses was by Fisher himself
+% in notes accompanying his \textit{Contributions to Mathematical Statistics}
+% (1950) \cite{fienberg2006,aldrich2008}. The label became increasingly common
+% during the 1950s and 1960s as writers such as Good, Savage and Lindley
+% developed an explicitly Bayesian statistical programme.
+
+% The opposing label \textbf{``frequentist''} also became standard only later.
+% There was no single meeting at which the two schools were officially named:
+% the terminology emerged retrospectively as the differences between the
+% approaches became clearer. Neyman himself was explicitly using the description
+% ``frequentist probability and frequentist statistics'' by the 1970s
+% \cite{neyman1977}. Thus it is slightly anachronistic to describe the
+% Fisher--Jeffreys disputes of the 1920s and 1930s as a debate between people
+% who already called themselves ``frequentists'' and ``Bayesians''.
+
+% \paragraph{A legacy we still learn today.}
+
+% The consequences of this history remain visible in elementary statistics.
+% In present-day A-level Mathematics in England, students learn
+% \textbf{null and alternative hypotheses}, \textbf{significance levels},
+% binomial and Normal hypothesis tests, and the idea of rejecting a null
+% hypothesis when an observed result would be sufficiently unlikely under it.
+% These descend primarily from the Fisher and Neyman--Pearson branches of
+% twentieth-century statistics.
+
+% Bayesian counterparts---prior distributions, posterior probabilities,
+% credible intervals and Bayes factors---are not part of the compulsory
+% A-level Mathematics syllabus. This should not be read as meaning that one
+% approach is mathematically ``correct'' and the other is not. Rather, the
+% classical testing framework became deeply embedded in scientific practice,
+% textbooks and consequently school curricula during the twentieth century.
+% It also provides hypothesis-testing problems that can be studied with the
+% binomial and Normal distributions already available at A-level, without
+% requiring an additional theory of prior distributions and posterior
+% integration.
+
+% The history therefore gives an important warning: what students first meet as
+% ``statistics'' is actually one branch of a much larger historical debate over
+% what can be inferred from uncertain evidence.
+
+
+
+\newpage
+
 
 At the beginning of the twentieth century, probability itself was being placed
 on firmer mathematical foundations. Hilbert's sixth problem (1900) had called
