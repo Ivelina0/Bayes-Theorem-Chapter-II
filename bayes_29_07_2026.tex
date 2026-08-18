@@ -539,7 +539,7 @@ Wald's work on sequential analysis was an important precursor to Richard Bellman
 % https://en.wikipedia.org/wiki/Joan_Clarke 
 
 %% Start, updated 18-08-2026 ... 21-07-2026 ------------------------------------------
-\subsection{Bayesian inference at Bletchley Park: Turing, Good and the Naval Enigma}
+\subsection\subsubsection*{Bayesian inference at Bletchley Park: Turing, Good and Naval Enigma (c.~1940--1943)}
 \label{sec:wwii-turing-good}
 
 Although inverse probability had already found applications in astronomy, geodesy, population and mortality statistics, insurance and actuarial science during the nineteenth and early twentieth centuries \cite{mcgrayne2011,hacking1975,franklin2001}, the Second World War produced one of the most remarkable practical applications of probabilistic and Bayesian reasoning.
@@ -564,23 +564,9 @@ This was nevertheless a much broader collaborative cryptanalytic effort rather t
 
 Progress against Naval Enigma, however, presented a substantially more difficult problem. The German Navy employed Enigma with more sophisticated operating procedures than the other German services; GCHQ's historical account consequently describes it as \textit{the hardest cryptanalytic problem facing Bletchley Park.} It was this problem that Turing chose to attack and within which probabilistic reasoning, \textbf{Banburismus} and the weighing of evidence would become particularly important.
 
-% Although British cryptanalysts were already making progress against some
-% German Enigma traffic, \textbf{Naval Enigma} remained particularly difficult.
-% The German Navy used more elaborate operating procedures, and GCHQ later
-% described it as ``the hardest cryptanalytic problem facing Bletchley Park''
-% \cite{gchq2012turing}. Turing took responsibility for this problem in Hut~8,
-% building on the earlier Polish breakthroughs and working alongside a much
-% larger team of cryptanalysts.
-
-% Neither Turing nor Good had entered Bletchley Park as professional statisticians. The cryptanalytic problems themselves forced them to develop, rediscover and adapt probabilistic methods. Good would later become one of the major advocates of Bayesian statistics, publishing \textit{Probability and the Weighing of Evidence} in 1950 \cite{good1950}. Much of the detailed statistical work carried out during the war, however, remained secret for decades.
-
 \subsubsection*{The problem: Naval Enigma and Bayesian hypothesis testing}
 
-The Enigma machine encrypted each letter through a plugboard and a sequence
-of rotating wired rotors. Because the rotors moved as the machine was used,
-the substitution continually changed. Knowing how an Enigma machine worked
-was therefore not enough: the cryptanalysts had to infer its \textbf{unknown
-configuration} from intercepted messages and other evidence.
+The Enigma machine encrypted each letter through a plugboard and a sequence of rotating wired rotors. For more informaiton, Alexander's post-war history and Mahon's \textit{History of Hut Eight} are excellent sources for Naval Enigma \cite{alexander1945,mahon1945}. Because the rotors moved as the machine was used, the substitution continually changed. Knowing how an Enigma machine worked was therefore not enough: the cryptanalysts had to infer its \textbf{unknown configuration} from intercepted messages and other evidence.
 
 \begin{figure}[H]
 \centering
@@ -620,70 +606,30 @@ configuration} from intercepted messages and other evidence.
 
 \end{figure}
 
-For Naval Enigma, the difficulty could be formulated partly as a problem of
-\textbf{hypothesis testing}. Cryptanalysts compared pairs of intercepted
-messages by shifting one ciphertext relative to the other. Each possible
-alignment corresponded to a hypothesis about the difference between the rotor
-starting positions used to encrypt the two messages. If an alignment produced
-an unusually large number of matching letters or repeated patterns, this
-provided evidence that the messages had been encrypted at corresponding rotor
-positions, known as being \textit{in depth}. Such evidence could then help
-favour or eliminate possible rotor positions and rotor orders.
+For Naval Enigma, the difficulty could be formulated partly as a problem of \textbf{hypothesis testing}. Cryptanalysts compared pairs of intercepted messages by shifting one ciphertext relative to another. A proposed alignment represented a hypothesis that portions of the two messages had been enciphered at corresponding Enigma positions. If an alignment produced an unusually large number or pattern of letter coincidences, this provided evidence that the two portions were in \textit{depth} — that is, that corresponding letters had passed through the same sequence of Enigma substitutions. Probable depths could then be combined to infer relationships between message settings and to eliminate unlikely rotor orders, greatly reducing the subsequent search \cite{turing1941cryptography,alexander1945,zabell2012turing}.
 
 Let $H_1$ and $H_0$ denote two competing hypotheses about the cipher
-configuration, and let $E$ denote the observed evidence---for example, the
-pattern of coincidences produced by a particular message alignment. In odds
-form, Bayes' theorem gives
+configuration, and let $E$ denote the observed evidence---for example, the pattern of coincidences produced by a particular message alignment. In odds form, Bayes' theorem gives
 
-\begin{equation} \boxed{ \underbrace{ \frac{P(H_1\mid E)}{P(H_0\mid E)} }_{\text{posterior odds}} = \underbrace{ \frac{P(H_1)}{P(H_0)} }_{\text{prior odds}} \; \underbrace{ \frac{ \overbrace{P(E\mid H_1)}^{\text{likelihood under }H_1} }{ \underbrace{P(E\mid H_0)}_{\text{likelihood under }H_0} } }_{\text{Bayes factor / likelihood ratio}} } \label{eq:turing-bayes-odds} \end{equation}
+\begin{equation}
+\boxed{
+\underbrace{
+\frac{P(H_1\mid E)}{P(H_0\mid E)}
+}_{\text{posterior odds}}
+=
+\underbrace{
+\frac{P(H_1)}{P(H_0)}
+}_{\text{prior odds}}
+\;
+\underbrace{
+\frac{P(E\mid H_1)}{P(E\mid H_0)}
+}_{\substack{\text{Bayes factor}\\\text{(likelihood ratio)}}}
+}
+\end{equation}
 
+Thus the \textbf{prior odds} are multiplied by a \textbf{likelihood ratio} \textit{measuring how strongly the observed evidence favours one hypothesis over the other}.  Turing described this idea in his wartime manuscript \textit{The Applications of Probability to Cryptography}, calling it the \emph{factor principle (or Bayes' Theorem)} \cite{turing1941cryptography,zabell2012turing}.
 
-Thus the \textbf{prior odds} are multiplied by a \textbf{likelihood ratio} \textit{measuring
-how strongly the observed evidence favours one hypothesis over the other}.  Turing described this idea in his wartime manuscript \textit{The Applications of Probability to Cryptography}, calling it the \emph{factor principle (or Bayes' Theorem)} \cite{turing1941cryptography,zabell2012turing}.
-
-% Thus the \textbf{prior odds} are multiplied by a likelihood ratio measuring
-% how strongly the observed evidence favours one hypothesis over the other. In
-% modern Bayesian terminology, this ratio is closely associated with the
-% \textbf{\emph{Bayes factor}}. Turing described this idea in his wartime
-% manuscript \textit{The Applications of Probability to Cryptography}, calling
-% it the \emph{factor principle (or Bayes' Theorem)}
-% \cite{turing1941cryptography,zabell2012turing}.
-
-Because evidence from many message comparisons had to be combined,
-multiplying likelihood ratios repeatedly was inconvenient. Turing therefore
-expressed the weight of evidence on a logarithmic scale using the
-\textbf{deciban},
-
-
-% The difficulty was therefore partly one of \textbf{hypothesis testing}.
-% Different rotor orders, positions or other proposed settings could be regarded
-% as competing hypotheses. Evidence---including message patterns, probable
-% plaintext, operator habits and repeated structures---could make some
-% possibilities more plausible than others.
-
-% Suppose $H_1$ and $H_0$ are two competing hypotheses about the cipher
-% configuration and $E$ is newly observed evidence. In odds form, Bayes'
-% theorem gives
-
-% \begin{equation}
-% \boxed{
-% \frac{P(H_1\mid E)}{P(H_0\mid E)}
-% =
-% \frac{P(H_1)}{P(H_0)}
-% \underbrace{\frac{P(E\mid H_1)}{P(E\mid H_0)}}_{\text{evidence}}
-% }.
-% \label{eq:turing-bayes-odds}
-% \end{equation}
-
-% Thus the \textbf{prior odds} are multiplied by a likelihood ratio measuring
-% how strongly the new evidence favours one hypothesis over the other. In
-% modern Bayesian terminology this evidence ratio is closely associated with
-% the \textbf{\emph{Bayes factor}}. Turing described precisely this idea in his wartime
-% manuscript \textit{The Applications of Probability to Cryptography}, calling
-% it the \emph{factor principle (or Bayes' Theorem)}
-% \cite{turing1941cryptography,zabell2012turing}.
-
-% For Naval Enigma, cryptanalysts compared pairs of intercepted messages by shifting one ciphertext against the other. \textbf{Each possible shift represented a hypothesis} about the difference between the rotor starting positions used to encrypt the two messages. If a particular alignment produced an unusually large number of matching letters or repeated patterns, this provided statistical evidence that the messages had been encrypted at corresponding rotor positions, known as being in \textit{depth}. Evidence from several such comparisons could then be combined to favour or reject possible rotor orders. Turing expressed these likelihood comparisons logarithmically using the \textbf{deciban},
+Because the calculations required the multiplication of many such factors, Turing expressed the resulting weight of evidence on a logarithmic scale using the \textbf{deciban} \cite{turing1941cryptography,good1979turing},
 
 \begin{equation}
 \boxed{
@@ -696,21 +642,13 @@ D
 }
 \end{equation}
 
-On this scale, successive pieces of evidence could be \textbf{added} rather
-than multiplied. Ten decibans multiplied the odds by $10$, while one deciban
-changed them by a factor of $10^{0.1}\approx1.26$. These ideas formed part of
-Turing's statistical procedure known as \emph{Banburismus}, which helped
-cryptanalysts rank possibilities and reduce the amount of scarce Bombe
-machine time devoted to unlikely settings \cite{good1979turing,zabell2012turing}.
+Ten decibans multiplied the odds by $10$, while one deciban changed them by a factor of $10^{0.1}\approx1.26$. These ideas formed part of Turing's statistical procedure known as \emph{Banburismus}, which allowed the accumulation of evidence \textit{for or against candidate rotor relationships} and thereby eliminate unlikely rotor orders before committing scarce Bombe time \cite{good1979turing,alexander1945,zabell2012turing}.
 
-The importance of Turing's contribution was therefore not the invention of
-Bayesian hypothesis testing itself, which had earlier roots in the work of
-Wrinch, Haldane and Jeffreys, but its transformation into a practical method
-for \textbf{weighing accumulating evidence between competing hypotheses under
-severe computational constraints}. Good later helped bring these wartime
-statistical ideas into the public literature \cite{good1950,good1979turing}.
-```
-
+The importance of Turing's contribution was therefore not the invention of Bayesian hypothesis testing itself, which had earlier roots in the work of Wrinch, Haldane and Jeffreys
+\cite{wrinchjeffreys1919,wrinchjeffreys1921,
+wrinchjeffreys1923,haldane1932,jeffreys1935,
+etzwagenmakers2017}, but its transformation into a practical method for \textbf{weighing accumulating evidence between competing hypotheses under severe computational constraints}. Good later documented and further developed the wartime
+statistical ideas into the public literature  \cite{good1950,good1979turing}.
 
 %% End ------------------------------------------
 
@@ -1195,3 +1133,180 @@ medical paradox - https://www.youtube.com/watch?v=lG4VkPoG3ko
 %Jefferies prior - Fisher info matrix
 %Laplace prior? Informative and non-informative?
 %Work  that ties to Alan Turing's work
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%% Start, updated 18-08-2026 ... 21-07-2026 ------------------------------------------
+\subsection{Bayesian inference at Bletchley Park: Turing, Good and the Naval Enigma}
+\label{sec:wwii-turing-good}
+
+Although inverse probability had already found applications in astronomy, geodesy, population and mortality statistics, insurance and actuarial science during the nineteenth and early twentieth centuries \cite{mcgrayne2011,hacking1975,franklin2001}, the Second World War produced one of the most remarkable practical applications of probabilistic and Bayesian reasoning.
+
+In \textit{Part II: Second World War Era} of \textit{The Theory That Would Not Die}, McGrayne devotes considerable attention to the problems faced during the war \cite{mcgrayne2011}. Importantly, her account emphasises that British cryptanalytic work at Bletchley Park did not begin from nothing. The Polish Cipher Bureau had already made substantial progress against German Enigma during the 1930s. She writes,
+
+\begin{quote}
+“By early 1938 the Poles were reading 75\% of Germany’s army and air force messages.”
+\cite{mcgrayne2011}.
+\end{quote}
+
+The mathematicians Marian Rejewski, Jerzy Różycki and Henryk Zygalski had developed mathematical, mechanical and paper-based methods for attacking the German Enigma system. Shortly before the outbreak of war in 1939, the Polish cryptanalysts shared their discoveries with British and French intelligence, providing an important foundation for the subsequent work at Bletchley Park \cite{mcgrayne2011,hodges2014,hinsley1993}.
+
+The increasingly mechanical character of cryptography also changed the type of expertise required by the British Government. Alastair Denniston, head of the Government Code and Cypher School, deliberately began recruiting mathematicians from British universities, including Alan Turing (1912--1954), Gordon Welchman (1906--1985) and Max Newman (1897--1984). Turing subsequently took on the particularly difficult problem of German Naval Enigma and became a central figure in Hut~8. Irving John Jack'' Good (1916--2009), originally trained as a pure mathematician, joined Bletchley Park in 1941 and later described himself as Turing's main statistical assistant'' during the war \cite{good1979turing}.
+
+This was nevertheless a much broader collaborative cryptanalytic effort rather than the work of Turing alone. Different German communications systems were being attacked by different groups, and some were already yielding results during the early months of the war. McGrayne notes that
+
+\begin{quote}
+“By January [1940] the English were reading German air force messages.””
+\cite{mcgrayne2011}.
+\end{quote}
+
+Progress against Naval Enigma, however, presented a substantially more difficult problem. The German Navy employed Enigma with more sophisticated operating procedures than the other German services; GCHQ's historical account consequently describes it as \textit{the hardest cryptanalytic problem facing Bletchley Park.} It was this problem that Turing chose to attack and within which probabilistic reasoning, \textbf{Banburismus} and the weighing of evidence would become particularly important.
+
+% Although British cryptanalysts were already making progress against some
+% German Enigma traffic, \textbf{Naval Enigma} remained particularly difficult.
+% The German Navy used more elaborate operating procedures, and GCHQ later
+% described it as ``the hardest cryptanalytic problem facing Bletchley Park''
+% \cite{gchq2012turing}. Turing took responsibility for this problem in Hut~8,
+% building on the earlier Polish breakthroughs and working alongside a much
+% larger team of cryptanalysts.
+
+% Neither Turing nor Good had entered Bletchley Park as professional statisticians. The cryptanalytic problems themselves forced them to develop, rediscover and adapt probabilistic methods. Good would later become one of the major advocates of Bayesian statistics, publishing \textit{Probability and the Weighing of Evidence} in 1950 \cite{good1950}. Much of the detailed statistical work carried out during the war, however, remained secret for decades.
+
+
+
+\subsubsection*{The problem: Naval Enigma and Bayesian hypothesis testing}
+
+The Enigma machine encrypted each letter through a plugboard and a sequence of rotating wired rotors. Because the rotors moved as the machine was used, the substitution continually changed. Knowing how an Enigma machine worked was therefore not enough: the cryptanalysts had to infer its \textbf{unknown configuration} from intercepted messages and other evidence.
+
+\begin{figure}[H]
+\centering
+
+% --- Enigma machine ---
+\begin{minipage}[t]{0.42\textwidth}
+    \centering
+
+    \href{https://en.wikipedia.org/wiki/Cryptanalysis_of_the_Enigma\#/media/File:EnigmaMachineLabeled.jpg}{
+        \includegraphics[height=7cm,keepaspectratio]
+        {figs/Bayes_figs/Enigma.jpg}
+    }
+
+    \caption{A German Enigma machine.
+    \href{https://en.wikipedia.org/wiki/Cryptanalysis_of_the_Enigma\#/media/File:EnigmaMachineLabeled.jpg}
+    {Source: Wikipedia}.}
+
+    \label{fig:enigma-machine}
+\end{minipage}
+\hspace{0.04\textwidth}
+% --- Turing example ---
+\begin{minipage}[t]{0.42\textwidth}
+    \centering
+
+    \href{https://arxiv.org/pdf/1505.04714}{
+        \includegraphics[height=7cm,keepaspectratio]
+        {figs/Bayes_figs/Turing_Vigenere_example_bayesfactors.png}
+    }
+
+    \caption{Turing's Vigen\`ere cipher example in
+    \textit{The Applications of Probability to Cryptography}.
+    \href{https://arxiv.org/pdf/1505.04714}
+    {Read the original text}.}
+
+    \label{fig:turing-vigenere}
+\end{minipage}
+
+\end{figure}
+
+For Naval Enigma, the difficulty could be formulated partly as a problem of \textbf{hypothesis testing}. Cryptanalysts compared pairs of intercepted messages by shifting one ciphertext relative to the other. Each possible alignment corresponded to a hypothesis about the difference between the rotor starting positions used to encrypt the two messages. If an alignment produced an unusually large number of matching letters or repeated patterns, this provided evidence that the messages had been encrypted at corresponding rotor positions, known as being \textit{in depth}. Such evidence could then help favour or eliminate possible rotor positions and rotor orders.
+
+Let $H_1$ and $H_0$ denote two competing hypotheses about the cipher
+configuration, and let $E$ denote the observed evidence---for example, the pattern of coincidences produced by a particular message alignment. In odds form, Bayes' theorem gives
+
+\begin{equation}
+\boxed{
+\underbrace{
+\frac{P(H_1\mid E)}{P(H_0\mid E)}
+}_{\text{posterior odds}}
+=
+\underbrace{
+\frac{P(H_1)}{P(H_0)}
+}_{\text{prior odds}}
+\;
+\underbrace{
+\frac{P(E\mid H_1)}{P(E\mid H_0)}
+}_{\substack{\text{Bayes factor}\\\text{(likelihood ratio)}}}
+}
+\end{equation}
+
+
+Thus the \textbf{prior odds} are multiplied by a \textbf{likelihood ratio} \textit{measuring how strongly the observed evidence favours one hypothesis over the other}.  Turing described this idea in his wartime manuscript \textit{The Applications of Probability to Cryptography}, calling it the \emph{factor principle (or Bayes' Theorem)} \cite{turing1941cryptography,zabell2012turing}.
+
+% Thus the \textbf{prior odds} are multiplied by a likelihood ratio measuring
+% how strongly the observed evidence favours one hypothesis over the other. In
+% modern Bayesian terminology, this ratio is closely associated with the
+% \textbf{\emph{Bayes factor}}. Turing described this idea in his wartime
+% manuscript \textit{The Applications of Probability to Cryptography}, calling
+% it the \emph{factor principle (or Bayes' Theorem)}
+% \cite{turing1941cryptography,zabell2012turing}.
+
+Because evidence from many message comparisons had to be combined,
+multiplying likelihood ratios repeatedly was inconvenient. Turing therefore expressed the weight of evidence on a logarithmic scale using the \textbf{deciban},
+
+
+% The difficulty was therefore partly one of \textbf{hypothesis testing}.
+% Different rotor orders, positions or other proposed settings could be regarded
+% as competing hypotheses. Evidence---including message patterns, probable
+% plaintext, operator habits and repeated structures---could make some
+% possibilities more plausible than others.
+
+% Suppose $H_1$ and $H_0$ are two competing hypotheses about the cipher
+% configuration and $E$ is newly observed evidence. In odds form, Bayes'
+% theorem gives
+
+% \begin{equation}
+% \boxed{
+% \frac{P(H_1\mid E)}{P(H_0\mid E)}
+% =
+% \frac{P(H_1)}{P(H_0)}
+% \underbrace{\frac{P(E\mid H_1)}{P(E\mid H_0)}}_{\text{evidence}}
+% }.
+% \label{eq:turing-bayes-odds}
+% \end{equation}
+
+% Thus the \textbf{prior odds} are multiplied by a likelihood ratio measuring
+% how strongly the new evidence favours one hypothesis over the other. In
+% modern Bayesian terminology this evidence ratio is closely associated with
+% the \textbf{\emph{Bayes factor}}. Turing described precisely this idea in his wartime
+% manuscript \textit{The Applications of Probability to Cryptography}, calling
+% it the \emph{factor principle (or Bayes' Theorem)}
+% \cite{turing1941cryptography,zabell2012turing}.
+
+% For Naval Enigma, cryptanalysts compared pairs of intercepted messages by shifting one ciphertext against the other. \textbf{Each possible shift represented a hypothesis} about the difference between the rotor starting positions used to encrypt the two messages. If a particular alignment produced an unusually large number of matching letters or repeated patterns, this provided statistical evidence that the messages had been encrypted at corresponding rotor positions, known as being in \textit{depth}. Evidence from several such comparisons could then be combined to favour or reject possible rotor orders. Turing expressed these likelihood comparisons logarithmically using the \textbf{deciban},
+
+\begin{equation}
+\boxed{
+D
+=
+10\log_{10}
+\left(
+\frac{P(E\mid H_1)}{P(E\mid H_0)}
+\right).
+}
+\end{equation}
+
+On this scale, successive pieces of evidence could be \textbf{added} rather than multiplied. Ten decibans multiplied the odds by $10$, while one deciban changed them by a factor of $10^{0.1}\approx1.26$. These ideas formed part of Turing's statistical procedure known as \emph{Banburismus}, which helped cryptanalysts rank possibilities and reduce the amount of scarce Bombe machine time devoted to unlikely settings \cite{good1979turing,zabell2012turing}.
+
+The importance of Turing's contribution was therefore not the invention of Bayesian hypothesis testing itself, which had earlier roots in the work of Wrinch, Haldane and Jeffreys, but its transformation into a practical method for \textbf{weighing accumulating evidence between competing hypotheses under severe computational constraints}. Good later helped bring these wartime
+statistical ideas into the public literature  \cite{good1950,good1979turing}.
