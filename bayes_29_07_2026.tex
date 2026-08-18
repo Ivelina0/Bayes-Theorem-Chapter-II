@@ -542,51 +542,33 @@ Wald's work on sequential analysis was an important precursor to Richard Bellman
 \subsection{Bayesian inference at Bletchley Park: Turing, Good and the Naval Enigma}
 \label{sec:wwii-turing-good}
 
-Although inverse probability had already found applications in astronomy,
-geodesy, insurance and scientific inference during the nineteenth and early
-twentieth centuries \cite{mcgrayne2011,hacking1975,franklin2001}, the Second
-World War produced one of the most remarkable practical applications of
-Bayesian reasoning. At Bletchley Park, probability was no longer being used
-only to analyse scientific observations: it became a tool for deciding between
-competing hypotheses when the evidence was incomplete, continually changing,
-and militarily urgent.
+Although inverse probability had already found applications in astronomy, geodesy, population and mortality statistics, insurance and actuarial science during the nineteenth and early twentieth centuries \cite{mcgrayne2011,hacking1975,franklin2001}, the Second World War produced one of the most remarkable practical applications of probabilistic and Bayesian reasoning.
 
-The British work did not begin from nothing. During the 1930s, the Polish
-Cipher Bureau mathematicians Marian Rejewski, Jerzy Różycki and Henryk
-Zygalski had made fundamental breakthroughs against the German Enigma
-system. Rejewski used the mathematics of permutations to reconstruct the
-machine's internal wiring, while the Polish team developed mechanical and
-paper-based techniques for recovering Enigma settings. Shortly before the
-outbreak of war in 1939, these discoveries were shared with British and French
-cryptanalysts and became an important foundation for the subsequent work at
-Bletchley Park \cite{hodges2014,hinsley1993}.
+In \textit{Part II: Second World War Era} of \textit{The Theory That Would Not Die}, McGrayne devotes considerable attention to the problems faced during the war \cite{mcgrayne2011}. Importantly, her account emphasises that British cryptanalytic work at Bletchley Park did not begin from nothing. The Polish Cipher Bureau had already made substantial progress against German Enigma during the 1930s. She writes,
 
-The increasingly mechanical character of cryptography also changed the type
-of expertise that the British Government required. Alastair Denniston, head of
-the Government Code and Cypher School, deliberately recruited mathematicians
-from British universities, including Alan Turing (1912--1954), Gordon
-Welchman (1906--1985) and Max Newman (1897--1984). Turing was assigned to
-Hut~8, which concentrated on German Naval Enigma. Irving John ``Jack'' Good
-(1916--2009), originally trained as a pure mathematician, joined Hut~8 in
-1941 and later described himself as Turing's ``main statistical assistant''
-during this period \cite{good1979turing}.
+\begin{quote}
+“By early 1938 the Poles were reading 75\% of Germany’s army and air force messages.”
+\cite{mcgrayne2011}.
+\end{quote}
 
-The remarkable feature of this episode is that neither Turing nor Good had
-entered Bletchley Park as professional statisticians. The cryptanalytic
-problems themselves forced them to develop, rediscover and adapt probabilistic
-methods. Good would later become one of the major advocates of Bayesian
-statistics, publishing \textit{Probability and the Weighing of Evidence} in
-1950 \cite{good1950}. Much of the detailed statistical work carried out during
-the war, however, remained secret for decades.
+The mathematicians Marian Rejewski, Jerzy Różycki and Henryk Zygalski had developed mathematical, mechanical and paper-based methods for attacking the German Enigma system. Shortly before the outbreak of war in 1939, the Polish cryptanalysts shared their discoveries with British and French intelligence, providing an important foundation for the subsequent work at Bletchley Park \cite{mcgrayne2011,hodges2014,hinsley1993}.
+
+The increasingly mechanical character of cryptography also changed the type of expertise required by the British Government. Alastair Denniston, head of the Government Code and Cypher School, deliberately began recruiting mathematicians from British universities, including Alan Turing (1912--1954), Gordon Welchman (1906--1985) and Max Newman (1897--1984). Turing subsequently took on the particularly difficult problem of German Naval Enigma and became a central figure in Hut~8. Irving John Jack'' Good (1916--2009), originally trained as a pure mathematician, joined Bletchley Park in 1941 and later described himself as Turing's main statistical assistant'' during the war \cite{good1979turing}.
+
+This was nevertheless a much broader collaborative cryptanalytic effort rather than the work of Turing alone. Different German communications systems were being attacked by different groups, and some were already yielding results during the early months of the war. McGrayne notes that
+
+\begin{quote}
+“By January [1940] the English were reading German air force messages.””
+\cite{mcgrayne2011}.
+\end{quote}
+
+Progress against Naval Enigma, however, presented a substantially more difficult problem. The German Navy employed Enigma with more sophisticated operating procedures than the other German services; GCHQ's historical account consequently describes it as \textit{the hardest cryptanalytic problem facing Bletchley Park.} It was this problem that Turing chose to attack and within which probabilistic reasoning, \textbf{Banburismus} and the weighing of evidence would become particularly important.
+
+% Neither Turing nor Good had entered Bletchley Park as professional statisticians. The cryptanalytic problems themselves forced them to develop, rediscover and adapt probabilistic methods. Good would later become one of the major advocates of Bayesian statistics, publishing \textit{Probability and the Weighing of Evidence} in 1950 \cite{good1950}. Much of the detailed statistical work carried out during the war, however, remained secret for decades.
 
 \subsubsection*{The problem: German Naval Enigma}
 
-The Enigma machine transformed every typed letter by passing an electrical
-signal through a plugboard and a sequence of wired rotors before illuminating
-a ciphertext letter. Because the rotors moved as the machine was used, the
-substitution changed from one letter to the next. Knowledge of the machine
-itself was therefore insufficient: the cryptanalyst also needed to infer its
-unknown settings.
+The Enigma machine transformed every typed letter by passing an electrical signal through a plugboard and a sequence of wired rotors before illuminating a ciphertext letter. Because the rotors moved as the machine was used, the substitution changed from one letter to the next. Knowledge of the machine itself was therefore insufficient: the cryptanalyst also needed to infer its unknown settings.
 
 \begin{figure}[H]
     \centering
