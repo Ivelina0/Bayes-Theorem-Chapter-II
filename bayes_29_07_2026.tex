@@ -448,11 +448,8 @@ In words, Bayes' theorem begins with probabilities assigned to the different pos
 
 The same idea extends naturally to \textbf{continuous} problems. In the discrete case there is a finite or countable list of possibilities, $B_1,B_2,\ldots$. In a continuous problem, however, an unknown quantity may take any value within an interval. For example, an unknown probability might take any value between $0$ and $1$, rather than being restricted to a list of possible values. Such an unknown quantity is commonly represented by a parameter such as $\theta$.
 
-
-
 % \subsection{Bayesian developments after 1950's} 
 % \subsection{The Birth of Modern Statistical Inference, 20th century} 
-
 \subsection{From inverse probability to competing theories of statistical inference
 (c.~1900--1954)}
 
@@ -523,57 +520,6 @@ A Bayesian instead first updates the probability distribution of the unknown par
 Wald's work on sequential analysis was an important precursor to Richard Bellman's (1920--1984) development of \textbf{dynamic programming}. Bellman described his new theory as \textit{"intimately related"} to Wald's sequential analysis \cite{bellman1952}, while his broader development of dynamic programming also drew on work on sequential decision problems and multi-stage optimisation \cite{bellman1952,bellman1957}. Dynamic programming later became foundational to optimal control, Markov decision processes and reinforcement learning\footnote{Reinforcement learning later became a central component of several major artificial-intelligence systems developed by DeepMind (now Google DeepMind). AlphaGo combined deep neural networks, tree search, supervised learning from expert human games and reinforcement learning through self-play to achieve professional-level and subsequently superhuman performance in Go \cite{silver2016alphago}}.
 
 
-
-% Despite strong criticism from Ronald Fisher and many frequentist statisticians, Bayesian statistics continued to develop throughout the twentieth century. Frequentists argued that probability should only describe long run frequencies of repeated events and rejected the idea of assigning probabilities to unknown parameters. However, Bayesian researchers believed probability could also represent uncertainty about unknown quantities, allowing prior knowledge to be combined with observed data. By the 1950s, this debate had led to two major branches of Bayesian statistics: Bayesian inference and Bayesian decision theory.
-
-% Bayesian inference focused on updating beliefs using Bayes' theorem. Starting with a prior distribution, new evidence is incorporated through the likelihood function to produce a posterior distribution, representing updated beliefs about the unknown parameters. During this period, Harold Jeffreys made important contributions by introducing objective Bayesian methods. His most well known contribution, Jeffreys prior, provided a way of choosing non-informative priors using the Fisher information matrix, allowing Bayesian analyses to be performed with minimal subjective assumptions. Alongside this, statisticians continued to investigate different choices of informative and non-informative priors, including the uniform prior originally suggested by Laplace.
-% %(Jeffreys, 1939)
-
-% At the same time, Bayesian decision theory developed alongside advances in statistical decision theory. Abraham Wald established the mathematical foundations of decision theory during the 1940s while working on military problems for the United States during the Second World War. One of the famous examples was the aircraft survival problem, where Wald demonstrated that armour should be placed where returning aircraft showed the least damage, since aircraft hit in those locations were less likely to survive. His work introduced the concept of minimising expected loss when making decisions under uncertainty. 
-% %(Wald, 1950).
-% article: https://medium.com/@penguinpress/an-excerpt-from-how-not-to-be-wrong-by-jordan-ellenberg-664e708cfc3d
-
-% % \begin{figure}
-% %     \centering
-% %     \includegraphics[width=0.4\linewidth]{figs/Bayes_figs/ww2_plane_problem.jpeg}
-% %     \caption{Aircraft Survivability Diagram}
-% %     \label{fig:placeholder}
-% % \end{figure}
-
-
-
-% Leonard J. Savage later combined Wald's statistical decision framework with Bayesian probability. In The Foundations of Statistics (1954), Savage argued that rational decisions should be based on posterior probabilities together with a utility or loss function. Rather than selecting the most likely outcome alone, Bayesian decision theory chooses the action that minimises expected loss or maximises expected utility. This framework closely links to utility theory and provides a practical extension of Bayesian inference from estimating unknown quantities to making optimal decisions.
-
-
-% Today, these two branches are rarely separated. Modern Bayesian methods first use inference to estimate a posterior distribution and then apply decision theory to determine the optimal action. This combination forms the basis of many artificial intelligence and machine learning systems, where posterior distributions quantify uncertainty while loss functions guide decision making. Applications now span medicine, economics, robotics, autonomous systems, and natural language processing, demonstrating how Bayesian inference and Bayesian decision theory together provide a principled framework for learning from data and making decisions under uncertainty.
-
-
-% These developments also laid the foundations for probabilistic reasoning in computing. During the 1930s, Alan Turing studied at Princeton University, where he became acquainted with John von Neumann, whose work on computing and game theory would later complement Bayesian ideas about rational decision making. At the same time, Turing was familiar with Harold Jeffreys' work on probability, and these ideas would later influence his approach to reasoning under uncertainty during the Second World War. This connection provides a natural transition from the theoretical development of Bayesian statistics to one of its earliest practical applications: Turing's Bayesian methods for breaking the German Enigma cipher at Bletchley Park.
-
-% CHECK WITH IVE IF ANY INFO IS REPEATED
-
-
-%Bayesian methods contiued to be developed and attempted to be enhanced regardless of Fishers and other frequentist statisticians protests and refusal to acknowledge the concepts. 
-%In the 1950's, 2 branches of bayes were developed. Bayesian inference and bayesian Decision theory. -> Both of which were later combined to make optimal decisions in modern bayesian applications like, economics, medicine and more.
-
-%Looking specifically at Bayesian Decision Theory Branch 1:
-%Wald worked with the US on aircraft armors where he used the general stats decision theory. - Aircraft survival experiment
-%Savage in 1970's worked on formal bayesian statistical decsion theory
-
-%Decision theory - bayes risk function vs frequentist risk. Link to utility theory example in LLN and CLT chapters. 
-%Modern AI systems use both branches- Bayesian inference + Posterior distribution + Decision theory (Loss functions, Expected utility) = optimal decision making
-
-%Branch 2:
-%Jefferies prior - Fisher info matrix
-%Laplace prior? Informative and non-informative?
-%Work  that ties to Alan Turing's work
-
-
-
-%Branch 2:
-%Jefferies prior - Fisher info matrix
-%Laplace prior? Informative and non-informative?
-%Work  that ties to Alan Turing's work
 
 
 %% ------------------------------------------
@@ -651,22 +597,22 @@ The central statistical question therefore became
 \subsubsection*{Testing Hypotheses via Decibans}
 
 
-\textcolor{red}{Introduce base of bayesian hypothesis testing with the textbooks:  \& compare in brief sentence why it is different to freuqentist approaches. When do we use one over the other?}
-\noindent
-\fcolorbox{red}{red!10}{%
-  \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
-    \raggedright
-    \textcolor{red}{%
-      \textbf{TODO:} Add an introduction textbooks about Bayesian Hypothesis testing - mentioning credible intervals vs confidence intervals, use cases - spam emails etc. 
+% \textcolor{red}{Introduce base of bayesian hypothesis testing with the textbooks:  \& compare in brief sentence why it is different to freuqentist approaches. When do we use one over the other?}
+% \noindent
+% \fcolorbox{red}{red!10}{%
+%   \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+%     \raggedright
+%     \textcolor{red}{%
+%       \textbf{TODO:} Add an introduction textbooks about Bayesian Hypothesis testing - mentioning credible intervals vs confidence intervals, use cases - spam emails etc. 
       
-      \begin{enumerate}
-        \item Statistical Decision Theory and Bayesian Analysis by James O. Berger  
-        \item The Bayesian Choice by Christian P. Robert
-        \item Bayesian Data Analysis (BDA3) by Andrew Gelman et al.
-      \end{enumerate}
-    }%
-  }%
-}
+%       \begin{enumerate}
+%         \item Statistical Decision Theory and Bayesian Analysis by James O. Berger  
+%         \item The Bayesian Choice by Christian P. Robert
+%         \item Bayesian Data Analysis (BDA3) by Andrew Gelman et al.
+%       \end{enumerate}
+%     }%
+%   }%
+% }
 
 % Suppose $H$ denotes the hypothesis that a particular Enigma setting is correct, while $E$ represents newly observed evidence obtained from an intercepted message.
 
@@ -902,145 +848,145 @@ This necessitates \emph{sequential Bayesian filtering}: evaluating $p(x_t \mid y
 
 % \subsection{Bayesian Statistics powers Generative Language Models}
 
-% \newpage
+\newpage
 
-% % --- START OF FIT-TO-PAGE DECISION TREE ---
-% \begin{figure}[htbp]
-% \centering
+% --- START OF FIT-TO-PAGE DECISION TREE ---
+\begin{figure}[htbp]
+\centering
 
-% % Color Palette
-% \definecolor{primary}{HTML}{1A365D}    % Deep Blue
-% \definecolor{decision}{HTML}{2C5282}   % Slate Blue
-% \definecolor{leaf}{HTML}{276749}       % Forest Green
+% Color Palette
+\definecolor{primary}{HTML}{1A365D}    % Deep Blue
+\definecolor{decision}{HTML}{2C5282}   % Slate Blue
+\definecolor{leaf}{HTML}{276749}       % Forest Green
 
-% % Guaranteed page-width fit
-% \resizebox{\linewidth}{!}{%
-% \begin{tikzpicture}[
-%     auto,
-%     node distance = 0.9cm and 0.8cm,
-%     font = \sffamily\small,
-%     % Decision Box (Rhombus/Diamond)
-%     question/.style = {
-%         diamond,
-%         draw=decision,
-%         fill=decision!12,
-%         thick,
-%         text width=2.8cm,
-%         align=center,
-%         inner sep=0pt,
-%         drop shadow={opacity=0.15, shadow xshift=1pt, shadow yshift=-1pt}
-%     },
-%     % Algorithm/Leaf Box (Rectangle)
-%     leaf/.style = {
-%         rectangle,
-%         rounded corners=3pt,
-%         draw=leaf,
-%         fill=leaf!12,
-%         thick,
-%         text width=3.2cm,
-%         align=center,
-%         minimum height=0.7cm,
-%         inner sep=3pt,
-%         drop shadow={opacity=0.15, shadow xshift=1pt, shadow yshift=-1pt}
-%     },
-%     branch/.style = {
-%         font=\sffamily\bfseries\scriptsize,
-%         color=primary
-%     },
-%     line/.style = {
-%         draw=primary,
-%         -Stealth,
-%         thick
-%     }
-% ]
+% Guaranteed page-width fit
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[
+    auto,
+    node distance = 0.9cm and 0.8cm,
+    font = \sffamily\small,
+    % Decision Box (Rhombus/Diamond)
+    question/.style = {
+        diamond,
+        draw=decision,
+        fill=decision!12,
+        thick,
+        text width=2.8cm,
+        align=center,
+        inner sep=0pt,
+        drop shadow={opacity=0.15, shadow xshift=1pt, shadow yshift=-1pt}
+    },
+    % Algorithm/Leaf Box (Rectangle)
+    leaf/.style = {
+        rectangle,
+        rounded corners=3pt,
+        draw=leaf,
+        fill=leaf!12,
+        thick,
+        text width=3.2cm,
+        align=center,
+        minimum height=0.7cm,
+        inner sep=3pt,
+        drop shadow={opacity=0.15, shadow xshift=1pt, shadow yshift=-1pt}
+    },
+    branch/.style = {
+        font=\sffamily\bfseries\scriptsize,
+        color=primary
+    },
+    line/.style = {
+        draw=primary,
+        -Stealth,
+        thick
+    }
+]
 
-% % ==================== NODES ====================
+% ==================== NODES ====================
 
-% % Level 1: Q1 Likelihood
-% \node [question] (q1) {\textbf{Q1: Likelihood}\\Is $p(x|z)$ computable?};
-% \node [leaf, left=0.8cm of q1] (lfi) {\textbf{Likelihood-Free Inference}\\Classical ABC / Neural SBI};
+% Level 1: Q1 Likelihood
+\node [question] (q1) {\textbf{Q1: Likelihood}\\Is $p(x|z)$ computable?};
+\node [leaf, left=0.8cm of q1] (lfi) {\textbf{Likelihood-Free Inference}\\Classical ABC / Neural SBI};
 
-% % Level 2: Q2 Data Type
-% \node [question, below=0.8cm of q1] (q2) {\textbf{Q2: Data Type}\\Dynamic / streaming?};
+% Level 2: Q2 Data Type
+\node [question, below=0.8cm of q1] (q2) {\textbf{Q2: Data Type}\\Dynamic / streaming?};
 
-% % Branch Q2 -> YES (Streaming Sub-tree)
-% \node [question, right=0.8cm of q2] (q2a) {\textbf{Q2a: State}\\Continuous or Discrete?};
-% \node [leaf, above right=0.1cm and 0.8cm of q2a] (hmm) {\textbf{HMM}\\Forward-Backward / Viterbi};
+% Branch Q2 -> YES (Streaming Sub-tree)
+\node [question, right=0.8cm of q2] (q2a) {\textbf{Q2a: State}\\Continuous or Discrete?};
+\node [leaf, above right=0.1cm and 0.8cm of q2a] (hmm) {\textbf{HMM}\\Forward-Backward / Viterbi};
 
-% \node [question, below=0.7cm of q2a] (q2b) {\textbf{Q2b: Dynamics}\\Linear \& Gaussian?};
-% \node [leaf, right=0.8cm of q2b] (kf) {\textbf{Kalman Filter (KF)}};
+\node [question, below=0.7cm of q2a] (q2b) {\textbf{Q2b: Dynamics}\\Linear \& Gaussian?};
+\node [leaf, right=0.8cm of q2b] (kf) {\textbf{Kalman Filter (KF)}};
 
-% \node [question, below=0.7cm of q2b] (q2c) {\textbf{Q2c: Dynamics}\\Severity of non-linearity?};
-% \node [leaf, right=0.8cm of q2c] (ekf) {\textbf{EKF / UKF}};
+\node [question, below=0.7cm of q2b] (q2c) {\textbf{Q2c: Dynamics}\\Severity of non-linearity?};
+\node [leaf, right=0.8cm of q2c] (ekf) {\textbf{EKF / UKF}};
 
-% \node [question, below=0.7cm of q2c] (q2d) {\textbf{Q2d: Parameters}\\Need static params ($\theta$)?};
-% \node [leaf, right=0.8cm of q2d] (smc) {\textbf{SIR Particle Filter}};
-% \node [leaf, below=0.3cm of smc] (pmcmc) {\textbf{PMCMC / SMC$^2$}};
+\node [question, below=0.7cm of q2c] (q2d) {\textbf{Q2d: Parameters}\\Need static params ($\theta$)?};
+\node [leaf, right=0.8cm of q2d] (smc) {\textbf{SIR Particle Filter}};
+\node [leaf, below=0.3cm of smc] (pmcmc) {\textbf{PMCMC / SMC$^2$}};
 
-% % Branch Q2 -> NO (Static Data)
-% \node [question, below=3.8cm of q2] (q3) {\textbf{Q3: Data Scale}\\Massive dataset ($N > 10^5$)?};
+% Branch Q2 -> NO (Static Data)
+\node [question, below=3.8cm of q2] (q3) {\textbf{Q3: Data Scale}\\Massive dataset ($N > 10^5$)?};
 
-% % Branch Q3 -> YES (Massive N)
-% \node [question, right=0.8cm of q3] (q3a) {\textbf{Q3a: Latents}\\High-D continuous generative model?};
-% \node [leaf, above right=0.1cm and 0.8cm of q3a] (vae) {\textbf{Amortized VI (VAE)}};
-% \node [leaf, below right=0.1cm and 0.8cm of q3a] (svi) {\textbf{Stochastic VI / SGLD}};
+% Branch Q3 -> YES (Massive N)
+\node [question, right=0.8cm of q3] (q3a) {\textbf{Q3a: Latents}\\High-D continuous generative model?};
+\node [leaf, above right=0.1cm and 0.8cm of q3a] (vae) {\textbf{Amortized VI (VAE)}};
+\node [leaf, below right=0.1cm and 0.8cm of q3a] (svi) {\textbf{Stochastic VI / SGLD}};
 
-% % Branch Q3 -> NO (Moderate/Small Data)
-% \node [question, below=1.8cm of q3] (q4) {\textbf{Q4: Parameters}\\Continuous or Discrete?};
+% Branch Q3 -> NO (Moderate/Small Data)
+\node [question, below=1.8cm of q3] (q4) {\textbf{Q4: Parameters}\\Continuous or Discrete?};
 
-% % Branch Q4 -> Discrete
-% \node [question, right=0.8cm of q4] (q4a) {\textbf{Q4a: Target}\\Multimodal / Combinatorial?};
-% \node [leaf, above right=0.1cm and 0.8cm of q4a] (asmc) {\textbf{Annealed SMC}};
-% \node [leaf, below right=0.1cm and 0.8cm of q4a] (gibbs) {\textbf{Gibbs / MH}};
+% Branch Q4 -> Discrete
+\node [question, right=0.8cm of q4] (q4a) {\textbf{Q4a: Target}\\Multimodal / Combinatorial?};
+\node [leaf, above right=0.1cm and 0.8cm of q4a] (asmc) {\textbf{Annealed SMC}};
+\node [leaf, below right=0.1cm and 0.8cm of q4a] (gibbs) {\textbf{Gibbs / MH}};
 
-% % Branch Q4 -> Continuous
-% \node [question, below=1.6cm of q4] (q4b) {\textbf{Q4b: Dimension}\\High-D ($D > 20$) or Correlated?};
-% \node [leaf, right=0.8cm of q4b] (hmc) {\textbf{HMC / NUTS}\\($\nabla_z \log p(x,z)$)};
-% \node [leaf, below=0.3cm of hmc] (rwm) {\textbf{Random-Walk MH / Slice}};
+% Branch Q4 -> Continuous
+\node [question, below=1.6cm of q4] (q4b) {\textbf{Q4b: Dimension}\\High-D ($D > 20$) or Correlated?};
+\node [leaf, right=0.8cm of q4b] (hmc) {\textbf{HMC / NUTS}\\($\nabla_z \log p(x,z)$)};
+\node [leaf, below=0.3cm of hmc] (rwm) {\textbf{Random-Walk MH / Slice}};
 
 
-% % ==================== PATHS & CONNECTIONS ====================
+% ==================== PATHS & CONNECTIONS ====================
 
-% % Main Spine
-% \draw [line] (q1) -- node [branch, left] {NO} (lfi);
-% \draw [line] (q1) -- node [branch, right] {YES} (q2);
-% \draw [line] (q2) -- node [branch, right] {NO (Static)} (q3);
-% \draw [line] (q3) -- node [branch, right] {NO} (q4);
+% Main Spine
+\draw [line] (q1) -- node [branch, left] {NO} (lfi);
+\draw [line] (q1) -- node [branch, right] {YES} (q2);
+\draw [line] (q2) -- node [branch, right] {NO (Static)} (q3);
+\draw [line] (q3) -- node [branch, right] {NO} (q4);
 
-% % Dynamic Branch (Q2)
-% \draw [line] (q2) -- node [branch, above] {YES} (q2a);
-% \draw [line] (q2a) |- node [branch, near start, above] {Discrete} (hmm);
-% \draw [line] (q2a) -- node [branch, right] {Continuous} (q2b);
-% \draw [line] (q2b) -- node [branch, above] {YES} (kf);
-% \draw [line] (q2b) -- node [branch, right] {NO} (q2c);
-% \draw [line] (q2c) -- node [branch, above] {Mild} (ekf);
-% \draw [line] (q2c) -- node [branch, right] {Severe} (q2d);
-% \draw [line] (q2d) -- node [branch, above] {NO} (smc);
-% \draw [line] (q2d) |- node [branch, near start, right] {YES} (pmcmc);
+% Dynamic Branch (Q2)
+\draw [line] (q2) -- node [branch, above] {YES} (q2a);
+\draw [line] (q2a) |- node [branch, near start, above] {Discrete} (hmm);
+\draw [line] (q2a) -- node [branch, right] {Continuous} (q2b);
+\draw [line] (q2b) -- node [branch, above] {YES} (kf);
+\draw [line] (q2b) -- node [branch, right] {NO} (q2c);
+\draw [line] (q2c) -- node [branch, above] {Mild} (ekf);
+\draw [line] (q2c) -- node [branch, right] {Severe} (q2d);
+\draw [line] (q2d) -- node [branch, above] {NO} (smc);
+\draw [line] (q2d) |- node [branch, near start, right] {YES} (pmcmc);
 
-% % Massive Scale Branch (Q3)
-% \draw [line] (q3) -- node [branch, above] {YES} (q3a);
-% \draw [line] (q3a) |- node [branch, near start, above] {YES} (vae);
-% \draw [line] (q3a) |- node [branch, near start, below] {NO} (svi);
+% Massive Scale Branch (Q3)
+\draw [line] (q3) -- node [branch, above] {YES} (q3a);
+\draw [line] (q3a) |- node [branch, near start, above] {YES} (vae);
+\draw [line] (q3a) |- node [branch, near start, below] {NO} (svi);
 
-% % Parameter Space Branches (Q4)
-% \draw [line] (q4) -- node [branch, above] {Discrete / Mixed} (q4a);
-% \draw [line] (q4) -- node [branch, right] {Continuous} (q4b);
+% Parameter Space Branches (Q4)
+\draw [line] (q4) -- node [branch, above] {Discrete / Mixed} (q4a);
+\draw [line] (q4) -- node [branch, right] {Continuous} (q4b);
 
-% \draw [line] (q4a) |- node [branch, near start, above] {YES} (asmc);
-% \draw [line] (q4a) |- node [branch, near start, below] {NO} (gibbs);
+\draw [line] (q4a) |- node [branch, near start, above] {YES} (asmc);
+\draw [line] (q4a) |- node [branch, near start, below] {NO} (gibbs);
 
-% \draw [line] (q4b) -- node [branch, above] {YES} (hmc);
-% \draw [line] (q4b) |- node [branch, near start, right] {NO} (rwm);
+\draw [line] (q4b) -- node [branch, above] {YES} (hmc);
+\draw [line] (q4b) |- node [branch, near start, right] {NO} (rwm);
 
-% \end{tikzpicture}%
-% }
-% \caption{Master Decision Tree for Selecting Bayesian Inference Methods.}
-% \label{fig:bayes_decision_tree}
-% \end{figure}
-% % --- END OF FIT-TO-PAGE DECISION TREE ---
+\end{tikzpicture}%
+}
+\caption{Master Decision Tree for Selecting Bayesian Inference Methods.}
+\label{fig:bayes_decision_tree}
+\end{figure}
+% --- END OF FIT-TO-PAGE DECISION TREE ---
 
-% \newpage
+\newpage
 
 
 
@@ -1059,135 +1005,139 @@ medical paradox - https://www.youtube.com/watch?v=lG4VkPoG3ko
 
 
 
+
+
+
+
 \newpage
 
 \section*{Appendix}
 
 
 
-\subsection{From inverse probability to competing theories of statistical inference
-(c.~1900--1954)}
+% \subsection{From inverse probability to competing theories of statistical inference
+% (c.~1900--1954)}
 
-\paragraph{A new foundation for probability (1900--1933).}
+% \paragraph{A new foundation for probability (1900--1933).}
 
-At the beginning of the twentieth century, probability itself was being
-reconstructed on firmer mathematical foundations. David Hilbert
-(1862--1943) called for its axiomatization in his sixth problem of 1900; Émile Borel brought measure-theoretic ideas into probability, drawing on the emerging theory of measure and integration developed by Borel and Henri Lebesgue, while Richard von Mises (1883--1953)
-developed an explicitly frequency-based interpretation. The mathematical development by Andrey Kolmogorov's (1903--1987)
-\textit{Grundbegriffe der Wahrscheinlichkeitsrechnung} (1933), which defined
-probability axiomatically as a measure on a space of events
-\cite{hilbert1900,borel1909,vonmises1919,kolmogorov1933}.
+% At the beginning of the twentieth century, probability itself was being
+% reconstructed on firmer mathematical foundations. David Hilbert
+% (1862--1943) called for its axiomatization in his sixth problem of 1900; Émile Borel brought measure-theoretic ideas into probability, drawing on the emerging theory of measure and integration developed by Borel and Henri Lebesgue, while Richard von Mises (1883--1953)
+% developed an explicitly frequency-based interpretation. The mathematical development by Andrey Kolmogorov's (1903--1987)
+% \textit{Grundbegriffe der Wahrscheinlichkeitsrechnung} (1933), which defined
+% probability axiomatically as a measure on a space of events
+% \cite{hilbert1900,borel1909,vonmises1919,kolmogorov1933}.
 
-But the question of inverse probability persisted: \textit{what exactly may be assigned a probability?} If $\theta$ is unknown but fixed quantity, can we meaningfully speak of $P(\theta\mid D)$? During the following decades of the 20-th century, several different answers were developed.
+% But the question of inverse probability persisted: \textit{what exactly may be assigned a probability?} If $\theta$ is unknown but fixed quantity, can we meaningfully speak of $P(\theta\mid D)$? During the following decades of the 20-th century, several different answers were developed.
 
-\paragraph{Fisher: likelihood instead of inverse probability (1922--1935).}
+% \paragraph{Fisher: likelihood instead of inverse probability (1922--1935).}
 
-Ronald Aylmer Fisher (1890--1962) developed a non-Bayesian framework of statistical inference in which \textbf{likelihood} provided a way of comparing possible values of an unknown parameter without assigning probabilities to those values. He then developed \textbf{maximum likelihood estimation} and introduced concepts for assessing how much information about a parameter could be extracted from data, including \textbf{sufficiency}, \textbf{efficiency} and \textbf{statistical information}. In parallel, he developed \textbf{significance testing} and \textbf{fiducial inference} as an alternative way of making inferential statements about unknown parameters without introducing Bayesian prior probabilities \cite{fisher1922foundations,fisher1925statistical,fisher1930inverse, fisher1935fiducial,aldrich1997}. While his rejection of inverse probability was explicit. In 1930 he described it as a doctrine that appeared to \begin{quote} ``a succession of sound writers to be \textit{fundamentally false and devoid of foundation}'' \cite[p.~528]{fisher1930inverse}. \end{quote}
+% Ronald Aylmer Fisher (1890--1962) developed a non-Bayesian framework of statistical inference in which \textbf{likelihood} provided a way of comparing possible values of an unknown parameter without assigning probabilities to those values. He then developed \textbf{maximum likelihood estimation} and introduced concepts for assessing how much information about a parameter could be extracted from data, including \textbf{sufficiency}, \textbf{efficiency} and \textbf{statistical information}. In parallel, he developed \textbf{significance testing} and \textbf{fiducial inference} as an alternative way of making inferential statements about unknown parameters without introducing Bayesian prior probabilities \cite{fisher1922foundations,fisher1925statistical,fisher1930inverse, fisher1935fiducial,aldrich1997}. While his rejection of inverse probability was explicit. In 1930 he described it as a doctrine that appeared to \begin{quote} ``a succession of sound writers to be \textit{fundamentally false and devoid of foundation}'' \cite[p.~528]{fisher1930inverse}. \end{quote}
 
-At Rothamsted, Fisher worked closely with his first statistical assistant, \textbf{Winifred Alice Mackenzie (1896--1954)}, who co-authored studies on rainfall, bacterial counts and crop variation, including an important 1923 paper connected with the early development of analysis of variance  \cite{fishermackenzie1923,tayloraldrich2022}. Historians have additionally documented the substantial workforce of women employed as computing assistants at Rothamsted, whose computational labour was rarely acknowledged in conventional accounts of the development of statistics \cite{parolini2015}.
+% At Rothamsted, Fisher worked closely with his first statistical assistant, \textbf{Winifred Alice Mackenzie (1896--1954)}, who co-authored studies on rainfall, bacterial counts and crop variation, including an important 1923 paper connected with the early development of analysis of variance  \cite{fishermackenzie1923,tayloraldrich2022}. Historians have additionally documented the substantial workforce of women employed as computing assistants at Rothamsted, whose computational labour was rarely acknowledged in conventional accounts of the development of statistics \cite{parolini2015}.
 
 
 
-\paragraph{Neyman and Pearson: hypothesis testing and error control
-(1928--1937).}
+% \paragraph{Neyman and Pearson: hypothesis testing and error control
+% (1928--1937).}
 
-Jerzy Neyman (1894--1981) and Egon Pearson (1895--1980) developed another non-Bayesian approach to statistical inference. Their work between 1928 and 1933 treated hypothesis testing as a decision between a \textbf{null hypothesis} $H_0$ and an \textbf{alternative hypothesis} $H_1$ \cite{neymanpearson1928,neymanpearson1933}. Instead of assigning probabilities to the hypotheses themselves, they asked how often a testing rule would make the wrong decision if the same experiment were performed many times under the same conditions:
+% Jerzy Neyman (1894--1981) and Egon Pearson (1895--1980) developed another non-Bayesian approach to statistical inference. Their work between 1928 and 1933 treated hypothesis testing as a decision between a \textbf{null hypothesis} $H_0$ and an \textbf{alternative hypothesis} $H_1$ \cite{neymanpearson1928,neymanpearson1933}. Instead of assigning probabilities to the hypotheses themselves, they asked how often a testing rule would make the wrong decision if the same experiment were performed many times under the same conditions:
 
-\begin{equation}
-\underbrace{P(\text{reject }H_0 \mid H_0 \text{ is true})}_{\text{Type I error }(\alpha)}
-\qquad\text{and}\qquad
-\underbrace{P(\text{do not reject }H_0 \mid H_1 \text{ is true})}_{\text{Type II error }(\beta)}.
-\end{equation}
+% \begin{equation}
+% \underbrace{P(\text{reject }H_0 \mid H_0 \text{ is true})}_{\text{Type I error }(\alpha)}
+% \qquad\text{and}\qquad
+% \underbrace{P(\text{do not reject }H_0 \mid H_1 \text{ is true})}_{\text{Type II error }(\beta)}.
+% \end{equation}
 
-The \textbf{power} of the test is the probability of correctly rejecting
-$H_0$ when $H_1$ is true:
+% The \textbf{power} of the test is the probability of correctly rejecting
+% $H_0$ when $H_1$ is true:
 
-\begin{equation}
-P(\text{reject }H_0 \mid H_1 \text{ is true})
-=
-1-\beta.
-\end{equation}
-
-% Neyman's 1937 theory of \textbf{confidence intervals} applied the same idea to estimation: a confidence-interval procedure was designed so that, over many repetitions of the experiment, a specified proportion of the intervals would contain the true parameter \cite{neyman1937}. 
-
-Neyman applied the same idea to his 1937 theory of \textbf{confidence intervals}. Fisher and Neyman--Pearson are now often grouped together as ``frequentist'', although their interpretations of statistical testing differed substantially. Later textbooks on Statisitcs often combined Fisherian p-values/significance testing with Neyman–Pearson terminology and error-control machinery, despite disagreements between their founders.
-
-% Nevertheless, in modern times their combined "frequentist" approach provides hypothesis-testing problems that can be studied with the binomial and Normal distributions already available at A-level, without requiring an additional theory of prior distributions and posterior integration.
-
-\paragraph{Wrinch, Haldane and Jeffreys: probabilities of hypotheses
-(1919--1946).}
-
-Meanwhile, Dorothy Wrinch (1894--1976) and Harold Jeffreys (1891--1989) were developing almost the opposite programme. Between 1919 and 1923 they treated probability as a logic for reasoning about scientific propositions  \cite{wrinchjeffreys1919,wrinchjeffreys1921,wrinchjeffreys1923}. In 1921 they wrote that
-
-\begin{quote}
-``an inference drawn from a simple scientific law may have a very high
-probability, not far from unity''
-\cite[p.~380]{wrinchjeffreys1921}.
-\end{quote}
-
-J.~B.~S.~Haldane (1892--1964) developed an early Bayesian approach to hypothesis testing.. He introduced a prior in which an exact hypothesis, such as ``there is no effect'' ($\theta=0$), could itself be assigned some probability, while the remaining probability was spread continuously over possible alternatives \cite{haldane1932,etzwagenmakers2017}. Jeffreys then developed Bayesian significance tests in 1935 and systematically in \textit{Theory of Probability} (1939) \cite{jeffreys1935,jeffreys1939}.
-
-Jeffreys also returned to the old difficulty of choosing a prior. His 1939 book developed invariant approaches to prior choice, and his 1946 paper gave the general Fisher-information rule $\pi_J(\boldsymbol{\theta}) \propto \sqrt{\det I(\boldsymbol{\theta})},$ which is invariant under smooth one-to-one reparameterisations \cite{jeffreys1939,jeffreys1946}.
-
-\paragraph{Wald and Savage: inference becomes decision-making
-(1939--1954).}
-
-Abraham Wald (1902--1950) reframed the problem again. From 1939 onward he treated estimation and hypothesis testing as instances of a more general \textbf{decision problem}: after observing data, a statistician must choose some action $a$. This action is evaluated through a \textbf{loss function} $L(a,\theta)$, which measures the cost of taking action $a$ when the true, but unknown, model parameter is $\theta$ \cite{wald1939,wald1950}.
-
-A Bayesian instead first updates the probability distribution of the unknown parameter $\theta$ after observing the data, and then chooses the action with the smallest \textbf{expected loss under that posterior distribution}. In other words, the preferred action is the one expected to perform best given what is now known about $\theta$.
-
-% For example, an action might be an estimate of an unknown parameter, a
-% decision to accept or reject a hypothesis, or some other choice made from the observed data. A \textbf{decision rule}, written $\delta(X)$, is therefore a rule that tells us which action to take for each possible dataset $X$.
-
-% Because the observed data are random, the action $\delta(X)$ may also vary from one sample to another. Wald therefore evaluated a decision rule through its \textbf{risk function},
-
-% \[
-% R(\theta,\delta)
+% \begin{equation}
+% P(\text{reject }H_0 \mid H_1 \text{ is true})
 % =
-% \mathbb{E}_{\theta}
-% \left[
-% L(\delta(X),\theta)
-% \right].
-% \]
+% 1-\beta.
+% \end{equation}
 
-% Here, $\mathbb{E}_{\theta}$ means that the loss is averaged over all possible datasets that could be generated when the true parameter has the fixed value $\theta$. Thus $R(\theta,\delta)$ measures the \textbf{long-run expected loss} of using the rule $\delta$ when $\theta$ is the true parameter.
+% % Neyman's 1937 theory of \textbf{confidence intervals} applied the same idea to estimation: a confidence-interval procedure was designed so that, over many repetitions of the experiment, a specified proportion of the intervals would contain the true parameter \cite{neyman1937}. 
 
-% This framework was not intrinsically Bayesian. A frequentist could compare decision rules according to their long-run risk
-% \cite{wald1945}. A Bayesian instead assigns a probability distribution to the unknown parameter $\theta$ and updates this distribution after observing the actual data $D$. The Bayesian then chooses the action with the smallest \textbf{posterior expected loss},
+% Neyman applied the same idea to his 1937 theory of \textbf{confidence intervals}. Fisher and Neyman--Pearson are now often grouped together as ``frequentist'', although their interpretations of statistical testing differed substantially. Later textbooks on Statisitcs often combined Fisherian p-values/significance testing with Neyman–Pearson terminology and error-control machinery, despite disagreements between their founders.
 
-% \[
-% \delta^*(D)
-% =
-% \arg\min_a
-% \mathbb{E}
-% \left[
-% L(a,\theta)\mid D
-% \right].
-% \]
+% % Nevertheless, in modern times their combined "frequentist" approach provides hypothesis-testing problems that can be studied with the binomial and Normal distributions already available at A-level, without requiring an additional theory of prior distributions and posterior integration.
 
-% Here, $\mathbb{E}[L(a,\theta)\mid D]$ is the average loss of action $a$ over
-% the posterior distribution of $\theta$ after observing $D$, while
-% $\arg\min_a$ means ``choose the value of $a$ that makes this expected loss as
-% small as possible.'' The notation $\delta^*(D)$ therefore represents the
-% optimal action prescribed by the Bayesian decision rule after the data have
-% been observed.
+% \paragraph{Wrinch, Haldane and Jeffreys: probabilities of hypotheses
+% (1919--1946).}
 
-% Wald's sequential decision theory influenced Richard Bellman's (1920--1984) development of \textbf{dynamic programming}, extending decision-making to multi-stage problems \cite{wald1950,bellman1957}. 
+% Meanwhile, Dorothy Wrinch (1894--1976) and Harold Jeffreys (1891--1989) were developing almost the opposite programme. Between 1919 and 1923 they treated probability as a logic for reasoning about scientific propositions  \cite{wrinchjeffreys1919,wrinchjeffreys1921,wrinchjeffreys1923}. In 1921 they wrote that
+
+% \begin{quote}
+% ``an inference drawn from a simple scientific law may have a very high
+% probability, not far from unity''
+% \cite[p.~380]{wrinchjeffreys1921}.
+% \end{quote}
+
+% J.~B.~S.~Haldane (1892--1964) developed an early Bayesian approach to hypothesis testing.. He introduced a prior in which an exact hypothesis, such as ``there is no effect'' ($\theta=0$), could itself be assigned some probability, while the remaining probability was spread continuously over possible alternatives \cite{haldane1932,etzwagenmakers2017}. Jeffreys then developed Bayesian significance tests in 1935 and systematically in \textit{Theory of Probability} (1939) \cite{jeffreys1935,jeffreys1939}.
+
+% Jeffreys also returned to the old difficulty of choosing a prior. His 1939 book developed invariant approaches to prior choice, and his 1946 paper gave the general Fisher-information rule $\pi_J(\boldsymbol{\theta}) \propto \sqrt{\det I(\boldsymbol{\theta})},$ which is invariant under smooth one-to-one reparameterisations \cite{jeffreys1939,jeffreys1946}.
+
+% \paragraph{Wald and Savage: inference becomes decision-making
+% (1939--1954).}
+
+% Abraham Wald (1902--1950) reframed the problem again. From 1939 onward he treated estimation and hypothesis testing as instances of a more general \textbf{decision problem}: after observing data, a statistician must choose some action $a$. This action is evaluated through a \textbf{loss function} $L(a,\theta)$, which measures the cost of taking action $a$ when the true, but unknown, model parameter is $\theta$ \cite{wald1939,wald1950}.
+
+% A Bayesian instead first updates the probability distribution of the unknown parameter $\theta$ after observing the data, and then chooses the action with the smallest \textbf{expected loss under that posterior distribution}. In other words, the preferred action is the one expected to perform best given what is now known about $\theta$.
+
+% % For example, an action might be an estimate of an unknown parameter, a
+% % decision to accept or reject a hypothesis, or some other choice made from the observed data. A \textbf{decision rule}, written $\delta(X)$, is therefore a rule that tells us which action to take for each possible dataset $X$.
+
+% % Because the observed data are random, the action $\delta(X)$ may also vary from one sample to another. Wald therefore evaluated a decision rule through its \textbf{risk function},
+
+% % \[
+% % R(\theta,\delta)
+% % =
+% % \mathbb{E}_{\theta}
+% % \left[
+% % L(\delta(X),\theta)
+% % \right].
+% % \]
+
+% % Here, $\mathbb{E}_{\theta}$ means that the loss is averaged over all possible datasets that could be generated when the true parameter has the fixed value $\theta$. Thus $R(\theta,\delta)$ measures the \textbf{long-run expected loss} of using the rule $\delta$ when $\theta$ is the true parameter.
+
+% % This framework was not intrinsically Bayesian. A frequentist could compare decision rules according to their long-run risk
+% % \cite{wald1945}. A Bayesian instead assigns a probability distribution to the unknown parameter $\theta$ and updates this distribution after observing the actual data $D$. The Bayesian then chooses the action with the smallest \textbf{posterior expected loss},
+
+% % \[
+% % \delta^*(D)
+% % =
+% % \arg\min_a
+% % \mathbb{E}
+% % \left[
+% % L(a,\theta)\mid D
+% % \right].
+% % \]
+
+% % Here, $\mathbb{E}[L(a,\theta)\mid D]$ is the average loss of action $a$ over
+% % the posterior distribution of $\theta$ after observing $D$, while
+% % $\arg\min_a$ means ``choose the value of $a$ that makes this expected loss as
+% % small as possible.'' The notation $\delta^*(D)$ therefore represents the
+% % optimal action prescribed by the Bayesian decision rule after the data have
+% % been observed.
+
+% % Wald's sequential decision theory influenced Richard Bellman's (1920--1984) development of \textbf{dynamic programming}, extending decision-making to multi-stage problems \cite{wald1950,bellman1957}. 
 
 
-Wald's work on sequential analysis was an important precursor to Richard Bellman's (1920--1984) development of \textbf{dynamic programming}. Bellman explicitly described his new theory as \textit{"intimately related"} to Wald's sequential analysis, while also building on broader work on sequential decision problems and multi-stage optimisation \cite{wald1950,bellman1952,bellman1957}. Dynamic programming later became foundational to optimal control, Markov decision processes and reinforcement learning\footnote{Reinforcement learning later became a central component of several major artificial-intelligence systems developed by DeepMind (now Google DeepMind). AlphaGo combined deep neural networks, tree search, supervised learning from expert human games and reinforcement learning through self-play to achieve professional-level and subsequently superhuman performance in Go \cite{silver2016alphago}}.
+% Wald's work on sequential analysis was an important precursor to Richard Bellman's (1920--1984) development of \textbf{dynamic programming}. Bellman explicitly described his new theory as \textit{"intimately related"} to Wald's sequential analysis, while also building on broader work on sequential decision problems and multi-stage optimisation \cite{wald1950,bellman1952,bellman1957}. Dynamic programming later became foundational to optimal control, Markov decision processes and reinforcement learning\footnote{Reinforcement learning later became a central component of several major artificial-intelligence systems developed by DeepMind (now Google DeepMind). AlphaGo combined deep neural networks, tree search, supervised learning from expert human games and reinforcement learning through self-play to achieve professional-level and subsequently superhuman performance in Go \cite{silver2016alphago}}.
 
 
 
 
-% Despite strong criticism from Ronald Fisher and many frequentist statisticians, Bayesian statistics continued to develop throughout the twentieth century. Frequentists argued that probability should only describe long run frequencies of repeated events and rejected the idea of assigning probabilities to unknown parameters. However, Bayesian researchers believed probability could also represent uncertainty about unknown quantities, allowing prior knowledge to be combined with observed data. By the 1950s, this debate had led to two major branches of Bayesian statistics: Bayesian inference and Bayesian decision theory.
+% % Despite strong criticism from Ronald Fisher and many frequentist statisticians, Bayesian statistics continued to develop throughout the twentieth century. Frequentists argued that probability should only describe long run frequencies of repeated events and rejected the idea of assigning probabilities to unknown parameters. However, Bayesian researchers believed probability could also represent uncertainty about unknown quantities, allowing prior knowledge to be combined with observed data. By the 1950s, this debate had led to two major branches of Bayesian statistics: Bayesian inference and Bayesian decision theory.
 
-% Bayesian inference focused on updating beliefs using Bayes' theorem. Starting with a prior distribution, new evidence is incorporated through the likelihood function to produce a posterior distribution, representing updated beliefs about the unknown parameters. During this period, Harold Jeffreys made important contributions by introducing objective Bayesian methods. His most well known contribution, Jeffreys prior, provided a way of choosing non-informative priors using the Fisher information matrix, allowing Bayesian analyses to be performed with minimal subjective assumptions. Alongside this, statisticians continued to investigate different choices of informative and non-informative priors, including the uniform prior originally suggested by Laplace.
-% %(Jeffreys, 1939)
+% % Bayesian inference focused on updating beliefs using Bayes' theorem. Starting with a prior distribution, new evidence is incorporated through the likelihood function to produce a posterior distribution, representing updated beliefs about the unknown parameters. During this period, Harold Jeffreys made important contributions by introducing objective Bayesian methods. His most well known contribution, Jeffreys prior, provided a way of choosing non-informative priors using the Fisher information matrix, allowing Bayesian analyses to be performed with minimal subjective assumptions. Alongside this, statisticians continued to investigate different choices of informative and non-informative priors, including the uniform prior originally suggested by Laplace.
+% % %(Jeffreys, 1939)
 
-% At the same time, Bayesian decision theory developed alongside advances in statistical decision theory. Abraham Wald established the mathematical foundations of decision theory during the 1940s while working on military problems for the United States during the Second World War. One of the famous examples was the aircraft survival problem, where Wald demonstrated that armour should be placed where returning aircraft showed the least damage, since aircraft hit in those locations were less likely to survive. His work introduced the concept of minimising expected loss when making decisions under uncertainty. 
-% %(Wald, 1950).
-% article: https://medium.com/@penguinpress/an-excerpt-from-how-not-to-be-wrong-by-jordan-ellenberg-664e708cfc3d
+% % At the same time, Bayesian decision theory developed alongside advances in statistical decision theory. Abraham Wald established the mathematical foundations of decision theory during the 1940s while working on military problems for the United States during the Second World War. One of the famous examples was the aircraft survival problem, where Wald demonstrated that armour should be placed where returning aircraft showed the least damage, since aircraft hit in those locations were less likely to survive. His work introduced the concept of minimising expected loss when making decisions under uncertainty. 
+% % %(Wald, 1950).
+% % article: https://medium.com/@penguinpress/an-excerpt-from-how-not-to-be-wrong-by-jordan-ellenberg-664e708cfc3d
 
 % \begin{figure}
 %     \centering
