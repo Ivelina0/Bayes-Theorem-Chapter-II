@@ -1624,7 +1624,11 @@ medical paradox - https://www.youtube.com/watch?v=lG4VkPoG3ko
 
 \section*{Appendix}
 
+% Some issues TODO to fix
 
+% - Likely compile-breaking bug: lines 862–1297 are wrapped in markdown-style triple backticks (```latex ... ```), not LaTeX comments. If this file is compiled as-is, those backticks will almost certainly cause an error — they're not valid LaTeX syntax. This block also duplicates the rough notes just above it (lines 840–859) on the same "post-1950" material.
+% - Stray typos: Irving John Jack'' Good (line 704, missing opening quote before "Jack"); messages.””  (line 709, doubled closing smart-quote).
+% - Citation key inconsistencies: \cite{poissonnn1837} (extra "n"), \cite{kolmogorovaudrey1933} vs. the appendix's \cite{kolmogorov1933}, \cite{BorelEmile1909} vs. \cite{borel1909}, \cite{vonmisesss1919} vs. \cite{vonmises1919} — these look like they'll produce undefined-reference warnings unless your .bib has both variants.
 
 % \subsection{From inverse probability to competing theories of statistical inference
 % (c.~1900--1954)}
