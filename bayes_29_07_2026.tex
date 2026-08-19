@@ -1,3 +1,4 @@
+
 \section{The Theory that would not die: Bayesian Probability}
 
 
@@ -41,7 +42,7 @@ His arguments raised a question that has an unmistakably probabilistic character
 % ]
 
 \proofbox{
-\textbf{Bayes' square-table thought experiment.}
+\textbf{Bayes' square-table thought experiment with modern notation.}
 
 Bayes imagined a \textbf{``square table or plane''}\footnote{
 For more detailed mathematical and visual explanations of Bayes'
@@ -85,7 +86,7 @@ measured as the proportion of the table lying to its left. In other words, $\the
 \end{tikzpicture}
 \end{center}
 
-Thus, before observing any subsequent throws, we assign the unknown horizontal position $\theta$ of the first ball a \textbf{uniform prior distribution},
+Thus, before observing any subsequent throws, we can assign the unknown horizontal position $\theta$ of the first ball a \textbf{uniform (prior) distribution},
 
 \[
 \theta \sim \mathrm{Unif}(0,1)
@@ -94,7 +95,7 @@ Thus, before observing any subsequent throws, we assign the unknown horizontal p
 
 % In other words, we assume that before observing any additional data, every horizontal position $\theta$ of the first ball is considered equally plausible.
 
-A subsequent ball $b_2$ is called a \textbf{\textit{success}} if it lands to the left of the first ball. Conditional on $\theta$,
+A subsequent ball $b_2$ is called  \textbf{\textit{success}} if it lands to the left of the first ball. Conditional on $\theta$,
 
 \[
 X_i \mid \theta \sim \mathrm{Bernoulli}(\theta),
@@ -183,6 +184,7 @@ the data have been observed.
 
 }
 
+
 \paragraph{But was Hume the reason?}
 This remains historically uncertain. One interpretation is that Bayes developed inverse probability partly in response to Hume's arguments concerning miracles: perhaps sufficiently strong accumulated evidence could overcome the initially small probability assigned to an extraordinary claim.\textbf{Stephen Stigler} (1941), a professor in Statistics, argues that a connection between Bayes, Price, and contemporary theological debates is plausible \cite{stigler2013truetitle}. While, statisticians Diniz and Bellhouse argue that Bayes' interest was primarily mathematical, arising from problems encountered in de Moivre's \textit{Doctrine of Chances}, rather than from an attempt to refute Hume \cite{diniz2022bayes}. Crucially, there is \textbf{no surviving statement from Bayes confirming that refuting Hume or proving the existence of God was his intention}.
 
@@ -194,22 +196,21 @@ This remains historically uncertain. One interpretation is that Bayes developed 
 \label{fig:bayes_billard}
 \end{figure}
 
-%%%%%% NEW SUBSection
+
 % \subsection{Laplace: From Uncertain Astronomical Observations to Inverse Probability}
 
-% \subsection{Laplace: Generalising Inverse Probability}
 \subsection{Laplace: Independently Developing and Extending Inverse Probability}
 
 Thomas Bayes' essay of 1763 had solved a particular inverse problem: after observing a sequence of successes and failures, how could one infer the unknown probability that generated them? Through his square-table construction, Bayes effectively treated the unknown probability as uniformly distributed over $(0,1)$ and then updated this distribution using the observed data.
 
-\textbf{Pierre-Simon Laplace} (1749--1827) independently developed the idea in a more general form. In his 1774 memoir, \textit{Mémoire sur la probabilité des causes par les événements} (``Memoir on the Probability of Causes from Events''), Laplace distinguished between predicting an uncertain event when its cause (a different event) is known and the reverse problem in which the event has been observed but its cause remains unknown \cite{laplace1774,stigler1986laplace}. Laplace did not state the general principle using modern conditional-probability notation. As Sharon Bertsch McGrayne summarises it in \textit{The Theory That Would Not Die} (2011),
+\textbf{Pierre-Simon Laplace} (1749--1827) independently developed the idea in a more general form. In his 1774 memoir, \textit{Mémoire sur la probabilité des causes par les événements} (``Memoir on the Probability of Causes from Events''), Laplace distinguished between predicting an uncertain event when its cause (a different event) is known and the reverse problem in which the event has been observed but its cause remains unknown \cite{laplace1774,stigler1986laplace}.  As \textbf{Sharon Bertsch McGrayne} summarises it in \textit{The Theory That Would Not Die} (2011),
 
 \begin{quote}
 ``the probability of a cause (given an event) is proportional to the probability of the event (given its cause).''
 \cite{mcgrayne2011}
 \end{quote}
 
-Laplace's own statement appears in Article II of the 1774 memoir, shown in Figure~\ref{fig:laplace_inverse_principle}. He explains that if an observed event can have arisen from several possible causes, then the probabilities assigned to those causes after observing the event should be proportional to the probabilities with which each cause would have produced that event \cite{laplace1774}. Under the assumption that the possible causes are initially equally probable, the principle can be written in modern notation as
+Laplace did not state the general principle using modern conditional-probability notation. Instead Laplace's statement appears in Article II of the 1774 memoir, shown in Figure~\ref{fig:laplace_inverse_principle}. He explains that if an observed event can have arisen from several possible causes, then the probabilities assigned to those causes after observing the event should be proportional to the probabilities with which each cause would have produced that event \cite{laplace1774}. Under the assumption that the possible causes are initially equally probable, the principle can be written in modern notation as
 
 \[
 P(C_i\mid E)\propto P(E\mid C_i).
@@ -239,43 +240,62 @@ P(C_i\mid E)\propto P(E\mid C_i).
 % \noindent
 % for the probability assigned to possible values of $\theta$ after observing the data \cite{laplace1774}. In modern terminology this is the same Beta-type posterior that arises in Bayes' original problem. Laplace's contribution was therefore not simply a rediscovery of Bayes' calculation, but a broader formulation of inverse reasoning that could be applied to unknown causes, parameters and future observations \cite{stigler1986laplace,stigler1986}.
 
-% ```latex
-\begin{tcolorbox}[
-    title={Laplace's urn problem: from past observations to future probability},
-    colback=gray!5,
-    colframe=black!70,
-    boxrule=0.6pt,
-    arc=2mm
-]
+\proofbox{
+\textbf{Laplace's urn problem: from past observations to future probability, see also \cite{laplace1774} for more details.}
+
 
 Laplace illustrated his principle of inverse probability using an urn
-containing an effectively infinite number of white and black tickets in an
-\textbf{unknown proportion}. Suppose that $p$ white tickets and $q$ black
-tickets have already been observed. If $x$ denotes the unknown proportion of
-white tickets in the urn, Laplace assigned the possible values of $x$ a
-probability proportional to
+containing an infinite number of white and black tickets in an
+\textbf{unknown proportion}. 
+
+% Suppose that $\mathbf{p}$ white tickets and $\mathbf{q}$ black tickets have already been observed. If $\mathbf{x}$ \textbf{denotes the unknown proportion of white tickets in the urn}, Laplace assigned the possible values of $x$ a probability proportional to
+Suppose that $\mathbf{p}$ white tickets and $\mathbf{q}$ black tickets have already been observed, and let $\mathbf{x}$ denote the \textbf{unknown proportion of white tickets in the urn}.
+
+If the \textbf{true} proportion were $\mathbf{x}$, then in modern notation
 
 \[
-x^p(1-x)^q\,dx.
+P(\text{white ticket}\mid x)=x,
+\qquad
+P(\text{black ticket}\mid x)=1-x.
 \]
 
-He then asked a slightly different question from Bayes: \textit{given these
-past observations, what is the probability that the next ticket drawn will be
-white?}
+Therefore, after observing $p$ white tickets and $q$ black tickets, Laplace associated each possible value of $x$ with the quantity
 
-Laplace denoted this ``entire probability'' by $E$. Since the probability of
-drawing a white ticket is $x$ when the true proportion is $x$, he averaged
-$x$ over all its possible values, weighted by the probabilities inferred from
-the observations:
+\[
+x^p(1-x)^q.
+\]
+
+Thus, $x^p(1-x)^q$ measures how compatible a particular value of $\mathbf{x}$ is with the observations already made.
+
+He then asked a slightly different question from Bayes: \textit{given these past observations, what is the probability that the next ticket drawn will be white?}
+
+
+
+For any fixed value of $x$, that probability is simply also just $\mathbf{x}$, as the ratio shouldn't change. However, since $x$ is unknown, \textbf{Laplace considered all possible values of} $\mathbf{x}$ \textbf{between} $\mathbf{0}$ and $\mathbf{1}$, weighting each according to $x^p(1-x)^q$. He denoted the resulting ``entire probability'' by $E$:
 
 \[
 E
 =
-\frac{\displaystyle\int_0^1 x^{p+1}(1-x)^q\,dx}
-     {\displaystyle\int_0^1 x^p(1-x)^q\,dx}.
+\frac{
+\displaystyle\int_0^1
+x\,x^p(1-x)^q\,dx
+}{
+\displaystyle\int_0^1
+x^p(1-x)^q\,dx
+}
+=
+\frac{
+\displaystyle\int_0^1
+x^{p+1}(1-x)^q\,dx
+}{
+\displaystyle\int_0^1
+x^p(1-x)^q\,dx
+}.
 \]
 
-Evaluating these integrals gives the remarkably simple result
+The denominator ensures that the weights assigned to all possible values of $x$ are properly normalised, while the additional factor $x$ in the numerator accounts for the probability of drawing a white ticket for each possible value of $x$.
+
+Laplace evaluates the integral over a few pages, and gives the answer
 
 \[
 \boxed{
@@ -283,52 +303,10 @@ E=\frac{p+1}{p+q+2}
 }
 \]
 
-for the probability that the next ticket will be white
-\cite{laplace1774}.
+so $E$ is the probability, inferred from the $p+q$ observations already made, that the \emph{next} ticket drawn from the urn will be white \cite{laplace1774}.
+}
 
-\medskip
-
-\textbf{Connection with Bayes' square-table experiment.}
-Bayes had approached essentially the same inverse problem geometrically:
-the unknown position of the first ball determined the probability that later
-balls would fall on one side of it. Laplace instead represented the unknown
-probability directly by the continuous quantity $x$ and used integration to
-reason over all of its possible values. In modern notation, both calculations
-lead to the same Beta form,
-
-\[
-x \mid p,q \sim \mathrm{Beta}(p+1,q+1),
-\]
-
-although neither Bayes nor Laplace used this modern terminology.
-
-Laplace's formulation also made the predictive interpretation particularly
-explicit. He wrote that:
-
-\begin{quote}
-``The solution to this problem provides a direct method for determining the
-probability of future events from those that have already occurred; but, this
-subject being very extensive, \ldots''
-\end{quote}
-
-Thus, the purpose of $E$ is not merely to estimate the unknown composition of
-the urn. It is the probability of a \textbf{future event}, obtained by
-combining all possible values of the unknown probability with what had already
-been observed.
-
-Laplace continued the calculation to probabilities involving several future
-white and black tickets and later used techniques from differential calculus
-and asymptotic approximation, explicitly referring to Euler's
-\textit{Institutions of Differential Calculus}. This illustrates how his
-treatment moved beyond Bayes' particular geometrical construction toward a
-more general analytical method for inverse probability
-\cite{stigler1986laplace,stigler1986}.
-
-\end{tcolorbox}
-
-
-
-
+\noindent
 McGrayne illustrates the difference in scope between Bayes and Laplace with the analogy
 
 \begin{quote}
@@ -336,7 +314,7 @@ McGrayne illustrates the difference in scope between Bayes and Laplace with the 
 \cite{mcgrayne2011}
 \end{quote}
 
-The important extension was therefore not only inference about an unknown probability, but also the possibility of \textbf{\textit{repeated updating}}: as new observations arrived, the probability assigned to an unknown quantity could be revised again.
+The important extension was the possibility of \textbf{\textit{repeated updating}}: as new observations arrived, the probability assigned to an unknown quantity could be revised again.
 
 Laplace's work on probability soon developed alongside his work in astronomy and celestial mechanics. In Chapter~2, ``The Man Who Did Everything,'' McGrayne describes how eighteenth-century astronomers possessed observations extending over centuries, although the measurements differed greatly in precision and sometimes appeared inconsistent with Newtonian celestial mechanics.\footnote{For examples of astronomical observations available before Laplace, see Flamsteed's \textit{Historia Coelestis Britannica} \cite{flamsteed1725}. For the older European tradition of planetary tables, see Chabás and Goldstein \cite{chabasgoldstein2012}.} One particularly troubling example concerned the apparent long-term motions of Jupiter and Saturn. As McGrayne writes,
 
@@ -354,19 +332,20 @@ Laplace's 1774 memoir had not been written specifically to solve this astronomic
 
 \subsubsection*{Inverse probability in the nineteenth century: continued use and growing criticism}
 
-The nineteenth century was a period of rapid expansion in both probability theory and the use of mathematics to analyse empirical observations. As discussed further in Chapter~\ref{chapter:four_CLT}, Laplace developed \textbf{generating functions} and \textbf{normal approximations}; Siméon-Denis Poisson (1781 - 1840) extended the \textbf{theory of repeated trials} and introduced the expression \textbf{law of large numbers}; Irénée-Jules Bienaymé (1796 - 1878) contributed to \textbf{probability inequalities} and \textbf{error theory}; and Pafnuty Chebyshev (1821 - 1894) later established increasingly general results concerning \textbf{averages, inequalities and convergence} \cite{poisson1837,bienayme1853,chebyshev1867}. 
+The nineteenth century was a period of rapid expansion in both probability theory and the use of mathematics to analyse empirical observations. As discussed further in Chapter~\ref{chapter:four_CLT}, Laplace developed \textbf{generating functions} and \textbf{normal approximations}; Siméon-Denis Poisson (1781 - 1840) extended the \textbf{theory of repeated trials} and introduced the expression \textbf{law of large numbers}; Irénée-Jules Bienaymé (1796 - 1878) contributed to \textbf{probability inequalities} and \textbf{error theory}; and Pafnuty Chebyshev (1821 - 1894) later established increasingly general results concerning \textbf{averages, inequalities and convergence} \cite{poissonnn1837} \cite{bienayme1853} \cite{chebyshev1867}
+
+% \cite{poisson1837,bienayme1853,chebyshev1867}. 
 
 At the same time, probability and statistical methods were being applied to an expanding range of empirical data. It was beginning to form what we would now recognise as \textbf{statistical methodology}. Astronomers and geodesists continued to estimate unknown quantities from noisy measurements using methods associated with Laplace (1749 - 1827), Legendre (1752 - 1833) and Gauss (1777 - 1855), while Adolphe Quetelet (1796 - 1874) transferred ideas about averages, variation and the normal law from astronomy to large collections of demographic and social observations \cite{stigler1986,gauss1809,quetelet1835}. McGrayne also writes 
 
 \begin{quote}
-\textit{" \textbf{James Clerk Maxwell} (1831 - 1879), learned about probability from Adolphe Quetelet (1796 - 1874), not from Laplace, and adopted frequency-based methods for statistical mechanics and the kinetic theory of gases.", by \cite{mcgrayne2011}}
-\cite{mcgrayne2011}
+\textit{" \textbf{James Clerk Maxwell} (1831 - 1879), learned about probability from Adolphe Quetelet (1796 - 1874), not from Laplace, and adopted frequency-based methods for statistical mechanics and the kinetic theory of gases.",} \cite{mcgrayne2011}
 \end{quote}
 
 
 In modern language, the nineteenth century was beginning to face an early version of the \textbf{“big data” problem}: scientists and governments were collecting increasingly large amounts of \textit{astronomical, demographic and social observations}, creating a need for mathematical methods that could identify patterns, quantify uncertainty and estimate unknown quantities from data. During the time inverse probability remained in use, particularly in applied problems of estimation, but it was no longer the only framework through which mathematicians and scientists were learning from uncertain observations.
 
-The theory's biggest difficulty was concerned with the probabilities assigned to unknown causes or parameters. Bayes' construction and many of Laplace's calculations began by treating possible values as \textbf{initially equally probable}. This assumption continued discussions in the 20th century, under the name of \textit{principle of indifference}\footnote{The expression ``principle of indifference'' was used prominently by Keynes in his \textit{Treatise on Probability} (1921); related arguments had long been discussed under the older expression ``principle of insufficient reason''.}. For a symmetric problem such as throwing an idealised fair die, assigning equal probabilities may appear natural. For an unknown planetary mass, population parameter, or other continuous quantity, however, there is no obvious reason why a lack of prior knowledge should imply a uniform probability distribution. George Boole (1815 - 1864) , John Venn (1834 - 1923) and Joseph Bertrand (1822 - 1900) criticised different aspects of this reasoning \cite{boole1854,venn1866,bertrand1889}. In the chapter \textbf{``Many doubts, few defenders''} \cite{mcgrayne2011} McGrayne discusses many arguments noted during the century about Laplace's reasoning.  
+The theory's biggest difficulty was concerned with the probabilities assigned to unknown causes or parameters. Bayes' construction and many of Laplace's calculations began by treating possible values as \textbf{initially equally probable}. This assumption continued discussions in the 20th century, under the name of \textit{principle of indifference}\footnote{The expression ``principle of indifference'' was used prominently by Keynes in his \textit{Treatise on Probability} (1921); related arguments had long been discussed under the older expression ``principle of insufficient reason''.}. For a symmetric problem such as throwing an idealised fair die, assigning equal probabilities may appear natural. For an unknown planetary mass parameter, population parameter, or other continuous quantity, however, there is no obvious reason why a lack of prior knowledge should imply that we assign equal initial probabilities to the model parameters. George Boole (1815 - 1864) , John Venn (1834 - 1923) and Joseph Bertrand (1822 - 1900) criticised different aspects of this reasoning \cite{boole1854,venn1866,bertrand1889}. In the chapter \textbf{``Many doubts, few defenders''} \cite{mcgrayne2011} McGrayne discusses many arguments noted during the century about Laplace's reasoning.  
 
 While John Maynard Keynes, see \href{https://archive.org/details/treatiseonprobab007528mbp/page/382/mode/2up}{A Treatise on Probability (1921), Chapter XXX, “Statistical Inference”, around pp. 382} states 
 
@@ -380,8 +359,7 @@ While John Maynard Keynes, see \href{https://archive.org/details/treatiseonproba
 The controversy was therefore increasingly about the \emph{interpretation} of inverse probability rather than the validity of conditional probability itself: \textbf{could an unknown but fixed quantity legitimately be assigned a probability distribution, and how should that distribution be chosen?} These questions remained unresolved at the end of the nineteenth century. In the early twentieth century they became much sharper as \textbf{alternative theories of statistical inference} were developed. R.~A.~Fisher (1890 - 1926) would reject inverse probability as a general foundation for parameter inference and develop \textbf{likelihood-based methods} that did not require prior probabilities \cite{fisher1922}, while other mathematicians---including Harold Jeffreys (1891 - 1989), \textbf{Dorothy Wrinch} (1894 - 1976)\footnote{\textbf{Dorothy Wrinch} (1894–1976) was a mathematician and philosopher of science, and \textbf{the first woman to receive a Doctor of Science (DSc) degree from Oxford University (awarded in 1929)}. She collaborated with Harold Jeffreys on probability and scientific inference between 1919 and 1923. Their work has been identified as an important conceptual precursor to Bayesian hypothesis testing and the later Bayes factor; Jeffreys subsequently acknowledged Wrinch's substantial contribution to the foundations of his work on scientific inference. \href{https://mathshistory.st-andrews.ac.uk/Extras/Jeffreys_Probability/}{An extract from Jeffreys' book on Probability} \cite{wrinchjeffreys1919,wrinchjeffreys1921,jeffreys1973} } and Bruno de Finetti (1906 - 1985)---would instead attempt to place probabilistic inference on stronger foundations. The resulting disagreement marks the beginning of the much more explicit twentieth-century debate over how statistical inference should be performed.
 
 
-
-\subsection{So what is Bayes' theorem today?}
+\subsection{So what is Bayes' theorem today?} 
 
 An excellent introductory Probability book is written by Tijms' \textit{\textbf{Understanding Probability}} \cite{tijms2012}. \textbf{Chapter~8} develops conditional probability, the law of total probability and Bayes' rule before introducing Bayesian statistics for the discrete case. \textbf{Chapter~13} later extends these ideas to continuous random variables and continuous Bayesian models. For readers already comfortable with these probability and calculus concepts, Gelman et al.'s \textit{\textbf{Bayesian Data Analysis}} provides a natural next step \cite{gelman2013bayesian}. 
 A visual and intuitive explanation of Bayes' theorem, is provided in several \textbf{YouTube video introductions}, including \textbf{3Blue1Brown}'s \href{https://youtu.be/HZGCoVF3YvM}{geometric explanation of Bayes' theorem}, as well as further examples by \href{https://youtu.be/NLKWLBJ-b9E}{RiskByNumbers} and \href{https://youtu.be/5NMxiOGL39M}{Brandon Rohrer}. 3Blue1Brown also explores Bayes' rule through the \href{https://youtu.be/lG4VkPoG3ko}{medical test paradox}, illustrating visually why base rates and prior probabilities matter when interpreting evidence.
@@ -389,8 +367,8 @@ A visual and intuitive explanation of Bayes' theorem, is provided in several \te
 \vspace{2mm}
 
 Modern introductions to Bayes' theorem usually begin with the
-\textbf{discrete case}. Suppose that $B_1,\ldots,B_k$ represent all possible hypotheses, explanations or parameter values under consideration. For example, in Bayes' experiment, the unknown
-quantity was the $\theta$ of the first ball on the table, while in Laplace's urn problem it was the unknown proportion $\mathbf{x}$ of white tickets. These are assumed to be \textbf{mutually exclusive}, so that no two can occur simultaneously, and \textbf{exhaustive}, so that one of them must occur. 
+\textbf{discrete case}. Suppose that the events $B_1,\ldots,B_k$ represent all possible hypotheses, explanations or parameter values under consideration. For example, in Bayes' experiment, the unknown
+quantity was \textbf{the position} $\theta$ \textbf{of the first ball} on the table, while in Laplace's urn problem it was the actual \textbf{unknown proportion} $\mathbf{x}$ \textbf{of white tickets}. These are assumed to be \textbf{mutually exclusive}, so that no two can occur simultaneously, and \textbf{exhaustive}, so that one of them must occur. 
 
 Let $A$ denote some observed evidence, or collected data. In Bayes' experiment, this could be the observation that, among $n$ subsequent balls, $s$ fell to the left of the first ball and $n-s$ to its right. In Laplace's urn problem, the corresponding evidence was the observation of $p$ white tickets and $q$ black tickets. 
 
@@ -419,7 +397,7 @@ in Figure~\ref{fig:total_probability}.
 
 \begin{figure}[H] \centering \includegraphics[width=0.45\textwidth]{figs/Bayes_figs/law_total_probability_venn.png} \caption{Geometric illustration of the law of total probability. The sample space is partitioned into mutually exclusive events $B_1,\ldots,B_n$, and the probability of $A$ is obtained by adding its intersections with each part of the partition. Illustration source: \href{https://qualityengineer.weebly.com/probability/total-probability-law}{Blog by Authors: Armin Nikzad and Fatima Mosallaei}.} \label{fig:total_probability} \end{figure}
 
-Since the intersection can also be obtained by $P(A\cap B_i)=P(A\mid B_i)P(B_i)$,  substituting the law of total probability into conditional probability gives the modern discrete  form\footnote{Different textbooks provide a range of different ways to write the theorem but the underlying concept is the same. } of \textbf{Bayes' theorem}:
+Since the intersection can also be obtained by $P(B_i\mid A)P(A) = P(B_i\cap A) = P(A\cap B_i) = P(A\mid B_i)P(B_i)$,  substituting the law of total probability into conditional probability gives the modern discrete  form\footnote{Bayes' theorem may appear in different notation or equivalent forms across textbooks, depending on whether it is stated for events, hypotheses, random variables or statistical parameters; the underlying relationship is the same.} of \textbf{Bayes' theorem}:
 
 \begin{equation}
     \boxed{
@@ -446,10 +424,197 @@ In words, Bayes' theorem begins with probabilities assigned to the different pos
     }.
 \end{equation}
 
-The same idea extends naturally to \textbf{continuous} problems. In the discrete case there is a finite or countable list of possibilities, $B_1,B_2,\ldots$. In a continuous problem, however, an unknown quantity may take any value within an interval. For example, an unknown probability might take any value between $0$ and $1$, rather than being restricted to a list of possible values. Such an unknown quantity is commonly represented by a parameter such as $\theta$.
+The same idea extends naturally to \textbf{continuous} problems. In the discrete case there is a finite or countable list of possibilities, $B_1,B_2,\ldots,B_k$. In a continuous problem, however, an unknown quantity may take any value within an interval. For example, an unknown probability might take any value between $0$ and $1$, rather than being restricted to a list of possible values. Such an unknown quantity is commonly represented by a parameter such as $\theta$.
+
+To connect the discrete and continuous forms, let $B_i$ represent the event
+that an unknown parameter $\Theta$ takes the value $\theta_i$, suppose that the hypotheses $B_i$ correspond to possible values of an unknown parameter $\Theta$, so that $B_i=\{\Theta=\theta_i\},$ and let the observed evidence $A$ correspond to observing the data $x$.
+Then the discrete form of Bayes' theorem, may equivalently be written in parameter notation as
+
+\[
+P(\Theta=\theta_i\mid x)
+=
+\frac{
+P(x\mid\theta_i)\,P(\Theta=\theta_i)
+}{
+\displaystyle
+\sum_{j=1}^{k}
+P(x\mid\theta_j)\,P(\Theta=\theta_j)
+}.
+\]
+
+Here the possible parameter values $\theta_1,\ldots,\theta_k$ still form a
+finite or countable collection. If $\Theta$ is instead continuous, these individual probability masses are replaced by probability densities, and the sum over the possible values $\theta_j$ becomes an integral over the continuum of possible values of $\theta$. This is the same mathematical transition from summation to integration discussed in the Calculus chapter (see Section~\ref{sec:CALCULUS }).
+
+The continuous form of Bayes' theorem is therefore
+
+\begin{equation}
+\boxed{
+\overbrace{p(\theta\mid x)}^{\text{posterior density}}
+=
+\frac{
+    \overbrace{p(x\mid\theta)}^{\text{likelihood}}
+    \;
+    \overbrace{p(\theta)}^{\text{prior density}}
+}{
+    \underbrace{
+    \displaystyle\int p(x\mid u)p(u)\,du
+    }_{
+    \substack{
+    \text{marginal density }p(x)\\
+    \text{(evidence / normalising constant)}
+    }
+    }
+}
+}.
+\label{eq:continuous_bayes}
+\end{equation}
+
+Here $u$ is a dummy variable of integration. The denominator sums, or in the
+continuous case integrates, over all possible values of the unknown
+parameter.
+
+
+%HELP move diagram below text
+% NOTE: INFERENCE IS NOT THE POINT OF THIS SUBSECTION - THIS SECTION JUST EXPLAINS THE CLASSIC BAYES THEOREM. + Notation does not match. It is unnecessarily confusing as not explained. 
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.5\linewidth]{Bayesian Process Diagram.png}
+%     \caption{Bayesian Inference Process Diagram}
+%     \label{fig:placeholder}
+% \end{figure}
+% If $x$ denotes the observed data, the continuous form of Bayes' theorem can be written as 
+% \begin{equation} \boxed{ p(\theta\mid x) = \frac{p(x\mid\theta)p(\theta)} {\displaystyle \int p(x\mid u)p(u)\,du} }. \end{equation}
+
+% Here $p(\theta)$ is the \textbf{prior density}, $p(x\mid\theta)$ is the \textbf{likelihood}, and $p(\theta\mid x)$ is the \textbf{posterior density}. The denominator plays the same role as the sum in the discrete version: it accounts for all possible values of the unknown parameter and normalises the posterior so that it integrates to one. The difference is that, because $\theta$ may take continuously many possible values, the discrete sum is replaced by an integral.
+
+
+% The previous sections introduced the historical origins of Bayesian reasoning through the work of Thomas Bayes and Pierre-Simon Laplace. However, the theorem itself is often presented as a mathematical formula without explaining the intuition behind it. 
+% MAYBE CHANGE WHST YOU WROTE
+% In reality, Bayes' theorem is simply a rule for updating probabilities when new information becomes available. Rather than treating probability as fixed, Bayesian inference allows beliefs to change as evidence accumulates.
+
+% Before introducing Bayes' theorem, it is first necessary to understand the concept of conditional probability.
+
+% Conditional probability measures the probability of an event occurring given that another event has already occurred. Suppose two events, (A) and (B), are defined. The conditional probability of event (A) occurring given that event (B) has occurred is written as (P(A|B)) and is defined as
+% \begin{equation}
+% [
+% P(A|B)=\frac{P(A\cap B)}{P(B)}.
+% ]
+% \end{equation}
+
+% This definition states that once event (B) has occurred, the original sample space is restricted only to outcomes contained within (B). The probability of (A) must further be recalculated within this reduced set of possibilities.
+
+% The same joint probability may also be written in the opposite direction,
+% \begin{equation}
+% [
+% P(B|A)=\frac{P(A\cap B)}{P(A)}.
+% ]
+% \end{equation}
+
+% Since both equations describe the same joint event (P(A|B)), they can be equated,
+% \begin{equation}
+% [ 
+% P(A|B)P(B)=P(B|A)P(A),
+% ]
+% \end{equation}
+% which, after rearranging, gives Bayes' theorem,
+% \begin{equation}
+%     [P(A|B)=\frac{P(B|A)P(A)}{P(B)}.]
+% \end{equation}
+
+% The theorem contains four quantities, each with a seperate interpretation:
+% \begin{itemize}
+%     \item \textbf{Prior probability (P(A)):} the initial belief about an event before observing new evidence.
+% \end{itemize}   
+% \begin{itemize}
+%     \item \textbf{Likelihood (P(B|A)):} the probability of observing the evidence assuming the hypothesis is true.
+% \end{itemize}   
+% \begin{itemize}
+%     \item \textbf{Evidence (P(B)):} the overall probability of observing the evidence.
+% \end{itemize}
+% \begin{itemize}
+%     \item \textbf{Posterior probability (P(A|B)):} the updated belief after incorporating the evidence.
+% \end{itemize}
+
+% To summarise, rather than introducing a completely new probability, Bayes' theorem simply redistributes existing probabilities using newly acquired information. This process of continually updating beliefs is known as Bayesian inference.
+
+
+% \subsubsection{A geometric interpretation}
+
+% Although Bayes' theorem is usually introduced algebraically, it is often easier to understand geometrically. Imagine a rectangle representing an entire population. The width of the rectangle corresponds to the prior probability (P(A)), while the remaining width represents the complement of the event. The rectangle is then divided horizontally according to whether the observed evidence occurs. The overlapping region corresponds to the joint probability $(P(A\cap B)).$
+
+% \fcolorbox{red}{red!10}{
+%   \textcolor{red}{\textbf{TODO: Add an image of the Geometric interpretation of Bayes' theorem showing prior probability, likelihood and posterior probability}}
+% }
+
+% Viewed geometrically, Bayes' theorem asks a remarkably simple question:
+% \begin{quote}
+%     Of all the individuals for whom the evidence is true, what proportion actually belong to the hypothesis being investigated?
+% \end{quote}
+
+% Consequently, the posterior probability is obtained by dividing the area of the overlap by the total area representing the observed evidence. This geometric perspective illustrates that Bayes' theorem is not merely an algebraic identity but a natural consequence of partitioning probability space.
+
+% \subsubsection{The Medical paradox}
+% One of the most famous demonstrations of Bayes' theorem is the medical testing paradox. It highlights why intuitive reasoning about probabilities often leads to incorrect conclusions.
+
+% Suppose a disease affects only 1\% of the population. A medical test correctly identifies an infected patient 99\% of the time (99\% sensitivity) and correctly identifies a healthy patient 95\% of the time (95\% specificity).
+
+% Many people assume that receiving a positive test result means there is approximately a 99\% chance they have the disease. Bayes' theorem shows that this conclusion is incorrect because it ignores the rarity of the disease.
+
+% \fcolorbox{red}{red!10}{%
+%   \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+%     \raggedright
+%     \textcolor{black}{%  
+%       \begin{enumerate}
+%         \itembf To illustrate this, imagine testing 10,000 people.
+%         \item Approximately 100 people genuinely have the disease.
+%         \item The test correctly identifies 99 of these individuals.
+%         \item The remaining 9,900 people are healthy.
+%         Since the false positive rate is 5\%, approximately 495 healthy people will also receive a positive result.
+%       \end{enumerate}
+%     }%
+%   }%
+% }%
+
+% Therefore, there are
+% \begin{equation}
+%     99+495=594    
+% \end{equation}
+
+% positive test results in total, yet only 99 correspond to genuine cases.
+% The probability that a person actually has the disease after receiving a positive result is therefore
+
+% $\frac{99}{594}$
+% $\approx0.167.$
+
+% In other words, despite the test appearing highly accurate, the probability that a positive result indicates genuine disease is only about 16.7\%. The overwhelming number of healthy individuals means that false positives dominate the positive test results.
+
+
+% \fcolorbox{red}{red!10}{
+%   \textcolor{red}{\textbf{TODO: Add an image of a Frequency tree about the medical testing paradox}}}
+
+% This phenomenon demonstrates one of the most important principles of Bayesian inference: evidence cannot be interpreted in isolation.
+% The strength of new evidence depends critically on the prior probability of the event under investigation. 
+% Ignoring the prior often leads to serious errors in judgement, a mistake known as the base-rate fallacy.
+% Bayes' theorem therefore provides much more than a mathematical identity.
+% It offers a principled framework for learning from evidence by continuously refining beliefs as additional information becomes available. 
+% This seemingly simple idea would later become the mathematical foundation of modern Bayesian statistics, probabilistic machine learning, artificial intelligence, medical diagnosis, robotics, and countless other applications explored throughout the remainder of this chapter.
+
+% NEED HELP WITH THE ALIGNMENT
+%Here was explain the theorem in practice with simple examples from : 
+%Explain conditional probability then bayes theorem GEOMETRICALLY
+
+%https://www.3blue1brown.com/lessons/bayes-theorem/ 
+%+ Proof
+%https://youtu.be/U_85TaXbeIo?si=B8yTYpSsGEeVEBOe 
+%The medical test paradox, and redesigning Bayes' rule: USE IMAGES
+%https://youtu.be/lG4VkPoG3ko?si=jxpWbi86mc0MeRBM
+
 
 % \subsection{Bayesian developments after 1950's} 
+
+
 % \subsection{The Birth of Modern Statistical Inference, 20th century} 
+
 \subsection{From inverse probability to competing theories of statistical inference
 (c.~1900--1954)}
 
@@ -467,7 +632,7 @@ But the question of inverse probability persisted: \textit{what exactly may be a
 
 \paragraph{Fisher: likelihood instead of inverse probability (1922--1935).}
 
-Ronald Aylmer Fisher (1890--1962) developed a non-Bayesian framework of statistical inference in which \textbf{likelihood} provided a way of comparing possible values of an unknown parameter without assigning probabilities to those values. He then developed \textbf{maximum likelihood estimation} and introduced concepts for assessing how much information about a parameter could be extracted from data, including \textbf{sufficiency}, \textbf{efficiency} and \textbf{statistical information}. In parallel, he developed \textbf{significance testing} and \textbf{fiducial inference} as an alternative way of making inferential statements about unknown parameters without introducing Bayesian prior probabilities \cite{fisher1922foundations,fisher1925statistical,fisher1930inverse, fisher1935fiducial,aldrich1997}. While his rejection of inverse probability was explicit. In 1930 he described it as a doctrine that appeared to \begin{quote} ``a succession of sound writers to be \textit{fundamentally false and devoid of foundation}'' \cite[p.~528]{fisher1930inverse}. \end{quote}
+Ronald Aylmer Fisher (1890--1962) developed a non-Bayesian framework of statistical inference in which \href{https://youtu.be/zgir07qRdGw?si=F4FiON4TNKXERrvz}{\textbf{likelihood}} provided a way of comparing possible values of an unknown parameter without assigning probabilities to those values. He then developed \href{https://youtu.be/Pk7kDdWuG1Q?si=ULzKm_jphNl_5-zk}{\textbf{maximum likelihood estimation}} and introduced concepts for assessing how much information about a parameter could be extracted from data, including \textbf{sufficiency}, \textbf{efficiency} and \textbf{statistical information}. In parallel, he developed \textbf{significance testing} and \textbf{fiducial inference} as an alternative way of making inferential statements about unknown parameters without introducing Bayesian prior probabilities \cite{fisher1922foundations,fisher1925statistical,fisher1930inverse, fisher1935fiducial,aldrich1997}. While his rejection of inverse probability was explicit. In 1930 he described it as a doctrine that appeared to \begin{quote} ``a succession of sound writers to be \textit{fundamentally false and devoid of foundation}'' \cite[p.~528]{fisher1930inverse}. \end{quote}
 
 At Rothamsted, Fisher worked closely with his first statistical assistant, \textbf{Winifred Alice Mackenzie (1896--1954)}, who co-authored studies on rainfall, bacterial counts and crop variation, including an important 1923 paper connected with the early development of analysis of variance  \cite{fishermackenzie1923,tayloraldrich2022}. Historians have additionally documented the \textit{\textbf{substantial workforce of women employed as computing assistants at Rothamsted}}, whose computational labour was rarely acknowledged in conventional accounts of the development of statistics \cite{parolini2015}.
 
@@ -476,7 +641,7 @@ At Rothamsted, Fisher worked closely with his first statistical assistant, \text
 \paragraph{Neyman and Pearson: hypothesis testing and error control
 (1928--1937).}
 
-Jerzy Neyman (1894--1981) and Egon Pearson (1895--1980) developed another non-Bayesian approach to statistical inference. Their work between 1928 and 1933 treated hypothesis testing as a decision between a \textbf{null hypothesis} $H_0$ and an \textbf{alternative hypothesis} $H_1$ \cite{neymanpearson1928,neymanpearson1933}. Instead of assigning probabilities to the hypotheses themselves, they asked how often a testing rule would make the wrong decision if the same experiment were performed many times under the same conditions:
+Jerzy Neyman (1894--1981) and Egon Pearson (1895--1980) developed another non-Bayesian approach to statistical inference. Their work between 1928 and 1933 treated hypothesis testing as a decision between a \textbf{null hypothesis} $H_0$ and an \textbf{alternative hypothesis} $H_1$ \cite{neymanpearson1928,neymanpearson1933}. Instead of assigning initial probabilities to the hypotheses themselves, they asked how often a testing rule would make the wrong decision if the same experiment were performed many times under the same conditions:
 
 \begin{equation}
 \underbrace{P(\text{reject }H_0 \mid H_0 \text{ is true})}_{\text{Type I error }(\alpha)}
@@ -493,12 +658,14 @@ P(\text{reject }H_0 \mid H_1 \text{ is true})
 1-\beta.
 \end{equation}
 
+Dr Nic has an excellent YouTube video explaining \href{https://youtu.be/edzQQFNzFjM?si=ZIDEkYKkMHhuys9M}{
+Type 1 and Type 2 errors} in more detail. 
 Neyman applied the same idea to his 1937 theory of \textbf{confidence intervals} \cite{neyman1937}. Fisher and Neyman--Pearson are now often grouped together as ``frequentist'', although their interpretations of statistical testing differed substantially. Later textbooks on Statisitcs often combined Fisherian p-values/significance testing with Neyman–Pearson terminology and error-control machinery, despite disagreements between their founders \cite{lehmann2011,perezgonzalez2015}.
 
 \paragraph{Wrinch, Haldane and Jeffreys: probabilities of hypotheses
 (1919--1946).}
 
-Meanwhile, Dorothy Wrinch (1894--1976) and Harold Jeffreys (1891--1989) were developing almost the opposite programme. Between 1919 and 1923 they treated probability as a logic for reasoning about scientific propositions  \cite{wrinchjeffreys1919,wrinchjeffreys1921,wrinchjeffreys1923}. In 1921 they wrote that
+Meanwhile, Dorothy Wrinch\footnote{You can find Dr. Marjorie Senechal's talk on \textbf{Dorothy Wrinch} in the \href{https://youtu.be/KsbenEkuaw8?si=zAg_2lpAXTZuWOG6}{YouTube Video} where she states that \textit{"Dorothy was the first person to have any ideas that proteins have a structure."} } (1894--1976) and Harold Jeffreys (1891--1989) were developing almost the opposite framework. Between 1919 and 1923 they treated probability as a logic for reasoning about scientific propositions  \cite{wrinchjeffreys1919,wrinchjeffreys1921,wrinchjeffreys1923}. In 1921 they wrote that
 
 \begin{quote}
 ``an inference drawn from a simple scientific law may have a very high
@@ -513,33 +680,14 @@ Jeffreys also returned to the old difficulty of choosing a prior. His 1939 book 
 \paragraph{Wald and Savage: inference becomes decision-making
 (1939--1954).}
 
-Abraham Wald (1902--1950) reframed the problem again. From 1939 onward he treated estimation and hypothesis testing as instances of a more general \textbf{decision problem}: after observing data, a statistician must choose some action $a$. This action is evaluated through a \textbf{loss function} $L(a,\theta)$, which measures the cost of taking action $a$ when the true, but unknown, model parameter is $\theta$ \cite{wald1939,wald1950}.
+Abraham Wald\footnote{Jordan Ellenberg, a professor of mathematics, famously opens with Abraham Wald and the missing bullet hole in his 2014 book \textit{How Not to Be Wrong: The Power of Mathematical Thinking}. You can also find his talk at \textit{The Royal Institution} on \href{https://youtu.be/kZTKuMBJP7Y?si=1ar3FDNu2gL10LAG}{YouTube}.} (1902--1950) reframed the problem at hand. From 1939 onward he treated estimation and hypothesis testing as instances of a more general \textbf{decision problem}: after observing data, a statistician must choose some action $a$. This action is evaluated through a \textbf{loss function} $L(a,\theta)$, which measures the cost of taking action $a$ when the true but unknown, model parameter is $\theta$ \cite{wald1939,wald1950}.
 
-A Bayesian instead first updates the probability distribution of the unknown parameter $\theta$ after observing the data, and then chooses the action with the smallest \textbf{expected loss under that posterior distribution} \cite{wald1950,savage1954}. In other words, the preferred action is the one expected to perform best given what is now known about $\theta$. Leonard J.~Savage (1917--1971) developed this connection further in \textit{The Foundations of Statistics} (1954), giving subjective Bayesian probability a decision-theoretic foundation based on personal probabilities and expected utility \cite{savage1954}.
+Using a Bayesian approach, first we update the probability distribution of the unknown parameter $\theta$ after observing the data, and then chooses the action with the smallest \textbf{expected loss under that posterior distribution} \cite{wald1950,savage1954}. In other words, the preferred action is the one expected to perform the best given what is now known about $\theta$. Leonard J.~Savage (1917--1971) developed this connection further in \textit{The Foundations of Statistics} (1954), giving subjective Bayesian probability a decision-theoretic foundation based on personal probabilities and expected utility \cite{savage1954}.
 
-Wald's work on sequential analysis was an important precursor to Richard Bellman's (1920--1984) development of \textbf{dynamic programming}. Bellman described his new theory as \textit{"intimately related"} to Wald's sequential analysis \cite{bellman1952}, while his broader development of dynamic programming also drew on work on sequential decision problems and multi-stage optimisation \cite{bellman1952,bellman1957}. Dynamic programming later became foundational to optimal control, Markov decision processes and reinforcement learning\footnote{Reinforcement learning later became a central component of several major artificial-intelligence systems developed by DeepMind (now Google DeepMind). AlphaGo combined deep neural networks, tree search, supervised learning from expert human games and reinforcement learning through self-play to achieve professional-level and subsequently superhuman performance in Go \cite{silver2016alphago}}.
+Wald's work on sequential analysis was an important precursor to Richard Bellman's (1920--1984) development of \textbf{dynamic programming}. Bellman described his new theory as \textit{"intimately related"} to Wald's sequential analysis \cite{bellman1952}, while his broader development of dynamic programming also drew on work on sequential decision problems and multi-stage optimisation \cite{bellman1952,bellman1957}. Dynamic programming later became foundational to optimal control, Markov decision processes and reinforcement learning\footnote{Reinforcement learning later became a central component of several major artificial-intelligence systems developed by DeepMind (now Google DeepMind). AlphaGo combined deep neural networks, tree search, supervised learning from expert human games and reinforcement learning through self-play to achieve professional-level and subsequently superhuman performance in Go \cite{silver2016alphago}}
+% Start, updated 21-07-2026 ------------------------------------------
 
-
-
-
-%% ------------------------------------------
-%% ------------------------------------------
-% \subsection{Alan Turing and Joan Clarke: Breaking the Enigma}
-
-% Alan turing and von neumann -- alan rivarly 
-
-% jeffrey and Neumann were friends -- jeffrey worked in the priors neumann worked on implosion-type nuclear weapons. aka the manhattan project.. 
-
-% leave jeffrey to previous subsection
-
-% Mention the popularity growth of bayesian methods post publishing her book - "The Theory That Would Not Die.", published May 17, 2011 by historian Sharon Bertsch McGrayne. She played a crucial role in sparking more interest and research into the theory of bayesiam methods. 
-
-% Explain methods from: 
-% https://www.youtube.com/watch?v=82q3uYw6MuY&t=813s 
-% https://en.wikipedia.org/wiki/Joan_Clarke 
-
-%% Start, updated 18-08-2026 ... 21-07-2026 ------------------------------------------
-\subsection*{Bayesian inference at Bletchley Park: Turing, Good and Naval Enigma (c.~1940--1943)}
+\subsection{Bayesian inference at Bletchley Park: Turing, Good and Naval Enigma (c.~1940--1943)}
 \label{sec:wwii-turing-good}
 
 Although inverse probability had already found applications in astronomy, geodesy, population and mortality statistics, insurance and actuarial science during the nineteenth and early twentieth centuries \cite{mcgrayne2011,hacking1975,franklin2001}, the Second World War produced one of the most remarkable practical applications of probabilistic and Bayesian reasoning.
@@ -555,7 +703,7 @@ The mathematicians Marian Rejewski, Jerzy Różycki and Henryk Zygalski had deve
 
 The increasingly mechanical character of cryptography also changed the type of expertise required by the British Government. Alastair Denniston, head of the Government Code and Cypher School, deliberately began recruiting mathematicians from British universities, including Alan Turing (1912--1954), Gordon Welchman (1906--1985) and Max Newman (1897--1984). Turing subsequently took on the particularly difficult problem of German Naval Enigma and became a central figure in Hut~8. Irving John Jack'' Good (1916--2009), originally trained as a pure mathematician, joined Bletchley Park in 1941 and later described himself as Turing's main statistical assistant'' during the war \cite{good1979turing}.
 
-This was nevertheless a much broader collaborative cryptanalytic effort rather than the work of Turing alone. Different German communications systems were being attacked by different groups, and some were already yielding results during the early months of the war. McGrayne notes that
+This was nevertheless\textbf{ a much broader collaborative cryptanalytic effort rather than the work of Turing alone}. Different German communications systems were being attacked by different groups, and some were already yielding results during the early months of the war. McGrayne notes that
 
 \begin{quote}
 “By January [1940] the English were reading German air force messages.””
@@ -564,11 +712,46 @@ This was nevertheless a much broader collaborative cryptanalytic effort rather t
 
 Progress against Naval Enigma, however, presented a substantially more difficult problem. The German Navy employed Enigma with more sophisticated operating procedures than the other German services; GCHQ's historical account consequently describes it as \textit{the hardest cryptanalytic problem facing Bletchley Park.} It was this problem that Turing chose to attack and within which probabilistic reasoning, \textbf{Banburismus} and the weighing of evidence would become particularly important.
 
+\paragraph{Women at Bletchley Park.}
+
+Women played a significant role both in the mathematical work at Bletchley
+Park and in putting its cryptanalytic methods into practice. The mathematician
+\href{https://www.gchq.gov.uk/information/joan-clarke}{Joan Clarke} (1917--1996), who worked alongside Turing in Hut~8, became particularly
+skilled at the process  \emph{Banburismus}\footnote{Banburismus was a statistical cryptanalytic procedure developed by Turing for Naval Enigma. Evidence from intercepted messages was accumulated and expressed through logarithmic weights of evidence, or decibans, in order to rank possible rotor orders and reduce the amount of Bombe processing required \cite{good1979turing,zabell2012turing}.}. 
+% GCHQ describes the method explicitly as an application of Bayesian statistics which produced substantial savings in Bombe processing time \cite{gchq2019clarke}.
+
+The contribution of women extended far beyond Hut~8. Around \textbf{75\% of the Bletchley Park workforce were women}\footnote{Source: \href{https://www.google.com/search?q=how+many+women+worked+in+blenchley+park&oq=how+many+women+worked+in+blenchley+park&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIICAEQABgWGB4yDQgCEAAYhgMYgAQYigUyDQgDEAAYhgMYgAQYigUyDQgEEAAYhgMYgAQYigUyDQgFEAAYhgMYgAQYigUyDQgGEAAYhgMYgAQYigXSAQg4Njg0ajBqN6gCALACAA&sourceid=chrome&source=chrome.ob&ie=UTF-8}{Wikipedia}}, in roles including cryptanalysis, linguistics, traffic analysis, interception, clerical work and the operation of cryptanalytic machinery  \cite{gchq2017women}. Members of the Women's Royal Naval Service (\emph{Wrens}), for example, operated the Bombe machines used to test possible
+Enigma settings. Among the notable women were
+\href{https://www.gchq.gov.uk/section/history/people-from-our-past} {Mavis Batey}, whose work against Enigma later proved important to Allied preparations for D-Day, and \href{https://www.bletchleypark.org.uk/betty_webb/}
+{Charlotte ``Betty'' Webb}, who worked with German intercepts and later with Japanese communications.
+
+For further historical accounts, see Philippa Lacey's interview with Sir Dermot Turing,  \href{https://youtu.be/eCP7ZIGcomk?si=ks0lL17KtvcQlQ5c} {\textit{The Hidden Women Codebreakers of World War II}}. For the wider
+international story of women in wartime cryptanalysis, see Liza Mundy's book
+\textit{Code Girls: The Untold Story of the American Women Code Breakers of
+World War II} (2017) and her
+\href{https://youtu.be/D9sYm32TR8A?si=wstiQGtGWrX9U_mw} 
+{\textit{Talks at Google} presentation}.
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]
+    {figs/Bayes_figs/Women_in_Bletchley_Park.jpg}
+
+    \caption{Women in Bletchley Park, (date of image: unknown); Source: \href{https://en.wikipedia.org/wiki/Women_in_Bletchley_Park}
+    {Wikipedia}.}
+
+    \label{fig:women-at-Bletchley}
+\end{figure}
+
+
 \subsubsection*{The problem: Naval Enigma and Bayesian hypothesis testing}
 
 The Enigma machine encrypted each letter through a plugboard and a sequence of rotating wired rotors. For more informaiton, Alexander's post-war history and Mahon's \textit{History of Hut Eight} are excellent sources for Naval Enigma \cite{alexander1945,mahon1945}. Because the rotors moved as the machine was used, the substitution continually changed. Knowing how an Enigma machine worked was therefore not enough: the cryptanalysts had to infer its \textbf{unknown configuration} from intercepted messages and other evidence.
 
-\begin{figure}[H]
+% \begin{figure}[H]
+\begin{figure}[h]
 \centering
 
 % --- Enigma machine ---
@@ -606,7 +789,7 @@ The Enigma machine encrypted each letter through a plugboard and a sequence of r
 
 \end{figure}
 
-For Naval Enigma, the difficulty could be formulated partly as a problem of \textbf{hypothesis testing}. Cryptanalysts compared pairs of intercepted messages by shifting one ciphertext relative to another. A proposed alignment represented a hypothesis that portions of the two messages had been enciphered at corresponding Enigma positions. If an alignment produced an unusually large number or pattern of letter coincidences, this provided evidence that the two portions were in \textit{depth} — that is, that corresponding letters had passed through the same sequence of Enigma substitutions. Probable depths could then be combined to infer relationships between message settings and to eliminate unlikely rotor orders, greatly reducing the subsequent search \cite{turing1941cryptography,alexander1945,zabell2012turing}.
+For Naval Enigma, the difficulty could be formulated partly as a problem of \textbf{hypothesis testing}, more specifically \href{https://www.youtube.com/live/Ip8Ci5KUVRc?si=n0YSvhupRbd9GGuH}{Bayesian Hypothesis Testing}. Cryptanalysts compared pairs of intercepted messages by shifting one ciphertext relative to another. A proposed alignment represented a hypothesis that portions of the two messages had been enciphered at corresponding Enigma positions. If an alignment produced an unusually large number or pattern of letter coincidences, this provided evidence that the two portions were in \textit{depth} — that is, that corresponding letters had passed through the same sequence of Enigma substitutions. Probable depths could then be combined to infer relationships between message settings and to eliminate unlikely rotor orders, greatly reducing the subsequent search \cite{turing1941cryptography,alexander1945,zabell2012turing}.
 
 Let $H_1$ and $H_0$ denote two competing hypotheses about the cipher
 configuration, and let $E$ denote the observed evidence---for example, the pattern of coincidences produced by a particular message alignment. In odds form, Bayes' theorem gives
@@ -627,7 +810,7 @@ configuration, and let $E$ denote the observed evidence---for example, the patte
 }
 \end{equation}
 
-Thus the \textbf{prior odds} are multiplied by a \textbf{likelihood ratio} \textit{measuring how strongly the observed evidence favours one hypothesis over the other}.  Turing described this idea in his wartime manuscript \textit{The Applications of Probability to Cryptography}, calling it the \emph{factor principle (or Bayes' Theorem)} \cite{turing1941cryptography,zabell2012turing}.
+Thus the \textbf{prior odds} are multiplied by a \textbf{likelihood ratio} \textit{measuring how strongly the observed evidence favours one hypothesis over the other}.  Turing described this idea in his wartime manuscript \textit{The Applications of Probability to Cryptography}, calling it the \emph{factor principle} \cite{turing1941cryptography,zabell2012turing}.
 
 Because the calculations required the multiplication of many such factors, Turing expressed the resulting weight of evidence on a logarithmic scale using the \textbf{deciban} \cite{turing1941cryptography,good1979turing},
 
@@ -644,12 +827,480 @@ D
 
 Ten decibans multiplied the odds by $10$, while one deciban changed them by a factor of $10^{0.1}\approx1.26$. These ideas formed part of Turing's statistical procedure known as \emph{Banburismus}, which allowed the accumulation of evidence \textit{for or against candidate rotor relationships} and thereby eliminate unlikely rotor orders before committing scarce Bombe time \cite{good1979turing,alexander1945,zabell2012turing}.
 
-The importance of Turing's contribution was therefore not the invention of Bayesian hypothesis testing itself, which had earlier roots in the work of Wrinch, Haldane and Jeffreys
+The importance of \textbf{Turing's contribution} was therefore not the invention of Bayesian hypothesis testing itself, which had earlier roots in the work of Wrinch, Haldane and Jeffreys
 \cite{wrinchjeffreys1919,wrinchjeffreys1921,
 wrinchjeffreys1923,haldane1932,jeffreys1935,
-etzwagenmakers2017}, but its transformation into a practical method for \textbf{weighing accumulating evidence between competing hypotheses under severe computational constraints}. Good later documented and further developed the wartime
-statistical ideas into the public literature  \cite{good1950,good1979turing}.
+etzwagenmakers2017}. His important contribution was to \textbf{make these ideas practical}. As new clues were obtained, the cryptanalysts could increase or decrease their confidence in different possible Enigma settings, gradually narrowing down the possibilities. Good later documented and further developed the wartime statistical ideas into the public literature here \cite{good1950,good1979turing}.
 
+
+%% End ------------------------------------------
+
+% add: The Sequential Test \& Wald ConnectionTuring's use of accumulated decibans to reach a decision threshold (stopping rule when $W > \text{threshold}$) is effectively Abraham Wald’s Sequential Probability Ratio Test (SPRT), developed independently in the US around the same time.
+
+\subsection{The computational revolution in Bayesian inference: from Bayes’ theorem to algorithms (c. 1950–present)}
+\label{sec:bayes-computational-history}
+
+
+MCMC
+Particle filters
+There is also a different but related path/genealogical degeneracy problem: repeated resampling means particles that look different today can all share only a few ancestors, making inference about earlier states—the smoothing problem—difficult. Reviews of modern filtering explicitly identify high-dimensional state estimation and inference over state histories as major challenges
+
+particle MCMC. Andrieu, Doucet and Holenstein in 2010 combined the two branches of your story: particle filters are placed inside MCMC methods, making joint Bayesian inference over unknown parameters and hidden states possible for difficult nonlinear state-space models.
+Air France AF447; SS Central America (ship of gold)
+
+Variational Inference --> optimisation problem
+This became especially influential in machine learning because optimisation can often be considerably faster than traditional MCMC on very large problems, although the posterior approximation introduces another source of error. Jordan, Ghahramani, Jaakkola and Saul gave an influential treatment of variational methods for graphical models around 1999; the later Blei–Kucukelbir–McAuliffe review explicitly describes VI as optimisation-based approximate Bayesian inference
+
+AlphaGo
+It has a much older history than DeepMind. Kushner developed an early stochastic-process approach to expensive optimisation in 1964; Mockus developed Bayesian global-optimisation methods in the 1970s; Jones, Schonlau and Welch's 1998 Efficient Global Optimization paper became another major milestone; and Bayesian optimisation became particularly important for machine-learning hyperparameters in work such as Snoek, Larochelle and Adams in 2012
+
+Slightly different to mathematics:
+neuroscientist Lisa Feldman Barrett \& psychologist Daniel Kahneman's view of the human learning and reasoning is also modelled by a bayesian framework
+
+\newpage
+
+```latex
+\subsection{Bayesian inference after 1950: computation, modelling and machine learning
+(c.~1950--present)}
+\label{sec:bayes-post1950}
+
+By the middle of the twentieth century, the central mathematical principle of
+Bayesian inference was already well established. The major developments that
+followed were therefore not new versions of Bayes' theorem itself. Instead,
+researchers increasingly asked three different questions:
+
+\begin{enumerate}
+    \item \textbf{How can complicated posterior distributions actually be computed?}
+    \item \textbf{What kinds of unknown objects can be modelled probabilistically?}
+    \item \textbf{How can Bayesian ideas be used for prediction, learning and
+    decision-making?}
+\end{enumerate}
+
+The answers produced three closely connected developments: a
+\textbf{computational revolution}, in which simulation and optimisation made
+previously impossible Bayesian calculations practical; a \textbf{modelling
+revolution}, in which Bayesian methods were extended from a small number of
+parameters to hierarchies, probability distributions and functions; and,
+eventually, a growing role for Bayesian ideas in \textbf{machine learning and
+artificial intelligence}. These developments were strongly connected to the
+rapid growth of electronic computing after the Second World War.
+
+
+% ============================================================
+\subsubsection{The computational revolution: making Bayes calculable}
+\label{sec:bayes-computational}
+
+\paragraph{Monte Carlo and Markov chain Monte Carlo.}
+
+One of the most important computational developments in modern Bayesian
+statistics originated not in statistics, but in post-war mathematical physics.
+In 1953, Nicholas Metropolis, \textbf{Arianna Rosenbluth}, Marshall Rosenbluth,
+\textbf{Augusta Teller} and Edward Teller published
+\href{https://bayes.wustl.edu/Manual/EquationOfState.pdf}
+{\emph{Equation of State Calculations by Fast Computing Machines}},
+describing a Monte Carlo procedure implemented on the MANIAC computer at
+Los Alamos \cite{metropolis1953}. The purpose was to study systems of
+interacting particles rather than Bayesian inference, but the underlying
+method provided a way of generating samples from complicated probability
+distributions.
+
+The usual name ``Metropolis algorithm'' hides some of this collaborative
+history. Later historical accounts emphasised the contributions of Marshall
+and Arianna Rosenbluth, with Arianna Rosenbluth playing an important role in
+implementing the method on MANIAC \cite{gubernatis2005}. Thus, two women were
+among the five authors of one of the foundational papers of modern Monte
+Carlo computation.
+
+W.~K. Hastings subsequently generalised the method in 1970 in
+\href{https://academic.oup.com/biomet/article-pdf/57/1/97/8545904/57-1-97.pdf}
+{\emph{Monte Carlo Sampling Methods Using Markov Chains and Their
+Applications}} \cite{hastings1970}. The resulting
+\textbf{Metropolis--Hastings algorithm} became particularly important for
+Bayesian statistics because a computer could explore a complicated posterior
+distribution by simulation even when its normalising integral could not be
+evaluated analytically.
+
+Further variants followed. Stuart and Donald Geman's 1984 work on
+\href{https://www.computer.org/csdl/journal/tp/1984/06/04767596/13rRUyfKIE7}
+{Bayesian image restoration} helped establish what became known as
+\textbf{Gibbs sampling} \cite{geman1984}, while Gelfand and Smith later
+demonstrated how such sampling methods could be used systematically for
+Bayesian statistical inference \cite{gelfandsmith1990}. In another example
+of ideas crossing disciplinary boundaries, Duane, Kennedy, Pendleton and
+Roweth introduced \textbf{Hybrid Monte Carlo}, now usually called
+\textbf{Hamiltonian Monte Carlo (HMC)}, in 1987 for lattice field theory
+\cite{duane1987}. HMC was later adopted as a powerful method for exploring
+high-dimensional Bayesian posterior distributions.
+
+These examples illustrate an important feature of the post-war history of
+Bayesian computation: several methods now regarded as standard Bayesian tools
+were \emph{not originally developed as Bayesian statistics}, but were imported
+from physics, engineering and computer science once their usefulness for
+posterior computation became apparent.
+
+
+\paragraph{Sequential inference: from Kalman filters to particle filters.}
+
+A different computational problem appears when information arrives
+\textbf{sequentially}. Rather than estimating one fixed quantity from a completed
+dataset, researchers may wish continually to update their estimate of an
+unobserved state as new measurements arrive.
+
+Rudolf Kalman's famous 1960 paper,
+\href{https://eceweb1.rutgers.edu/~gajic/pdffiles/519KalmanFiltering/kalman1960.pdf}
+{\emph{A New Approach to Linear Filtering and Prediction Problems}},
+arose from prediction and control theory rather than from the Bayesian
+statistical movement \cite{kalman1960}. Nevertheless, in a linear-Gaussian
+state-space model the Kalman filter can be interpreted as an exact recursive
+Bayesian calculation: a prediction about the next state is made, new data are
+observed, and that prediction is updated.
+
+Real systems, however, need not be linear or Gaussian. In 1993 Neil Gordon,
+David Salmond and Adrian Smith proposed a
+\href{https://www.ece.iastate.edu/~namrata/EE520/Gordonnovelapproach.pdf}
+{\emph{Novel Approach to Nonlinear/Non-Gaussian Bayesian State Estimation}},
+now regarded as a foundational paper on the \textbf{bootstrap particle filter}
+\cite{gordon1993}. Instead of describing the changing posterior distribution
+by a convenient analytic formula, a particle filter represents it using many
+simulated possible states, or ``particles'', which are propagated, weighted
+against the latest evidence and resampled.
+
+Particle methods brought their own computational difficulties. Over time,
+particle weights can become concentrated on only a small number of particles,
+while repeated resampling can cause apparently different present-day
+particles to share only a few earlier ancestors. This latter
+\textbf{genealogical or path degeneracy} makes reconstruction of earlier
+states---the \emph{smoothing} problem---particularly difficult.
+
+In 2010 Christophe Andrieu, Arnaud Doucet and Roman Holenstein connected the
+particle-filter and MCMC traditions in
+\href{https://people.eecs.berkeley.edu/~jordan/sail/readings/andrieu-doucet-holenstein.pdf}
+{\emph{Particle Markov Chain Monte Carlo Methods}} \cite{andrieu2010}.
+Their \textbf{particle MCMC} framework placed particle filters inside MCMC
+algorithms, making joint Bayesian inference over unknown parameters and hidden
+state trajectories possible for difficult nonlinear state-space models.
+
+
+\paragraph{Variational inference: turning inference into optimisation.}
+
+MCMC approaches a posterior distribution through repeated random sampling.
+A different approach asks whether the complicated posterior can instead be
+replaced by a simpler distribution that is deliberately chosen to approximate
+it. This leads to \textbf{variational inference} (VI), in which Bayesian
+inference is reformulated as an optimisation problem.
+
+Variational methods have older mathematical and physical roots, but an
+influential connection with probabilistic graphical models was developed by
+Michael Jordan, Zoubin Ghahramani, Tommi Jaakkola and Lawrence Saul in their
+1999 paper
+\href{https://mlg.eng.cam.ac.uk/zoubin/papers/varintro.pdf}
+{\emph{An Introduction to Variational Methods for Graphical Models}}
+\cite{jordan1999}. Rather than trying to calculate an intractable posterior
+exactly, a tractable family of distributions is chosen and optimisation is
+used to find a member of that family which approximates the posterior.
+
+Variational inference became particularly influential in machine learning
+because optimisation can often be considerably faster than traditional MCMC
+on very large problems. The price for this computational speed is an
+additional source of approximation error. Blei, Kucukelbir and McAuliffe's
+later review therefore described VI explicitly as
+\textbf{optimisation-based approximate Bayesian inference}
+\cite{blei2017}.
+
+
+\paragraph{From algorithms to software: BUGS and probabilistic programming.}
+
+An equally important change was social and practical: Bayesian computation
+gradually became usable without every researcher having to construct a new
+sampling algorithm from scratch. The \textbf{BUGS} project---\emph{Bayesian
+inference Using Gibbs Sampling}---began at the MRC Biostatistics Unit in
+Cambridge and developed a language in which complex Bayesian statistical
+models could be specified and fitted using MCMC methods \cite{lunn2009}.
+
+Women again played an important role in this computational development.
+Statistician \textbf{Nicky Best} became a major contributor to the development
+and dissemination of WinBUGS and Bayesian modelling software. The BUGS family
+helped make hierarchical and other complicated Bayesian models accessible to
+applied researchers who were not specialists in MCMC algorithms.
+
+Later probabilistic-programming systems, including \textbf{Stan}, continued
+this idea: the researcher specifies the probabilistic model, while increasingly
+sophisticated computational machinery performs much of the posterior
+calculation automatically. The historical change was therefore not merely from
+one algorithm to another, but from \emph{hand-derived Bayesian calculations}
+to general-purpose \emph{Bayesian computational systems}.
+
+
+% ============================================================
+\subsubsection{The modelling revolution: from parameters to distributions and functions}
+\label{sec:bayes-modelling}
+
+The computational revolution answered the question of how difficult posterior
+distributions could be calculated. At roughly the same time, a second
+development was expanding the kinds of objects to which Bayesian reasoning
+could be applied.
+
+
+\paragraph{Empirical Bayes and hierarchical modelling.}
+
+In classical textbook examples, a parameter is assigned a prior distribution
+whose form is specified before the data are analysed. Herbert Robbins challenged
+this simple separation in his 1956 paper
+\href{https://projecteuclid.org/ebooks/berkeley-symposium-on-mathematical-statistics-and-probability/Proceedings-of-the-Third-Berkeley-Symposium-on-Mathematical-Statistics-and/chapter/An-Empirical-Bayes-Approach-to-Statistics/bsmsp/1200501653}
+{\emph{An Empirical Bayes Approach to Statistics}} \cite{robbins1956}.
+In \textbf{empirical Bayes}, information from a collection of related
+observations can be used to estimate aspects of the population distribution
+which acts as a prior.
+
+A related development was \textbf{hierarchical Bayesian modelling}. Instead
+of assigning unrelated priors to many separate parameters, the parameters
+themselves may be viewed as arising from a common higher-level distribution.
+Lindley and Smith's influential 1972 paper
+\href{https://www.ma.imperial.ac.uk/~das01/MyWeb/SCBI/Papers/LindleySmith.pdf}
+{\emph{Bayes Estimates for the Linear Model}} used hierarchical prior
+structures to analyse linear models \cite{lindleysmith1972}.
+
+The practical consequence is \textbf{partial pooling}: estimates for different
+hospitals, schools, regions or individuals can share information without
+assuming that every group is identical. Hierarchical modelling subsequently
+became one of the characteristic strengths of applied Bayesian statistics,
+especially once MCMC software made multilevel models computationally
+manageable.
+
+
+\paragraph{Bayesian nonparametrics: making the distribution itself unknown.}
+
+An even more radical step was to move beyond a fixed finite-dimensional
+parameter altogether. In \textbf{Bayesian nonparametrics}, the unknown object
+may be an entire probability distribution or function. The name can be
+misleading: ``nonparametric'' does not mean that the model contains literally
+no parameters, but that its complexity is not restricted in advance to a
+fixed finite-dimensional parameter vector.
+
+A landmark was Thomas Ferguson's 1973 paper
+\href{https://projecteuclid.org/journals/annals-of-statistics/volume-1/issue-2/A-Bayesian-Analysis-of-Some-Nonparametric-Problems/10.1214/aos/1176342360.full}
+{\emph{A Bayesian Analysis of Some Nonparametric Problems}}, which introduced
+the \textbf{Dirichlet process} as a tractable prior distribution over
+probability distributions \cite{ferguson1973}. Charles Antoniak developed
+mixtures of Dirichlet processes the following year \cite{antoniak1974},
+helping establish what became a major branch of Bayesian nonparametric
+modelling.
+
+Later flexible mixture modelling also benefited directly from advances in
+computation. For example, \textbf{Sylvia Richardson} and Peter Green's 1997
+work on
+\href{https://people.maths.bris.ac.uk/~mapjg/papers/RichardsonGreenRSSB.pdf}
+{\emph{Bayesian Analysis of Mixtures with an Unknown Number of Components}}
+used reversible-jump MCMC to perform Bayesian inference when even the number
+of mixture components was uncertain \cite{richardsongreen1997}. The example
+shows how the modelling and computational revolutions increasingly developed
+together: more flexible models demanded more sophisticated algorithms, while
+new algorithms made previously impractical models possible.
+
+
+\paragraph{Random functions, Gaussian processes and kernels.}
+
+Bayesian reasoning can also be applied when the unknown object is not a number
+or a probability distribution but an entire \textbf{function}. This history
+provides an important connection between Bayesian statistics and later
+\textbf{kernel methods}.
+
+A particularly important contributor was the statistician
+\textbf{Grace Wahba}. In 1970 George Kimeldorf and Wahba published
+\href{https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-41/issue-2/A-Correspondence-Between-Bayesian-Estimation-on-Stochastic-Processes-and-Smoothing/10.1214/aoms/1177697089.short}
+{\emph{A Correspondence Between Bayesian Estimation on Stochastic Processes
+and Smoothing by Splines}} \cite{kimeldorfwahba1970}. Their work established
+an important mathematical correspondence between Bayesian estimation of
+random functions and spline smoothing. Wahba subsequently became one of the
+major figures in smoothing splines, regularisation and reproducing-kernel
+methods.
+
+Anthony O'Hagan's 1978 paper
+\href{https://academic.oup.com/jrsssb/article/40/1/1/7027526}
+{\emph{Curve Fitting and Optimal Design for Prediction}} developed an
+explicitly Bayesian approach in which the unknown regression function was not
+restricted to a conventional finite-dimensional form \cite{ohagan1978}. Such
+ideas form part of the historical development of what is now known as
+\textbf{Gaussian-process regression}.
+
+A Gaussian process places a probability distribution over possible functions,
+while a \textbf{kernel} describes how function values at different inputs are
+related. Kernel methods themselves are not inherently Bayesian---methods such
+as support-vector machines have different foundations---but Gaussian processes
+provide an important Bayesian route into kernel-based learning. This is one
+of the clearest examples of twentieth-century Bayesian statistics connecting
+with the mathematics of modern machine learning.
+
+
+% ============================================================
+\subsubsection{Bayesian learning, prediction and decision-making}
+\label{sec:bayes-ml}
+
+By the 1980s and 1990s, the computational and modelling developments above were
+increasingly entering computer science and artificial intelligence. Bayesian
+ideas were no longer used only to estimate parameters: they became tools for
+representing large systems of uncertain relationships, learning flexible
+predictive models and deciding what information should be collected next.
+
+
+\paragraph{Bayesian networks and probabilistic graphical models.}
+
+One important development was the use of graphs to represent complicated
+probability distributions. Judea Pearl's work during the 1980s, culminating
+in his 1988 book \emph{Probabilistic Reasoning in Intelligent Systems},
+helped establish \textbf{Bayesian networks} as an important method for
+representing uncertain relationships in artificial intelligence
+\cite{pearl1988}. In the same year, Lauritzen and Spiegelhalter developed
+efficient
+\href{https://pshenoy.ku.edu/Papers/JRSS88.pdf}
+{local probability calculations on graphical structures} for expert systems
+\cite{lauritzenspiegelhalter1988}.
+
+The important idea is not another form of Bayes' theorem, but a way of
+organising a large joint probability distribution using conditional
+independence. A complicated probability model can therefore be represented
+by a graph whose structure records which variables depend directly upon which
+others.
+
+Researcher \textbf{Daphne Koller} later became a major figure in connecting
+probabilistic graphical models with machine learning. Her work, and the
+influential text written with Nir Friedman,
+\emph{Probabilistic Graphical Models: Principles and Techniques},
+helped systematise Bayesian networks, Markov networks, inference and learning
+within a common framework \cite{kollerfriedman2009}.
+
+
+\paragraph{Bayesian neural networks.}
+
+Neural networks also developed a Bayesian branch. Whereas ordinary neural
+network training commonly produces one fitted collection of weights,
+\textbf{Bayesian neural networks} place a probability distribution over those
+weights, allowing uncertainty in the model itself to be propagated into its
+predictions.
+
+David MacKay's 1992
+\href{https://authors.library.caltech.edu/records/8n76z-g9k64}
+{\emph{A Practical Bayesian Framework for Backpropagation Networks}}
+was an important contribution to this development \cite{mackay1992}.
+Radford Neal subsequently developed a much more extensive Bayesian treatment
+of neural networks, including the use of MCMC and the connection between
+large neural networks and Gaussian processes \cite{neal1996}.
+
+This development brings the earlier history back into the story. Bayesian
+neural networks create posterior distributions over potentially enormous
+numbers of parameters, so the computational tools developed through MCMC and
+variational inference become essential. Modern Bayesian machine learning is
+therefore not a separate history: it depends directly on the computational
+revolution that preceded it.
+
+
+\paragraph{Bayesian optimisation: using probability to decide what to try next.}
+
+\textbf{Bayesian optimisation} reverses the relationship between inference and
+optimisation found in variational methods. Variational inference uses
+\emph{optimisation to perform Bayesian inference}; Bayesian optimisation uses
+a \emph{Bayesian probabilistic model to perform optimisation}.
+
+The method has a substantially older history than modern machine learning.
+Harold Kushner's 1964 paper
+\href{https://asmedigitalcollection.asme.org/fluidsengineering/article-abstract/86/1/97/395611}
+{\emph{A New Method of Locating the Maximum Point of an Arbitrary Multipeak
+Curve in the Presence of Noise}} developed an early probabilistic approach to
+expensive optimisation \cite{kushner1964}. Jonas Mockus developed explicitly
+Bayesian approaches to global optimisation during the 1970s, while Jones,
+Schonlau and Welch's 1998
+\href{https://link.springer.com/article/10.1023/A%3A1008306431147}
+{\emph{Efficient Global Optimization of Expensive Black-Box Functions}}
+became another influential milestone \cite{jones1998}.
+
+Bayesian optimisation became especially important in machine learning because
+training a model may itself be extremely expensive. Snoek, Larochelle and
+Adams demonstrated its effectiveness for machine-learning hyperparameter
+selection in 2012 \cite{snoek2012}.
+
+A striking example appeared during the development of
+\textbf{AlphaGo}. AlphaGo itself was based primarily on neural networks,
+reinforcement learning and tree search rather than being a Bayesian system.
+However, DeepMind researchers later reported that
+\href{https://arxiv.org/abs/1812.06855}
+{Bayesian optimisation was repeatedly used to tune AlphaGo's
+hyperparameters} \cite{chen2018}. Before the 2016 match against Lee Sedol,
+one such optimisation increased the self-play win rate of the relevant system
+from approximately $50\%$ to $66.5\%$. Bayesian optimisation therefore did
+not teach AlphaGo how to play Go; instead, it helped researchers efficiently
+choose settings for an extraordinarily expensive learning system.
+
+
+\paragraph{Bayesian search theory: from a ``ship of gold'' to Air France AF447.}
+
+Another branch applied probability directly to the question
+\emph{where should we search next?} In Bayesian search theory, an uncertain
+location is represented by a probability distribution, evidence from previous
+searches modifies that distribution, and search resources are concentrated
+where the posterior probability is greatest.
+
+A famous example is the search for the wreck of the
+\textit{SS Central America}, a steamship that sank in 1857 while carrying
+gold from California. Lawrence Stone later described the probabilistic search
+in
+\href{https://www.metsci.com/wp-content/uploads/2019/08/Search-for-the-SS-Central-America-Mathematical-Treasure-Hunting-Interfaces-22-1-Jan.-Feb.-1992.pdf}
+{\emph{Search for the SS Central America: Mathematical Treasure Hunting}}
+\cite{stone1992}.
+
+A particularly clear modern example is the search for
+\textbf{Air France Flight AF447}. The aircraft disappeared over the Atlantic
+in 2009, and several searches failed to locate the main wreckage. Lawrence
+Stone, \textbf{Colleen Keller}, Thomas Kratzke and Johan Strumpfer subsequently
+constructed a Bayesian posterior distribution for the location of the wreck,
+incorporating information about the accident together with evidence from the
+unsuccessful previous searches \cite{stone2014}. Their account,
+\href{https://projecteuclid.org/journals/statistical-science/volume-29/issue-1/Search-for-the-Wreckage-of-Air-France-Flight-AF-447/10.1214/13-STS420.full}
+{\emph{Search for the Wreckage of Air France Flight AF447}},
+provides an unusually direct example of Bayesian updating determining a
+real-world search strategy. The wreckage was located during the renewed
+undersea search in 2011.
+
+These examples return the story to the basic principle introduced much earlier
+in this chapter: begin with uncertainty, incorporate new evidence, update the
+probabilities, and use the result to decide what should be done next.
+
+
+% ============================================================
+\paragraph{From a theorem to a computational framework.}
+
+The history of Bayesian inference after 1950 is therefore broader than the
+revival of an eighteenth-century theorem. Three related changes occurred:
+
+\begin{center}
+\begin{tabular}{p{0.26\textwidth} p{0.64\textwidth}}
+\textbf{Computation} &
+MCMC, particle methods and variational inference made complicated posterior
+distributions calculable. \\[1.5mm]
+
+\textbf{Modelling} &
+Hierarchical models, Bayesian nonparametrics and Gaussian processes allowed
+Bayesian uncertainty to be placed on increasingly complicated objects,
+including distributions and functions. \\[1.5mm]
+
+\textbf{Learning and decisions} &
+Graphical models, Bayesian neural networks, Bayesian optimisation and search
+theory carried Bayesian reasoning into artificial intelligence, prediction and
+sequential decision-making.
+\end{tabular}
+\end{center}
+
+The important transition was therefore from using Bayes' theorem as a formula
+that could be evaluated in specially chosen problems to treating Bayesian
+reasoning as a \textbf{general computational and modelling framework}.
+Increasing computing power did not change the theorem itself; it changed the
+range of problems for which the theorem could be used in practice.
+```
+
+
+
+
+
+\newpage
 %% End ------------------------------------------
 
 % add: The Sequential Test \& Wald ConnectionTuring's use of accumulated decibans to reach a decision threshold (stopping rule when $W > \text{threshold}$) is effectively Abraham Wald’s Sequential Probability Ratio Test (SPRT), developed independently in the US around the same time.
