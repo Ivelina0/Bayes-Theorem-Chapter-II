@@ -865,8 +865,377 @@ The importance of \textbf{Turing's contribution} was therefore not the invention
 wrinchjeffreys1923,haldane1932,jeffreys1935,
 etzwagenmakers2017}. His important contribution was to \textbf{make these ideas practical}. As new clues were obtained, the cryptanalysts could increase or decrease their confidence in different possible Enigma settings, gradually narrowing down the possibilities. Good later documented and further developed the wartime statistical ideas into the public literature here \cite{good1950,good1979turing}.
 
+%% Final section ------------------------------------------
 
-%% End ------------------------------------------
+
+\subsection{The computational revolution in Bayesian inference: from Bayes’ theorem to algorithms (c. 1950–present)}
+\label{sec:bayes-computational-history}
+
+Post-1950 history of Bayesian statistics can be viewed as three connected developments:
+
+\[
+\boxed{
+\begin{array}{lll}
+\textbf{Computation} &:&
+\text{how can difficult posterior distributions be calculated?}\\[1mm]
+\textbf{Modelling} &:&
+\text{what kinds of unknown objects can carry probability distributions?}\\[1mm]
+\textbf{Learning and decisions} &:&
+\text{how can uncertainty be used for prediction and action?}
+\end{array}}
+\]
+
+```latex
+% Add to the preamble if not already included:
+% \usepackage{booktabs}
+% \usepackage{tabularx}
+% \usepackage{array}
+
+\subsection{Bayesian inference after 1950: computation, modelling and machine learning
+(c.~1950--present)}
+\label{sec:bayes-post1950}
+
+By the middle of the twentieth century, the central principle of Bayesian
+inference was already well established. The developments that followed can be
+viewed through three closely connected histories: new methods for
+\textbf{computing} difficult posterior distributions, new ways of
+\textbf{modelling} increasingly complicated unknown objects, and the spread of
+Bayesian ideas into \textbf{machine learning and decision-making}.
+
+% ============================================================
+\subsubsection{The computational revolution}
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{
+>{\raggedright\arraybackslash}p{0.20\textwidth}
+>{\raggedright\arraybackslash}p{0.34\textwidth}
+>{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Method} &
+\textbf{Historical development} &
+\textbf{Problem being addressed} \\
+\midrule
+
+\textbf{Metropolis algorithm}
+&
+\textbf{1953}: Nicholas Metropolis, \textbf{Arianna Rosenbluth},
+Marshall Rosenbluth, \textbf{Augusta Teller} and Edward Teller developed a
+Monte Carlo method on the MANIAC computer at Los Alamos
+\cite{metropolis1953}. Arianna Rosenbluth played an important role in its
+implementation \cite{gubernatis2005}.
+&
+Originally developed for statistical physics: how can a computer generate
+samples from a complicated probability distribution when direct calculation
+is impractical? \\
+
+\textbf{Kalman filter}
+&
+\textbf{1960}: Rudolf Kalman introduced recursive filtering and prediction
+methods in control theory \cite{kalman1960}.
+&
+How can the unknown state of a changing system be continually estimated as
+new, noisy observations arrive? For linear-Gaussian models this is equivalent
+to exact sequential Bayesian updating. \\
+
+\textbf{Metropolis--Hastings}
+&
+\textbf{1970}: W.~K. Hastings generalised the 1953 Metropolis method
+\cite{hastings1970}.
+&
+How can complicated target distributions---later especially Bayesian
+posteriors---be explored by simulation without evaluating difficult
+normalising integrals? \\
+
+\textbf{Gibbs sampling}
+&
+\textbf{1984}: Stuart and Donald Geman used Gibbs sampling in Bayesian image
+restoration \cite{geman1984}. Gelfand and Smith later helped establish such
+sampling methods as general tools for Bayesian inference
+\cite{gelfandsmith1990}.
+&
+How can a complicated multivariate distribution be sampled by repeatedly
+sampling from simpler conditional distributions? \\
+
+\textbf{Hamiltonian Monte Carlo}
+&
+\textbf{1987}: Duane, Kennedy, Pendleton and Roweth introduced
+\emph{Hybrid Monte Carlo} in lattice field theory \cite{duane1987}.
+&
+How can simulation move more efficiently through high-dimensional probability
+distributions than a simple random-walk MCMC algorithm? \\
+
+\textbf{Particle filter}
+&
+\textbf{1993}: Neil Gordon, David Salmond and Adrian Smith introduced the
+bootstrap particle filter for nonlinear and non-Gaussian Bayesian state
+estimation \cite{gordon1993}.
+&
+How can sequential Bayesian updating be performed when the assumptions needed
+for an exact Kalman filter no longer hold? The posterior is represented by
+many simulated ``particles''. \\
+
+\textbf{Variational inference}
+&
+\textbf{1999}: Michael Jordan, Zoubin Ghahramani, Tommi Jaakkola and Lawrence
+Saul gave an influential treatment of variational methods for graphical
+models \cite{jordan1999}.
+&
+Can a difficult posterior be approximated by a simpler distribution found
+through optimisation rather than by repeated random sampling? \\
+
+\textbf{Particle MCMC}
+&
+\textbf{2010}: Christophe Andrieu, Arnaud Doucet and Roman Holenstein combined
+particle filtering with MCMC \cite{andrieu2010}.
+&
+How can Bayesian inference be performed jointly over unknown parameters and
+hidden state trajectories in difficult nonlinear state-space models? \\
+
+\textbf{BUGS and probabilistic programming}
+&
+The BUGS project at the MRC Biostatistics Unit, with later important
+contributions from statisticians including \textbf{Nicky Best}, made
+Gibbs-sampling-based Bayesian modelling widely accessible
+\cite{lunn2009}. Later systems such as Stan continued this approach.
+&
+How can researchers specify complicated Bayesian models without having to
+derive and program a new sampling algorithm for every problem? \\
+
+\bottomrule
+\end{tabularx}
+\caption{Selected milestones in the computational development of Bayesian
+inference after 1950. Several important methods originated in physics,
+engineering or computer science before being adopted for Bayesian computation.}
+\label{tab:bayes-computation-timeline}
+\end{table}
+
+
+% ============================================================
+\subsubsection{The modelling revolution}
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{
+>{\raggedright\arraybackslash}p{0.20\textwidth}
+>{\raggedright\arraybackslash}p{0.34\textwidth}
+>{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Method} &
+\textbf{Historical development} &
+\textbf{Problem being addressed} \\
+\midrule
+
+\textbf{Empirical Bayes}
+&
+\textbf{1956}: Herbert Robbins proposed an ``empirical Bayes'' approach in
+which information from many related observations could help determine the
+distribution governing their parameters \cite{robbins1956}.
+&
+Must a prior distribution always be specified completely in advance, or can
+information across a population of related observations help estimate it? \\
+
+\textbf{Bayesian estimation of functions}
+&
+\textbf{1970}: George Kimeldorf and \textbf{Grace Wahba} established a
+correspondence between Bayesian estimation of stochastic processes and
+smoothing by splines \cite{kimeldorfwahba1970}.
+&
+How can uncertainty be placed not merely on a finite number of parameters but
+on an entire unknown function? This work also helped connect Bayesian
+estimation with smoothing and later kernel methods. \\
+
+\textbf{Hierarchical Bayes}
+&
+\textbf{1972}: Dennis Lindley and Adrian Smith developed influential
+hierarchical prior structures for linear models \cite{lindleysmith1972}.
+&
+How can related groups---for example hospitals, schools or regions---share
+information without assuming that they are identical? Hierarchical models
+provide the basis for \emph{partial pooling}. \\
+
+\textbf{Bayesian nonparametrics}
+&
+\textbf{1973}: Thomas Ferguson introduced the \textbf{Dirichlet process}
+as a prior distribution over probability distributions
+\cite{ferguson1973}.
+&
+How can the unknown object itself be an entire probability distribution rather
+than a parameter vector of fixed dimension? \\
+
+\textbf{Dirichlet-process mixtures}
+&
+\textbf{1974}: Charles Antoniak developed mixtures of Dirichlet processes
+\cite{antoniak1974}.
+&
+How can flexible mixture and clustering models be constructed without fixing
+all of their complexity in advance? \\
+
+\textbf{Gaussian-process regression}
+&
+\textbf{1978}: Anthony O'Hagan developed an explicitly Bayesian approach to
+flexible curve fitting and prediction \cite{ohagan1978}.
+&
+How can probability distributions be placed directly over possible functions,
+allowing predictions to include uncertainty about the shape of the function
+itself? Gaussian processes later became closely connected with kernel methods. \\
+
+\textbf{Unknown-dimensional mixture models}
+&
+\textbf{1997}: \textbf{Sylvia Richardson} and Peter Green developed Bayesian
+mixture modelling with an unknown number of components using reversible-jump
+MCMC \cite{richardsongreen1997}.
+&
+What if even the number of components or effective parameters in a model is
+unknown and must itself be inferred from the data? \\
+
+\bottomrule
+\end{tabularx}
+\caption{Selected developments in Bayesian modelling. The historical progression
+extended Bayesian uncertainty from individual parameters to hierarchies,
+probability distributions and entire functions.}
+\label{tab:bayes-modelling-timeline}
+\end{table}
+
+
+% ============================================================
+\subsubsection{Bayesian learning, prediction and decision-making}
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{
+>{\raggedright\arraybackslash}p{0.20\textwidth}
+>{\raggedright\arraybackslash}p{0.34\textwidth}
+>{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Method / application} &
+\textbf{Historical development} &
+\textbf{Problem being addressed} \\
+\midrule
+
+\textbf{Bayesian optimisation}
+&
+\textbf{1964}: Harold Kushner developed an early probabilistic method for
+locating the maximum of an expensive noisy function \cite{kushner1964}.
+Jonas Mockus developed explicitly Bayesian global-optimisation methods during
+the 1970s.
+&
+If evaluating a function is very expensive, how can uncertainty about its
+unknown shape be used to decide where the next evaluation should be made? \\
+
+\textbf{Bayesian networks}
+&
+During the \textbf{1980s}, Judea Pearl developed probabilistic graphical
+methods for reasoning under uncertainty, culminating in his 1988 book
+\emph{Probabilistic Reasoning in Intelligent Systems} \cite{pearl1988}.
+Lauritzen and Spiegelhalter also developed efficient local probability
+calculations for graphical models in 1988
+\cite{lauritzenspiegelhalter1988}.
+&
+How can a very large joint probability distribution be represented and
+computed efficiently by exploiting conditional independence between
+variables? \\
+
+\textbf{Bayesian search theory}
+&
+Lawrence Stone described the successful probabilistic search for the wreck of
+the \textit{SS Central America} in 1992 \cite{stone1992}. Later, Stone,
+\textbf{Colleen Keller}, Thomas Kratzke and Johan Strumpfer used Bayesian
+search ideas in the search for Air France Flight AF447
+\cite{stone2014}.
+&
+How should limited search resources be allocated when the location of a target
+is uncertain and evidence from unsuccessful searches continually changes that
+uncertainty? \\
+
+\textbf{Bayesian neural networks}
+&
+\textbf{1992}: David MacKay developed a practical Bayesian framework for
+backpropagation networks \cite{mackay1992}. Radford Neal extended Bayesian
+neural-network methods during the 1990s \cite{neal1996}.
+&
+Instead of learning one ``best'' set of neural-network weights, can uncertainty
+about the weights themselves be represented and propagated into predictions? \\
+
+\textbf{Efficient Global Optimisation}
+&
+\textbf{1998}: Jones, Schonlau and Welch developed the influential
+\emph{Efficient Global Optimization} approach \cite{jones1998}.
+&
+How can a probabilistic surrogate, often a Gaussian process, balance exploring
+uncertain regions with exploiting regions already believed to contain good
+solutions? \\
+
+\textbf{Probabilistic graphical models}
+&
+Later researchers including \textbf{Daphne Koller} helped connect Bayesian
+networks and related graphical models with modern machine learning; her
+influential text with Nir Friedman systematised this field
+\cite{kollerfriedman2009}.
+&
+How can complex probabilistic models support both automated inference and
+learning from large datasets? \\
+
+\textbf{Bayesian optimisation in machine learning}
+&
+\textbf{2012}: Snoek, Larochelle and Adams demonstrated Bayesian optimisation
+for machine-learning hyperparameter selection \cite{snoek2012}.
+DeepMind later reported using Bayesian optimisation to tune
+\textbf{AlphaGo} \cite{chen2018}.
+&
+Training modern machine-learning systems can be extremely expensive. How can
+researchers decide which hyperparameter settings are worth testing without
+exhaustively trying every possibility? \\
+
+\bottomrule
+\end{tabularx}
+\caption{Selected developments in the spread of Bayesian ideas into artificial
+intelligence, machine learning and decision-making.}
+\label{tab:bayes-learning-timeline}
+\end{table}
+
+
+\medskip
+
+Taken together, the three timelines show that the post-1950 development of
+Bayesian statistics was not a single sequence of new versions of Bayes'
+theorem. Instead, Bayesian ideas expanded in three directions:
+\textbf{new algorithms made inference computable, new models enlarged what
+could be treated as uncertain, and new applications used that uncertainty for
+prediction and decision-making.}
+```
+
+
+
+\section{Conslusions}
+% \paragraph{Bayes and human reasoning.}
+
+From Bayes and Laplace to modern computation and machine learning, Bayesian inference has developed into a general framework for \textbf{learning from evidence under uncertainty}.
+
+Bayesian ideas have also returned to a much older question: \emph{how do humans reason under uncertainty?} The psychologist \textbf{Daniel Kahneman} (1934--2024), whose work with Amos Tversky transformed the study of judgement and decision-making, explicitly describes Bayes' rule as the normative rule for combining prior beliefs with the diagnosticity of new evidence, while noting that \textit{intuitive judgement} often fails to do this correctly \cite[p.~154]{kahneman2011}.
+
+More recently, the psychologist and neuroscientist \textbf{Lisa Feldman Barrett} (b.~1963) has connected Bayesian ideas with theories of perception and learning. Barrett describes the brain as a predictive system that uses past experience to form hypotheses about incoming sensory information and revises those predictions in light of new evidence \cite{barrett2017}. In the scientific notes accompanying \emph{How Emotions Are Made}, she explicitly connects this predictive-coding framework with Bayes' theorem and Bayesian inference. 
+
+Thus, Bayesian reasoning returns to its original problem: \textbf{How should we change what we believe when new evidence arrives?}
+
+
+
+
+
+
+
+
+
+
+
+
+%% Final sectin drafts - old ------------------------------------------
 
 % add: The Sequential Test \& Wald ConnectionTuring's use of accumulated decibans to reach a decision threshold (stopping rule when $W > \text{threshold}$) is effectively Abraham Wald’s Sequential Probability Ratio Test (SPRT), developed independently in the US around the same time.
 
@@ -1064,8 +1433,69 @@ connected developments:
 The computer did not change Bayes' theorem. Instead, it transformed the scale
 and complexity of the problems to which Bayesian reasoning could be applied.
 
+\section{Conslusions}
+% \paragraph{Bayes and human reasoning.}
+
+From Bayes and Laplace to modern computation and machine learning, Bayesian inference has developed into a general framework for \textbf{learning from evidence under uncertainty}.
+
+Bayesian ideas have also returned to a much older question: \emph{how do humans reason under uncertainty?} The psychologist \textbf{Daniel Kahneman} (1934--2024), whose work with Amos Tversky transformed the study of judgement and decision-making, explicitly describes Bayes' rule as the normative rule for combining prior beliefs with the diagnosticity of new evidence, while noting that \textit{intuitive judgement} often fails to do this correctly \cite[p.~154]{kahneman2011}.
+
+More recently, the psychologist and neuroscientist \textbf{Lisa Feldman Barrett} (b.~1963) has connected Bayesian ideas with theories of perception and learning. Barrett describes the brain as a predictive system that uses past experience to form hypotheses about incoming sensory information and revises those predictions in light of new evidence \cite{barrett2017}. In the scientific notes accompanying \emph{How Emotions Are Made}, she explicitly connects this predictive-coding framework with Bayes' theorem and Bayesian inference. 
+
+Thus, Bayesian reasoning returns to its original problem: \textbf{How should we change what we believe when new evidence arrives?}
 
 
+
+% The influence of Bayesian ideas after 1950 also returned probability to a
+% question that had accompanied it from its earliest history: \emph{how do
+% people reason when they are uncertain?} In 1974, psychologists
+% \textbf{Amos Tversky} and \textbf{Daniel Kahneman} showed that intuitive
+% probability judgements often rely on heuristics such as representativeness,
+% availability and anchoring. Although these shortcuts are frequently useful,
+% they can also produce what the authors called ``systematic and predictable
+% errors'', including the neglect of prior probabilities or
+% \emph{base rates} \cite{tverskykahneman1974}.
+
+% The consequences are not merely theoretical. In a well-known medical example,
+% David Eddy reported in 1982 that, when physicians were asked to interpret a
+% positive mammogram for a disease with a low prior prevalence, most greatly
+% overestimated the probability that the patient actually had the disease
+% \cite{eddy1982}. The example illustrates a central distinction in Bayesian
+% reasoning: the probability of obtaining a positive test when disease is
+% present,
+% $P(+\mid D)$, is not the same as the probability of disease after observing a
+% positive test, $P(D\mid +)$. Thus, centuries after Bayes and Laplace developed
+% mathematical rules for reversing conditional probabilities, psychologists and
+% physicians were still investigating how difficult that reversal can be for
+% human intuition.
+
+% More recently, Bayesian language has also appeared in theories of the brain
+% itself. Neuroscientist and psychologist \textbf{Lisa Feldman Barrett}, with
+% W.~Kyle Simmons, described perception within a predictive framework that
+% combines expectations formed from previous experience with incoming sensory
+% information using principles of Bayesian active inference
+% \cite{barrettsimmons2015}. Barrett develops the broader idea of the
+% \emph{predicting brain} for a general audience in
+% \emph{Seven and a Half Lessons About the Brain} \cite{barrett2020}.
+% Such theories should not be interpreted as claiming that the brain literally
+% writes down and evaluates Bayes' theorem. Rather, Bayesian inference provides
+% a mathematical framework for describing how prior expectations and new
+% information might be combined.
+
+% This provides an interesting final contrast. The work of Tversky and Kahneman
+% showed that conscious human judgements can depart systematically from
+% Bayesian probability, while predictive theories of neuroscience ask whether
+% some of the processes underlying perception may nevertheless be understood
+% through Bayesian-like inference. Bayes' theorem therefore ends this history
+% not only as a rule for statistical calculation, but as part of a much broader
+% question: \textbf{how should---and how do---we learn from uncertain evidence?}
+
+
+% \vspace{5mm}
+
+% Kahneman explicitly describes Bayes' rule as the normative rule for combining prior beliefs with the diagnosticity of new evidence, while noting that intuitive judgement often fails to do this correctly \cite[p.~154]{kahneman2011}.
+
+% More recently, Bayesian ideas have appeared in theories of perception itself. Lisa Feldman Barrett describes the brain as a predictive system that uses past experience to generate hypotheses about incoming sensory information and then corrects those predictions in light of new evidence \cite{barrett2017}. In the scientific notes accompanying How Emotions Are Made, she explicitly connects this predictive-coding framework with Bayes' theorem and Bayesian inference
 
 
 \newpage
@@ -1509,319 +1939,319 @@ range of problems for which the theorem could be used in practice.
 
 
 
-\newpage
-%% End ------------------------------------------
+% \newpage
+% %% End ------------------------------------------
 
-% add: The Sequential Test \& Wald ConnectionTuring's use of accumulated decibans to reach a decision threshold (stopping rule when $W > \text{threshold}$) is effectively Abraham Wald’s Sequential Probability Ratio Test (SPRT), developed independently in the US around the same time.
+% % add: The Sequential Test \& Wald ConnectionTuring's use of accumulated decibans to reach a decision threshold (stopping rule when $W > \text{threshold}$) is effectively Abraham Wald’s Sequential Probability Ratio Test (SPRT), developed independently in the US around the same time.
 
-\subsection{When Bayes Became Computable: Monte Carlo, Metropolis--Hastings, and Gibbs Sampling}
-\label{sec:mcmc-history}
+% \subsection{When Bayes Became Computable: Monte Carlo, Metropolis--Hastings, and Gibbs Sampling}
+% \label{sec:mcmc-history}
 
-During World War II, Alan Turing and I. J. Good demonstrated that Bayesian updating could be operationalised through sequential evidence weighting—using log-odds, \emph{decibans}, and Good--Turing smoothing to solve cryptanalytic problems under strict mechanical constraints. 
+% During World War II, Alan Turing and I. J. Good demonstrated that Bayesian updating could be operationalised through sequential evidence weighting—using log-odds, \emph{decibans}, and Good--Turing smoothing to solve cryptanalytic problems under strict mechanical constraints. 
 
-However, these wartime methods relied either on discrete evidence accumulation or continuous analytical approximations. In the post-war decades, as Bayesian inference expanded into complex, high-dimensional parameter spaces $\Theta \subseteq \mathbb{R}^d$, calculating posterior expectations $\mathbb{E}_\pi[h(\theta)] = \int_\Theta h(\theta)\pi(\theta \mid y)d\theta$ required evaluating the marginal likelihood (normalising constant):
+% However, these wartime methods relied either on discrete evidence accumulation or continuous analytical approximations. In the post-war decades, as Bayesian inference expanded into complex, high-dimensional parameter spaces $\Theta \subseteq \mathbb{R}^d$, calculating posterior expectations $\mathbb{E}_\pi[h(\theta)] = \int_\Theta h(\theta)\pi(\theta \mid y)d\theta$ required evaluating the marginal likelihood (normalising constant):
 
-\textcolor{red}{Reference to Bayesian into subsection once written up}
+% \textcolor{red}{Reference to Bayesian into subsection once written up}
 
-\begin{equation}
-    p(y) = \int_{\Theta} p(y \mid \theta)\pi_{0}(\theta)\,d\theta.
-    \label{eq:marginal-likelihood}
-\end{equation}
-In high dimensions, standard numerical quadrature scales as $\mathcal{O}(K^d)$ for a grid of size $K$, rendering exact evaluation computationally intractable - the modern problem of the \emph{curse of dimensionality}.
+% \begin{equation}
+%     p(y) = \int_{\Theta} p(y \mid \theta)\pi_{0}(\theta)\,d\theta.
+%     \label{eq:marginal-likelihood}
+% \end{equation}
+% In high dimensions, standard numerical quadrature scales as $\mathcal{O}(K^d)$ for a grid of size $K$, rendering exact evaluation computationally intractable - the modern problem of the \emph{curse of dimensionality}.
 
-While we will detail a small subsection of the history and methods developed, more details about the history of the MCMC methods can be found in \cite{robert2011short, grimmett2014probability, wiki:mcmc, wiki:metropolishastings}
+% While we will detail a small subsection of the history and methods developed, more details about the history of the MCMC methods can be found in \cite{robert2011short, grimmett2014probability, wiki:mcmc, wiki:metropolishastings}
 
 
-\noindent
-\fcolorbox{red}{red!10}{%
-  \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
-    \raggedright
-    \textcolor{red}{%
-      \textbf{TODO:} Add
+% \noindent
+% \fcolorbox{red}{red!10}{%
+%   \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+%     \raggedright
+%     \textcolor{red}{%
+%       \textbf{TODO:} Add
       
-      \begin{enumerate}
-        \item overall examples of where mcmc methods are used today - locating the flight?
-        \item maybe more details about what inference is vs bayesian inference and why we need it? -> what do 18yo students actually know about this?
-        \item explaining in simple terms the consequences of the theorems + their connection to CLT --> elaborate further + add proofs from books + mention Markov Chains intro 1040s
-        \item Links to the full algorithms in appendix or code on github. 
-        \item any images of the mcmc e.g. locality theorem of gibbs. 
-        \item link to Markov Chain CLT with metropolis hastings algo --> using it
-        \item What is a transition kernel density and what are the conditions for it? 
-      \end{enumerate}
-    }%
-  }%
-}
+%       \begin{enumerate}
+%         \item overall examples of where mcmc methods are used today - locating the flight?
+%         \item maybe more details about what inference is vs bayesian inference and why we need it? -> what do 18yo students actually know about this?
+%         \item explaining in simple terms the consequences of the theorems + their connection to CLT --> elaborate further + add proofs from books + mention Markov Chains intro 1040s
+%         \item Links to the full algorithms in appendix or code on github. 
+%         \item any images of the mcmc e.g. locality theorem of gibbs. 
+%         \item link to Markov Chain CLT with metropolis hastings algo --> using it
+%         \item What is a transition kernel density and what are the conditions for it? 
+%       \end{enumerate}
+%     }%
+%   }%
+% }
 
-% -----------------------------------------------------------------------------
-\subsubsection{Physics Origins: The Metropolis--Hastings Framework (1953--1970)}
-\label{subsec:metropolis-hastings}
+% % -----------------------------------------------------------------------------
+% \subsubsection{Physics Origins: The Metropolis--Hastings Framework (1953--1970)}
+% \label{subsec:metropolis-hastings}
 
-The computational breakthrough behind modern Markov chain Monte Carlo (MCMC) originated not in statistics, but in physical chemistry. Nicholas Metropolis, Arianna Rosenbluth, Marshall Rosenbluth, Augusta Teller, and Edward Teller \cite{metropolis1953} sought to calculate macroscopic thermodynamic quantities for systems of $N$ interacting particles in $d$ dimensions ($d \in \{2, 3\}$).
+% The computational breakthrough behind modern Markov chain Monte Carlo (MCMC) originated not in statistics, but in physical chemistry. Nicholas Metropolis, Arianna Rosenbluth, Marshall Rosenbluth, Augusta Teller, and Edward Teller \cite{metropolis1953} sought to calculate macroscopic thermodynamic quantities for systems of $N$ interacting particles in $d$ dimensions ($d \in \{2, 3\}$).
 
-Let $x = (x_1, \dots, x_N) \in \mathcal{X}$ denote a spatial configuration with potential energy $E(x)$. At thermodynamic equilibrium, states follow the canonical Boltzmann distribution:
-\begin{equation}
-    \pi(x) = \frac{\widetilde{\pi}(x)}{Z} = \frac{\exp\left\{-\beta E(x)\right\}}{Z}, \qquad \text{where } \beta = \frac{1}{k_{\mathrm{B}}T}.
-\end{equation}
-Evaluating expected physical properties $\mathbb{E}_{\pi}[h(X)]$ required computing the ratio of two high-dimensional integrals over the partition function $Z = \int_{\mathcal{X}} \exp\{-\beta E(x)\} dx$. Standard Monte Carlo sampling $X_i \sim \text{Uniform}(\mathcal{X})$ failed because uniform samples in dense states almost always placed particles unrealistically close together, driving $E(x) \to \infty$ and yielding negligible weights $\exp\{-\beta E(x)\} \approx 0$.
+% Let $x = (x_1, \dots, x_N) \in \mathcal{X}$ denote a spatial configuration with potential energy $E(x)$. At thermodynamic equilibrium, states follow the canonical Boltzmann distribution:
+% \begin{equation}
+%     \pi(x) = \frac{\widetilde{\pi}(x)}{Z} = \frac{\exp\left\{-\beta E(x)\right\}}{Z}, \qquad \text{where } \beta = \frac{1}{k_{\mathrm{B}}T}.
+% \end{equation}
+% Evaluating expected physical properties $\mathbb{E}_{\pi}[h(X)]$ required computing the ratio of two high-dimensional integrals over the partition function $Z = \int_{\mathcal{X}} \exp\{-\beta E(x)\} dx$. Standard Monte Carlo sampling $X_i \sim \text{Uniform}(\mathcal{X})$ failed because uniform samples in dense states almost always placed particles unrealistically close together, driving $E(x) \to \infty$ and yielding negligible weights $\exp\{-\beta E(x)\} \approx 0$.
 
-To bypass evaluating $Z$, Metropolis et al. (1953) \cite{metropolis1953} introduced a guided random walk using a symmetric proposal distribution $q(y \mid x) = q(x \mid y)$. While published under five authors, historical accounts attribute the mathematical derivation to Marshall Rosenbluth and the implementation on the MANIAC I computer to Arianna Rosenbluth \cite{gubernatis2005}. W. K. Hastings (1970) \cite{hastings1970} generalised this to asymmetric proposals $q(y \mid x) \neq q(x \mid y)$, transforming a physical simulation technique into a general mathematical tool for statistical sampling.
+% To bypass evaluating $Z$, Metropolis et al. (1953) \cite{metropolis1953} introduced a guided random walk using a symmetric proposal distribution $q(y \mid x) = q(x \mid y)$. While published under five authors, historical accounts attribute the mathematical derivation to Marshall Rosenbluth and the implementation on the MANIAC I computer to Arianna Rosenbluth \cite{gubernatis2005}. W. K. Hastings (1970) \cite{hastings1970} generalised this to asymmetric proposals $q(y \mid x) \neq q(x \mid y)$, transforming a physical simulation technique into a general mathematical tool for statistical sampling.
 
-\begin{proposition}[Cancellation of Normalising Constants \cite{robert2004mcmc}]
-\label{prop:cancellation-constant}
-Let $\widetilde{\pi}(\theta) = p(y \mid \theta)\pi_0(\theta)$ be an unnormalised target density with normalising constant $Z = p(y)$. For any proposal $q(\cdot \mid \theta)$, the Metropolis--Hastings acceptance probability $\alpha_{\mathrm{MH}}(\theta, \theta')$ satisfies:
-\begin{equation}
-    \alpha_{\mathrm{MH}}(\theta, \theta') = \min\left\{1, \; \frac{\pi(\theta') q(\theta \mid \theta')}{\pi(\theta) q(\theta' \mid \theta)}\right\} = \min\left\{1, \; \frac{\widetilde{\pi}(\theta') q(\theta \mid \theta')}{\widetilde{\pi}(\theta) q(\theta' \mid \theta)}\right\}.
-\end{equation}
-\end{proposition}
+% \begin{proposition}[Cancellation of Normalising Constants \cite{robert2004mcmc}]
+% \label{prop:cancellation-constant}
+% Let $\widetilde{\pi}(\theta) = p(y \mid \theta)\pi_0(\theta)$ be an unnormalised target density with normalising constant $Z = p(y)$. For any proposal $q(\cdot \mid \theta)$, the Metropolis--Hastings acceptance probability $\alpha_{\mathrm{MH}}(\theta, \theta')$ satisfies:
+% \begin{equation}
+%     \alpha_{\mathrm{MH}}(\theta, \theta') = \min\left\{1, \; \frac{\pi(\theta') q(\theta \mid \theta')}{\pi(\theta) q(\theta' \mid \theta)}\right\} = \min\left\{1, \; \frac{\widetilde{\pi}(\theta') q(\theta \mid \theta')}{\widetilde{\pi}(\theta) q(\theta' \mid \theta)}\right\}.
+% \end{equation}
+% \end{proposition}
 
-\noindent This cancellation is the foundation of MCMC computation. It allows samples to be drawn from complex target posterior distributions knowing only the unnormalised joint density $p(y \mid \theta)\pi_0(\theta)$, entirely bypassing the intractable high-dimensional integration required to evaluate $p(y)$.
+% \noindent This cancellation is the foundation of MCMC computation. It allows samples to be drawn from complex target posterior distributions knowing only the unnormalised joint density $p(y \mid \theta)\pi_0(\theta)$, entirely bypassing the intractable high-dimensional integration required to evaluate $p(y)$.
 
-\begin{theorem}[Detailed Balance and Ergodicity \cite{meyn2012mcke, tierney1994}]
-\label{thm:mcmc-ergodic}
-If a transition kernel $P(x, dy)$ satisfies detailed balance $\pi(dx) P(x, dy) = \pi(dy) P(y, dx)$, then $\pi$ is invariant. Furthermore, if the resulting Markov chain is $\pi$-irreducible, aperiodic, and positive Harris recurrent, then for any $\pi$-integrable function $h$:
-\begin{equation}
-    \lim_{M \to \infty} \frac{1}{M} \sum_{m=1}^{M} h(X_m) = \mathbb{E}_\pi[h(X)] \quad \text{a.s.}
-\end{equation}
-\end{theorem}
+% \begin{theorem}[Detailed Balance and Ergodicity \cite{meyn2012mcke, tierney1994}]
+% \label{thm:mcmc-ergodic}
+% If a transition kernel $P(x, dy)$ satisfies detailed balance $\pi(dx) P(x, dy) = \pi(dy) P(y, dx)$, then $\pi$ is invariant. Furthermore, if the resulting Markov chain is $\pi$-irreducible, aperiodic, and positive Harris recurrent, then for any $\pi$-integrable function $h$:
+% \begin{equation}
+%     \lim_{M \to \infty} \frac{1}{M} \sum_{m=1}^{M} h(X_m) = \mathbb{E}_\pi[h(X)] \quad \text{a.s.}
+% \end{equation}
+% \end{theorem}
 
-\noindent Detailed balance theorem offers a tractable, local condition to ensure that the chain preserves the target distribution $\pi$. Ergodicity provides the formal theoretical guarantee that sample path averages will almost surely converge to true posterior expectations as the chain runs infinitely long.
+% \noindent Detailed balance theorem offers a tractable, local condition to ensure that the chain preserves the target distribution $\pi$. Ergodicity provides the formal theoretical guarantee that sample path averages will almost surely converge to true posterior expectations as the chain runs infinitely long.
 
-% -----------------------------------------------------------------------------
-\subsubsection{Image Restoration and Gibbs Sampling (1984)}
-\label{subsec:gibbs-sampling}
+% % -----------------------------------------------------------------------------
+% \subsubsection{Image Restoration and Gibbs Sampling (1984)}
+% \label{subsec:gibbs-sampling}
 
-Independently of Hastings' statistical formulation, Stuart and Donald Geman (1984) \cite{geman1984} addressed the problem of recovering a clean digital image $F = (F_s)_{s \in \mathcal{S}}$ over a grid $\mathcal{S}$ given noisy observations $G$, via the posterior $\pi(f \mid g) \propto p(g \mid f) \pi_0(f)$.
+% Independently of Hastings' statistical formulation, Stuart and Donald Geman (1984) \cite{geman1984} addressed the problem of recovering a clean digital image $F = (F_s)_{s \in \mathcal{S}}$ over a grid $\mathcal{S}$ given noisy observations $G$, via the posterior $\pi(f \mid g) \propto p(g \mid f) \pi_0(f)$.
 
-To capture local spatial correlations, Geman and Geman modeled the prior $\pi_0(f)$ as a Markov Random Field (MRF) over local neighbourhoods $\partial s$.
+% To capture local spatial correlations, Geman and Geman modeled the prior $\pi_0(f)$ as a Markov Random Field (MRF) over local neighbourhoods $\partial s$.
 
-\begin{theorem}[Hammersley--Clifford Theorem \cite{besag1974spatial, geman1984}]
-\label{thm:hammersley-clifford}
-A strictly positive random field $F$ on a finite lattice $\mathcal{S}$ is a Markov Random Field if and only if its joint distribution $\pi_0(f)$ is a Gibbs distribution:
-\begin{equation}
-    \pi_0(f) = \frac{1}{Z} \exp\left\{ -\frac{1}{T} \sum_{C \in \mathcal{C}} V_C(f) \right\},
-\end{equation}
-where $T > 0$ is temperature, $\mathcal{C}$ is the collection of local pixel cliques, and $V_C(f)$ are clique potential functions.
-\end{theorem}
+% \begin{theorem}[Hammersley--Clifford Theorem \cite{besag1974spatial, geman1984}]
+% \label{thm:hammersley-clifford}
+% A strictly positive random field $F$ on a finite lattice $\mathcal{S}$ is a Markov Random Field if and only if its joint distribution $\pi_0(f)$ is a Gibbs distribution:
+% \begin{equation}
+%     \pi_0(f) = \frac{1}{Z} \exp\left\{ -\frac{1}{T} \sum_{C \in \mathcal{C}} V_C(f) \right\},
+% \end{equation}
+% where $T > 0$ is temperature, $\mathcal{C}$ is the collection of local pixel cliques, and $V_C(f)$ are clique potential functions.
+% \end{theorem}
 
-\noindent This theorem builds a crucial theoretical bridge between local spatial specifications and global joint probability fields. It proves that specifying simple, local interactions is mathematically equivalent to defining a valid joint distribution over the entire lattice.
-
-For a lattice of $d$ pixels with $K$ discrete intensity levels, $Z$ involves $K^d$ terms (e.g., $256^{512 \times 512}$), rendering direct evaluation impossible. Geman and Geman introduced what they named the \emph{Gibbs sampler}—in honor of Josiah Willard Gibbs—noting that the full conditional distribution of a pixel $F_s$ given $F_{-s}$ depends solely on its local neighbourhood $\partial s$:
-\begin{equation}
-    \pi(f_s \mid f_{-s}) = \pi(f_s \mid f_{\partial s}) = \frac{\exp\left\{ -\frac{1}{T} \sum_{C : s \in C} V_C(f) \right\}}{\sum_{u \in \mathcal{F}_s} \exp\left\{ -\frac{1}{T} \sum_{C : s \in C} V_C(u, f_{-s}) \right\}},
-\end{equation}
-
-
-where $F_{-s}$ denotes the values of all pixels on the grid except pixel $s$. By updating each coordinate iteratively from its full conditional distribution, the chain targets the full joint distribution:
-\begin{align}
-    X_1^{(m+1)} &\sim \pi(x_1 \mid X_2^{(m)}, X_3^{(m)}, \dots, X_d^{(m)}), \\
-    &\;\;\vdots \notag \\
-    X_d^{(m+1)} &\sim \pi(x_d \mid X_1^{(m+1)}, X_2^{(m+1)}, \dots, X_{d-1}^{(m+1)}).
-\end{align}
-
-
-\begin{proposition}[Gibbs Update as Exact Metropolis--Hastings \cite{robert2004mcmc}]
-\label{prop:gibbs-as-mh}
-A Gibbs update proposing $y = (y_i, x_{-i}) \sim \pi(y_i \mid x_{-i})$ is equivalent to a Metropolis--Hastings step with acceptance probability identically equal to 1:
-\begin{equation}
-    \alpha(x,y) = \min\left\{1, \; \frac{\pi(y) q(x \mid y)}{\pi(x) q(y \mid x)}\right\} = \min\left\{1, \; \frac{\pi(x_{-i})\pi(y_i \mid x_{-i}) \cdot \pi(x_i \mid x_{-i})}{\pi(x_{-i})\pi(x_i \mid x_{-i}) \cdot \pi(y_i \mid x_{-i})}\right\} = 1.
-\end{equation}
-\end{proposition}
-\noindent This unifies Gibbs sampling within the broader Metropolis--Hastings framework. It shows that sampling directly from full conditionals avoids rejected moves entirely ($\alpha = 1$), removing the need to manually choose and tune proposal densities.
-
-% -----------------------------------------------------------------------------
-\subsubsection{The Mainstream Statistical Revolution and Applications (1987--Present)}
-\label{subsec:mcmc-applications}
-
-The bridge between physical/image models and mainstream Bayesian statistics was completed by Tanner and Wong (1987) \cite{tannerwong1987} via \emph{Data Augmentation} for latent variables, and synthesized by Gelfand and Smith (1990) \cite{gelfandsmith1990}. Gelfand and Smith demonstrated that Gibbs sampling could routinely calculate marginal posterior distributions across arbitrary hierarchical Bayesian models.
-
-The subsequent release of declarative MCMC engines like BUGS (Bayesian inference Using Gibbs Sampling) language \cite{gilks1994} laid the foundation for modern probabilistic programming by demonstrating how to specify complex hierarchical statistical models using Markov chain Monte Carlo (MCMC) methods. Key application domains include:
-
-\begin{itemize}
-    \item \textbf{Hierarchical Bayesian Models:} Sequential sampling of hyper-parameters and group parameters in multi-level structures \cite{gelman2013bayesian}.
-    \item \textbf{Latent Variable \& Missing Data Models:} Treating unobserved states $Z$ as parameters via Data Augmentation to sample from $\pi(\theta \mid z, y)$ and $\pi(z \mid \theta, y)$ \cite{tannerwong1987}.
-    \item \textbf{Spatial Statistics \& Image Processing:} Estimating spatial autoregressions and Markov Random Fields in disease mapping and geostatistics \cite{besag1974spatial}.
-    \item \textbf{Phylogenetics \& Population Genetics:} Traversing tree topologies and estimating evolutionary rates from genomic sequences \cite{yang2014molecular}.
-\end{itemize}
+% \noindent This theorem builds a crucial theoretical bridge between local spatial specifications and global joint probability fields. It proves that specifying simple, local interactions is mathematically equivalent to defining a valid joint distribution over the entire lattice.
+
+% For a lattice of $d$ pixels with $K$ discrete intensity levels, $Z$ involves $K^d$ terms (e.g., $256^{512 \times 512}$), rendering direct evaluation impossible. Geman and Geman introduced what they named the \emph{Gibbs sampler}—in honor of Josiah Willard Gibbs—noting that the full conditional distribution of a pixel $F_s$ given $F_{-s}$ depends solely on its local neighbourhood $\partial s$:
+% \begin{equation}
+%     \pi(f_s \mid f_{-s}) = \pi(f_s \mid f_{\partial s}) = \frac{\exp\left\{ -\frac{1}{T} \sum_{C : s \in C} V_C(f) \right\}}{\sum_{u \in \mathcal{F}_s} \exp\left\{ -\frac{1}{T} \sum_{C : s \in C} V_C(u, f_{-s}) \right\}},
+% \end{equation}
+
+
+% where $F_{-s}$ denotes the values of all pixels on the grid except pixel $s$. By updating each coordinate iteratively from its full conditional distribution, the chain targets the full joint distribution:
+% \begin{align}
+%     X_1^{(m+1)} &\sim \pi(x_1 \mid X_2^{(m)}, X_3^{(m)}, \dots, X_d^{(m)}), \\
+%     &\;\;\vdots \notag \\
+%     X_d^{(m+1)} &\sim \pi(x_d \mid X_1^{(m+1)}, X_2^{(m+1)}, \dots, X_{d-1}^{(m+1)}).
+% \end{align}
+
+
+% \begin{proposition}[Gibbs Update as Exact Metropolis--Hastings \cite{robert2004mcmc}]
+% \label{prop:gibbs-as-mh}
+% A Gibbs update proposing $y = (y_i, x_{-i}) \sim \pi(y_i \mid x_{-i})$ is equivalent to a Metropolis--Hastings step with acceptance probability identically equal to 1:
+% \begin{equation}
+%     \alpha(x,y) = \min\left\{1, \; \frac{\pi(y) q(x \mid y)}{\pi(x) q(y \mid x)}\right\} = \min\left\{1, \; \frac{\pi(x_{-i})\pi(y_i \mid x_{-i}) \cdot \pi(x_i \mid x_{-i})}{\pi(x_{-i})\pi(x_i \mid x_{-i}) \cdot \pi(y_i \mid x_{-i})}\right\} = 1.
+% \end{equation}
+% \end{proposition}
+% \noindent This unifies Gibbs sampling within the broader Metropolis--Hastings framework. It shows that sampling directly from full conditionals avoids rejected moves entirely ($\alpha = 1$), removing the need to manually choose and tune proposal densities.
+
+% % -----------------------------------------------------------------------------
+% \subsubsection{The Mainstream Statistical Revolution and Applications (1987--Present)}
+% \label{subsec:mcmc-applications}
+
+% The bridge between physical/image models and mainstream Bayesian statistics was completed by Tanner and Wong (1987) \cite{tannerwong1987} via \emph{Data Augmentation} for latent variables, and synthesized by Gelfand and Smith (1990) \cite{gelfandsmith1990}. Gelfand and Smith demonstrated that Gibbs sampling could routinely calculate marginal posterior distributions across arbitrary hierarchical Bayesian models.
+
+% The subsequent release of declarative MCMC engines like BUGS (Bayesian inference Using Gibbs Sampling) language \cite{gilks1994} laid the foundation for modern probabilistic programming by demonstrating how to specify complex hierarchical statistical models using Markov chain Monte Carlo (MCMC) methods. Key application domains include:
+
+% \begin{itemize}
+%     \item \textbf{Hierarchical Bayesian Models:} Sequential sampling of hyper-parameters and group parameters in multi-level structures \cite{gelman2013bayesian}.
+%     \item \textbf{Latent Variable \& Missing Data Models:} Treating unobserved states $Z$ as parameters via Data Augmentation to sample from $\pi(\theta \mid z, y)$ and $\pi(z \mid \theta, y)$ \cite{tannerwong1987}.
+%     \item \textbf{Spatial Statistics \& Image Processing:} Estimating spatial autoregressions and Markov Random Fields in disease mapping and geostatistics \cite{besag1974spatial}.
+%     \item \textbf{Phylogenetics \& Population Genetics:} Traversing tree topologies and estimating evolutionary rates from genomic sequences \cite{yang2014molecular}.
+% \end{itemize}
 
 
 
-% End, updated 21-07-2026 -----------------------------------------------------------------------------
+% % End, updated 21-07-2026 -----------------------------------------------------------------------------
 
-\subsection{Bayes through time: state-space models, Kalman filtering and particle filters}
+% \subsection{Bayes through time: state-space models, Kalman filtering and particle filters}
 
 
-Kalman Filters developed for Apollo Space mission:  applied in Apollo navigation.
-https://www.youtube.com/watch?v=MMFpaNm-1EI
+% Kalman Filters developed for Apollo Space mission:  applied in Apollo navigation.
+% https://www.youtube.com/watch?v=MMFpaNm-1EI
 
 
 
 
-Standard MCMC assumes a \emph{static} posterior distribution $\pi(\theta \mid y)$. However, when observations arrive sequentially over time ($y_{1:t}$), re-running MCMC at each step $t$ is computationally prohibitive. 
+% Standard MCMC assumes a \emph{static} posterior distribution $\pi(\theta \mid y)$. However, when observations arrive sequentially over time ($y_{1:t}$), re-running MCMC at each step $t$ is computationally prohibitive. 
 
-\cite{sequentialMCinvitation2022}
+% \cite{sequentialMCinvitation2022}
 
-This necessitates \emph{sequential Bayesian filtering}: evaluating $p(x_t \mid y_{1:t})$ recursively via prediction and update steps. The following section explores how exact updates (Kalman Filters) and particle approximations (Sequential Monte Carlo) extend Bayesian inference into time-evolving dynamical systems.
+% This necessitates \emph{sequential Bayesian filtering}: evaluating $p(x_t \mid y_{1:t})$ recursively via prediction and update steps. The following section explores how exact updates (Kalman Filters) and particle approximations (Sequential Monte Carlo) extend Bayesian inference into time-evolving dynamical systems.
 
-% \subsection{The path from distributions to optimisation: variational methods}
+% % \subsection{The path from distributions to optimisation: variational methods}
 
-% - women, other countries
+% % - women, other countries
 
-% \subsection{Bayesian Statistics powers Generative Language Models}
+% % \subsection{Bayesian Statistics powers Generative Language Models}
 
-\newpage
+% \newpage
 
-% --- START OF FIT-TO-PAGE DECISION TREE ---
-\begin{figure}[htbp]
-\centering
+% % --- START OF FIT-TO-PAGE DECISION TREE ---
+% \begin{figure}[htbp]
+% \centering
 
-% Color Palette
-\definecolor{primary}{HTML}{1A365D}    % Deep Blue
-\definecolor{decision}{HTML}{2C5282}   % Slate Blue
-\definecolor{leaf}{HTML}{276749}       % Forest Green
+% % Color Palette
+% \definecolor{primary}{HTML}{1A365D}    % Deep Blue
+% \definecolor{decision}{HTML}{2C5282}   % Slate Blue
+% \definecolor{leaf}{HTML}{276749}       % Forest Green
 
-% Guaranteed page-width fit
-\resizebox{\linewidth}{!}{%
-\begin{tikzpicture}[
-    auto,
-    node distance = 0.9cm and 0.8cm,
-    font = \sffamily\small,
-    % Decision Box (Rhombus/Diamond)
-    question/.style = {
-        diamond,
-        draw=decision,
-        fill=decision!12,
-        thick,
-        text width=2.8cm,
-        align=center,
-        inner sep=0pt,
-        drop shadow={opacity=0.15, shadow xshift=1pt, shadow yshift=-1pt}
-    },
-    % Algorithm/Leaf Box (Rectangle)
-    leaf/.style = {
-        rectangle,
-        rounded corners=3pt,
-        draw=leaf,
-        fill=leaf!12,
-        thick,
-        text width=3.2cm,
-        align=center,
-        minimum height=0.7cm,
-        inner sep=3pt,
-        drop shadow={opacity=0.15, shadow xshift=1pt, shadow yshift=-1pt}
-    },
-    branch/.style = {
-        font=\sffamily\bfseries\scriptsize,
-        color=primary
-    },
-    line/.style = {
-        draw=primary,
-        -Stealth,
-        thick
-    }
-]
+% % Guaranteed page-width fit
+% \resizebox{\linewidth}{!}{%
+% \begin{tikzpicture}[
+%     auto,
+%     node distance = 0.9cm and 0.8cm,
+%     font = \sffamily\small,
+%     % Decision Box (Rhombus/Diamond)
+%     question/.style = {
+%         diamond,
+%         draw=decision,
+%         fill=decision!12,
+%         thick,
+%         text width=2.8cm,
+%         align=center,
+%         inner sep=0pt,
+%         drop shadow={opacity=0.15, shadow xshift=1pt, shadow yshift=-1pt}
+%     },
+%     % Algorithm/Leaf Box (Rectangle)
+%     leaf/.style = {
+%         rectangle,
+%         rounded corners=3pt,
+%         draw=leaf,
+%         fill=leaf!12,
+%         thick,
+%         text width=3.2cm,
+%         align=center,
+%         minimum height=0.7cm,
+%         inner sep=3pt,
+%         drop shadow={opacity=0.15, shadow xshift=1pt, shadow yshift=-1pt}
+%     },
+%     branch/.style = {
+%         font=\sffamily\bfseries\scriptsize,
+%         color=primary
+%     },
+%     line/.style = {
+%         draw=primary,
+%         -Stealth,
+%         thick
+%     }
+% ]
 
-% ==================== NODES ====================
+% % ==================== NODES ====================
 
-% Level 1: Q1 Likelihood
-\node [question] (q1) {\textbf{Q1: Likelihood}\\Is $p(x|z)$ computable?};
-\node [leaf, left=0.8cm of q1] (lfi) {\textbf{Likelihood-Free Inference}\\Classical ABC / Neural SBI};
+% % Level 1: Q1 Likelihood
+% \node [question] (q1) {\textbf{Q1: Likelihood}\\Is $p(x|z)$ computable?};
+% \node [leaf, left=0.8cm of q1] (lfi) {\textbf{Likelihood-Free Inference}\\Classical ABC / Neural SBI};
 
-% Level 2: Q2 Data Type
-\node [question, below=0.8cm of q1] (q2) {\textbf{Q2: Data Type}\\Dynamic / streaming?};
+% % Level 2: Q2 Data Type
+% \node [question, below=0.8cm of q1] (q2) {\textbf{Q2: Data Type}\\Dynamic / streaming?};
 
-% Branch Q2 -> YES (Streaming Sub-tree)
-\node [question, right=0.8cm of q2] (q2a) {\textbf{Q2a: State}\\Continuous or Discrete?};
-\node [leaf, above right=0.1cm and 0.8cm of q2a] (hmm) {\textbf{HMM}\\Forward-Backward / Viterbi};
+% % Branch Q2 -> YES (Streaming Sub-tree)
+% \node [question, right=0.8cm of q2] (q2a) {\textbf{Q2a: State}\\Continuous or Discrete?};
+% \node [leaf, above right=0.1cm and 0.8cm of q2a] (hmm) {\textbf{HMM}\\Forward-Backward / Viterbi};
 
-\node [question, below=0.7cm of q2a] (q2b) {\textbf{Q2b: Dynamics}\\Linear \& Gaussian?};
-\node [leaf, right=0.8cm of q2b] (kf) {\textbf{Kalman Filter (KF)}};
+% \node [question, below=0.7cm of q2a] (q2b) {\textbf{Q2b: Dynamics}\\Linear \& Gaussian?};
+% \node [leaf, right=0.8cm of q2b] (kf) {\textbf{Kalman Filter (KF)}};
 
-\node [question, below=0.7cm of q2b] (q2c) {\textbf{Q2c: Dynamics}\\Severity of non-linearity?};
-\node [leaf, right=0.8cm of q2c] (ekf) {\textbf{EKF / UKF}};
+% \node [question, below=0.7cm of q2b] (q2c) {\textbf{Q2c: Dynamics}\\Severity of non-linearity?};
+% \node [leaf, right=0.8cm of q2c] (ekf) {\textbf{EKF / UKF}};
 
-\node [question, below=0.7cm of q2c] (q2d) {\textbf{Q2d: Parameters}\\Need static params ($\theta$)?};
-\node [leaf, right=0.8cm of q2d] (smc) {\textbf{SIR Particle Filter}};
-\node [leaf, below=0.3cm of smc] (pmcmc) {\textbf{PMCMC / SMC$^2$}};
+% \node [question, below=0.7cm of q2c] (q2d) {\textbf{Q2d: Parameters}\\Need static params ($\theta$)?};
+% \node [leaf, right=0.8cm of q2d] (smc) {\textbf{SIR Particle Filter}};
+% \node [leaf, below=0.3cm of smc] (pmcmc) {\textbf{PMCMC / SMC$^2$}};
 
-% Branch Q2 -> NO (Static Data)
-\node [question, below=3.8cm of q2] (q3) {\textbf{Q3: Data Scale}\\Massive dataset ($N > 10^5$)?};
+% % Branch Q2 -> NO (Static Data)
+% \node [question, below=3.8cm of q2] (q3) {\textbf{Q3: Data Scale}\\Massive dataset ($N > 10^5$)?};
 
-% Branch Q3 -> YES (Massive N)
-\node [question, right=0.8cm of q3] (q3a) {\textbf{Q3a: Latents}\\High-D continuous generative model?};
-\node [leaf, above right=0.1cm and 0.8cm of q3a] (vae) {\textbf{Amortized VI (VAE)}};
-\node [leaf, below right=0.1cm and 0.8cm of q3a] (svi) {\textbf{Stochastic VI / SGLD}};
+% % Branch Q3 -> YES (Massive N)
+% \node [question, right=0.8cm of q3] (q3a) {\textbf{Q3a: Latents}\\High-D continuous generative model?};
+% \node [leaf, above right=0.1cm and 0.8cm of q3a] (vae) {\textbf{Amortized VI (VAE)}};
+% \node [leaf, below right=0.1cm and 0.8cm of q3a] (svi) {\textbf{Stochastic VI / SGLD}};
 
-% Branch Q3 -> NO (Moderate/Small Data)
-\node [question, below=1.8cm of q3] (q4) {\textbf{Q4: Parameters}\\Continuous or Discrete?};
+% % Branch Q3 -> NO (Moderate/Small Data)
+% \node [question, below=1.8cm of q3] (q4) {\textbf{Q4: Parameters}\\Continuous or Discrete?};
 
-% Branch Q4 -> Discrete
-\node [question, right=0.8cm of q4] (q4a) {\textbf{Q4a: Target}\\Multimodal / Combinatorial?};
-\node [leaf, above right=0.1cm and 0.8cm of q4a] (asmc) {\textbf{Annealed SMC}};
-\node [leaf, below right=0.1cm and 0.8cm of q4a] (gibbs) {\textbf{Gibbs / MH}};
+% % Branch Q4 -> Discrete
+% \node [question, right=0.8cm of q4] (q4a) {\textbf{Q4a: Target}\\Multimodal / Combinatorial?};
+% \node [leaf, above right=0.1cm and 0.8cm of q4a] (asmc) {\textbf{Annealed SMC}};
+% \node [leaf, below right=0.1cm and 0.8cm of q4a] (gibbs) {\textbf{Gibbs / MH}};
 
-% Branch Q4 -> Continuous
-\node [question, below=1.6cm of q4] (q4b) {\textbf{Q4b: Dimension}\\High-D ($D > 20$) or Correlated?};
-\node [leaf, right=0.8cm of q4b] (hmc) {\textbf{HMC / NUTS}\\($\nabla_z \log p(x,z)$)};
-\node [leaf, below=0.3cm of hmc] (rwm) {\textbf{Random-Walk MH / Slice}};
+% % Branch Q4 -> Continuous
+% \node [question, below=1.6cm of q4] (q4b) {\textbf{Q4b: Dimension}\\High-D ($D > 20$) or Correlated?};
+% \node [leaf, right=0.8cm of q4b] (hmc) {\textbf{HMC / NUTS}\\($\nabla_z \log p(x,z)$)};
+% \node [leaf, below=0.3cm of hmc] (rwm) {\textbf{Random-Walk MH / Slice}};
 
 
-% ==================== PATHS & CONNECTIONS ====================
+% % ==================== PATHS & CONNECTIONS ====================
 
-% Main Spine
-\draw [line] (q1) -- node [branch, left] {NO} (lfi);
-\draw [line] (q1) -- node [branch, right] {YES} (q2);
-\draw [line] (q2) -- node [branch, right] {NO (Static)} (q3);
-\draw [line] (q3) -- node [branch, right] {NO} (q4);
+% % Main Spine
+% \draw [line] (q1) -- node [branch, left] {NO} (lfi);
+% \draw [line] (q1) -- node [branch, right] {YES} (q2);
+% \draw [line] (q2) -- node [branch, right] {NO (Static)} (q3);
+% \draw [line] (q3) -- node [branch, right] {NO} (q4);
 
-% Dynamic Branch (Q2)
-\draw [line] (q2) -- node [branch, above] {YES} (q2a);
-\draw [line] (q2a) |- node [branch, near start, above] {Discrete} (hmm);
-\draw [line] (q2a) -- node [branch, right] {Continuous} (q2b);
-\draw [line] (q2b) -- node [branch, above] {YES} (kf);
-\draw [line] (q2b) -- node [branch, right] {NO} (q2c);
-\draw [line] (q2c) -- node [branch, above] {Mild} (ekf);
-\draw [line] (q2c) -- node [branch, right] {Severe} (q2d);
-\draw [line] (q2d) -- node [branch, above] {NO} (smc);
-\draw [line] (q2d) |- node [branch, near start, right] {YES} (pmcmc);
+% % Dynamic Branch (Q2)
+% \draw [line] (q2) -- node [branch, above] {YES} (q2a);
+% \draw [line] (q2a) |- node [branch, near start, above] {Discrete} (hmm);
+% \draw [line] (q2a) -- node [branch, right] {Continuous} (q2b);
+% \draw [line] (q2b) -- node [branch, above] {YES} (kf);
+% \draw [line] (q2b) -- node [branch, right] {NO} (q2c);
+% \draw [line] (q2c) -- node [branch, above] {Mild} (ekf);
+% \draw [line] (q2c) -- node [branch, right] {Severe} (q2d);
+% \draw [line] (q2d) -- node [branch, above] {NO} (smc);
+% \draw [line] (q2d) |- node [branch, near start, right] {YES} (pmcmc);
 
-% Massive Scale Branch (Q3)
-\draw [line] (q3) -- node [branch, above] {YES} (q3a);
-\draw [line] (q3a) |- node [branch, near start, above] {YES} (vae);
-\draw [line] (q3a) |- node [branch, near start, below] {NO} (svi);
+% % Massive Scale Branch (Q3)
+% \draw [line] (q3) -- node [branch, above] {YES} (q3a);
+% \draw [line] (q3a) |- node [branch, near start, above] {YES} (vae);
+% \draw [line] (q3a) |- node [branch, near start, below] {NO} (svi);
 
-% Parameter Space Branches (Q4)
-\draw [line] (q4) -- node [branch, above] {Discrete / Mixed} (q4a);
-\draw [line] (q4) -- node [branch, right] {Continuous} (q4b);
+% % Parameter Space Branches (Q4)
+% \draw [line] (q4) -- node [branch, above] {Discrete / Mixed} (q4a);
+% \draw [line] (q4) -- node [branch, right] {Continuous} (q4b);
 
-\draw [line] (q4a) |- node [branch, near start, above] {YES} (asmc);
-\draw [line] (q4a) |- node [branch, near start, below] {NO} (gibbs);
+% \draw [line] (q4a) |- node [branch, near start, above] {YES} (asmc);
+% \draw [line] (q4a) |- node [branch, near start, below] {NO} (gibbs);
 
-\draw [line] (q4b) -- node [branch, above] {YES} (hmc);
-\draw [line] (q4b) |- node [branch, near start, right] {NO} (rwm);
+% \draw [line] (q4b) -- node [branch, above] {YES} (hmc);
+% \draw [line] (q4b) |- node [branch, near start, right] {NO} (rwm);
 
-\end{tikzpicture}%
-}
-\caption{Master Decision Tree for Selecting Bayesian Inference Methods.}
-\label{fig:bayes_decision_tree}
-\end{figure}
-% --- END OF FIT-TO-PAGE DECISION TREE ---
+% \end{tikzpicture}%
+% }
+% \caption{Master Decision Tree for Selecting Bayesian Inference Methods.}
+% \label{fig:bayes_decision_tree}
+% \end{figure}
+% % --- END OF FIT-TO-PAGE DECISION TREE ---
 
-\newpage
+% \newpage
 
 
 
-\subsection{Dark side of Bayes Theorem vs additional Bayes developments?}
+% \subsection{Dark side of Bayes Theorem vs additional Bayes developments?}
 
-Sally Clark 
-https://theconversation.com/bayes-theorem-the-maths-tool-we-probably-use-every-day-but-what-is-it-76140
+% Sally Clark 
+% https://theconversation.com/bayes-theorem-the-maths-tool-we-probably-use-every-day-but-what-is-it-76140
 
 
-Data Privacy Issues - inverse engineer NHS data.
--- cases where somehting has happened 
+% Data Privacy Issues - inverse engineer NHS data.
+% -- cases where somehting has happened 
 
-neuclear weapon from Neumann.. 
+% neuclear weapon from Neumann.. 
 
-medical paradox - https://www.youtube.com/watch?v=lG4VkPoG3ko 
+% medical paradox - https://www.youtube.com/watch?v=lG4VkPoG3ko 
 
 
 
@@ -1829,7 +2259,7 @@ medical paradox - https://www.youtube.com/watch?v=lG4VkPoG3ko
 
 
 
-\newpage
+% \newpage
 
 \section*{Appendix}
 
