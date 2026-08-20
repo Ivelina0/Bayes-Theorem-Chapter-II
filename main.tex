@@ -31,6 +31,94 @@
 \usepackage{colortbl}
 \usepackage[table,xcdraw]{xcolor}
 
+%%--- 
+% \usepackage{tikz}
+% \usetikzlibrary{positioning,arrows.meta,calc}
+% \usepackage{pdflscape}
+% \usepackage{adjustbox}
+% \usepackage{forest}
+% \usepackage{pdflscape}
+
+% % PREAMBLE
+% \usepackage{tikz}
+% \usetikzlibrary{positioning,arrows.meta}
+% \usepackage{pdflscape}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta}
+
+\definecolor{softblue}{RGB}{232,240,248}
+\definecolor{softgreen}{RGB}{234,244,236}
+\definecolor{softpeach}{RGB}{250,239,228}
+\definecolor{softgrey}{RGB}{238,238,238}
+\tikzset{
+    root/.style={
+        draw,
+        rounded corners=3pt,
+        fill=softgrey,
+        font=\bfseries,
+        align=center,
+        text width=5.0cm,
+        minimum height=0.9cm
+    },
+    bluebranch/.style={
+        draw,
+        rounded corners=3pt,
+        fill=softblue,
+        font=\bfseries,
+        align=center,
+        text width=3.4cm,
+        minimum height=0.8cm
+    },
+    greenbranch/.style={
+        draw,
+        rounded corners=3pt,
+        fill=softgreen,
+        font=\bfseries,
+        align=center,
+        text width=3.4cm,
+        minimum height=0.8cm
+    },
+    peachbranch/.style={
+        draw,
+        rounded corners=3pt,
+        fill=softpeach,
+        font=\bfseries,
+        align=center,
+        text width=3.4cm,
+        minimum height=0.8cm
+    },
+    bluemethod/.style={
+        draw,
+        rounded corners=2pt,
+        fill=softblue!55,
+        align=center,
+        font=\small,
+        text width=2.8cm,
+        minimum height=0.72cm
+    },
+    greenmethod/.style={
+        draw,
+        rounded corners=2pt,
+        fill=softgreen!55,
+        align=center,
+        font=\small,
+        text width=2.8cm,
+        minimum height=0.72cm
+    },
+    peachmethod/.style={
+        draw,
+        rounded corners=2pt,
+        fill=softpeach!60,
+        align=center,
+        font=\small,
+        text width=2.8cm,
+        minimum height=0.72cm
+    },
+    arrow/.style={->, thick}
+}
+%%------
+
 \usepackage[edges]{forest}
 \usepackage{xcolor}
 

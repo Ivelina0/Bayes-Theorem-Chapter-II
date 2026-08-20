@@ -885,7 +885,1359 @@ Post-1950 history of Bayesian statistics can be viewed as three connected develo
 \end{array}}
 \]
 
-```latex
+
+%%%%%%%%%%%%%%%% Diagram 5 - split into 3 trees + COLOURRRR!! %%%%%%%%%%%%%%%%
+
+\begin{figure}[H]
+\centering
+
+\begin{tikzpicture}[>=Latex]
+
+\node[root] (root) at (0,0)
+{Computational Bayesian inference};
+
+% Main branches
+\node[bluebranch]  (mcmc)   at (-5.1,-1.7) {MCMC};
+\node[greenbranch] (filter) at (0.3,-1.7)  {Sequential inference};
+\node[peachbranch] (approx) at (5.2,-1.7)  {Approximate inference};
+
+\draw[arrow] (root) -- (mcmc);
+\draw[arrow] (root) -- (filter);
+\draw[arrow] (root) -- (approx);
+
+% MCMC
+\node[bluemethod] (metro) at (-5.1,-3.2)
+{\textbf{Metropolis} (1953)};
+
+\node[bluemethod] (mh) at (-5.1,-4.5)
+{\textbf{Metropolis--Hastings} (1970)};
+
+\node[bluemethod] (gibbs) at (-6.8,-5.9)
+{\textbf{Gibbs sampling} (1984)};
+
+\node[bluemethod] (hmc) at (-3.4,-5.9)
+{\textbf{Hamiltonian MC} (1987)};
+
+\draw[arrow] (mcmc) -- (metro);
+\draw[arrow] (metro) -- (mh);
+\draw[arrow] (mh) -- (gibbs);
+\draw[arrow] (mh) -- (hmc);
+
+% Sequential inference
+\node[greenmethod] (kalman) at (0.5,-3.2)
+{\textbf{Kalman filter} (1960)};
+
+\node[greenmethod] (pf) at (0.5,-4.5)
+{\textbf{Particle filter} (1993)};
+
+\node[greenmethod] (pmcmc) at (0.5,-5.9)
+{\textbf{Particle MCMC} (2010)};
+
+\draw[arrow] (filter) -- (kalman);
+\draw[arrow] (kalman) -- (pf);
+\draw[arrow] (pf) -- (pmcmc);
+
+% Approximate inference
+\node[peachmethod] (vi) at (5.2,-3.2)
+{\textbf{Variational inference} (1999)};
+
+\draw[arrow] (approx) -- (vi);
+
+\end{tikzpicture}
+
+\caption{Selected developments in Bayesian computation after 1950.}
+\label{fig:bayes-computation-tree}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+
+\begin{tikzpicture}[
+    >=Latex,
+    root/.style={
+        draw,
+        rounded corners=3pt,
+        fill=gray!20,
+        font=\bfseries,
+        align=center,
+        text width=5.0cm,
+        minimum height=0.9cm
+    },
+    branch/.style={
+        draw,
+        rounded corners=3pt,
+        fill=gray!12,
+        font=\bfseries,
+        align=center,
+        text width=3.6cm,
+        minimum height=0.8cm
+    },
+    method/.style={
+        draw,
+        rounded corners=2pt,
+        fill=gray!4,
+        align=center,
+        font=\small,
+        text width=3.5cm,
+        minimum height=0.72cm
+    },
+    arrow/.style={->, thick}
+]
+
+\node[root] (root) at (0,0)
+{Bayesian modelling};
+
+% THREE TYPES OF UNKNOWN OBJECT
+\node[bluebranch] (parameters) at (-5.2,-1.7)
+{Related parameters};
+
+\node[greenbranch] (distributions) at (0,-1.7)
+{Unknown distributions};
+
+\node[peachbranch] (functions) at (5.2,-1.7)
+{Unknown functions};
+
+\draw[arrow] (root) -- (parameters);
+\draw[arrow] (root) -- (distributions);
+\draw[arrow] (root) -- (functions);
+
+% RELATED PARAMETERS
+\node[bluemethod] (emp) at (-5.2,-3.2)
+{\textbf{Empirical Bayes} (1956)};
+
+\node[bluemethod] (hier) at (-5.2,-4.6)
+{\textbf{Hierarchical Bayes} (1972)};
+
+\draw[arrow] (parameters) -- (emp);
+\draw[arrow] (emp) -- (hier);
+
+% UNKNOWN DISTRIBUTIONS
+\node[greenmethod] (dp) at (0,-3.2)
+{\textbf{Dirichlet process} (1973)};
+
+\node[greenmethod] (dpm) at (0,-4.6)
+{\textbf{DP mixtures} (1974)};
+
+\node[greenmethod] (unknown) at (0,-6.0)
+{\textbf{Unknown-component mixtures} (1997)};
+
+\draw[arrow] (distributions) -- (dp);
+\draw[arrow] (dp) -- (dpm);
+\draw[arrow] (dpm) -- (unknown);
+
+% FUNCTIONS
+\node[peachmethod] (function) at (5.2,-3.2)
+{\textbf{Bayesian function estimation} (1970)};
+
+\node[peachmethod] (gp) at (5.2,-4.6)
+{\textbf{Gaussian-process regression} (1978)};
+
+\draw[arrow] (functions) -- (function);
+\draw[arrow] (function) -- (gp);
+
+\end{tikzpicture}
+
+\caption{Selected developments in Bayesian modelling after 1950.
+Bayesian uncertainty expanded from parameters to distributions and functions.}
+\label{fig:bayes-modelling-tree}
+\end{figure}
+
+
+
+
+\begin{figure}[H]
+\centering
+
+\begin{tikzpicture}[>=Latex]
+
+\node[root] (root) at (0,0)
+{Bayesian learning and decision-making};
+
+% Main branches
+\node[bluebranch] (models) at (-5.1,-1.7)
+{Probabilistic models};
+
+\node[greenbranch] (optimisation) at (0,-1.7)
+{Bayesian optimisation};
+
+\node[peachbranch] (decisions) at (5.1,-1.7)
+{Search and decisions};
+
+\draw[arrow] (root) -- (models);
+\draw[arrow] (root) -- (optimisation);
+\draw[arrow] (root) -- (decisions);
+
+
+% ------------------------------------------------------------
+% Probabilistic models
+% ------------------------------------------------------------
+
+\node[bluemethod] (bn) at (-6.5,-3.3)
+{\textbf{Bayesian networks}\\(1980s)};
+
+\node[bluemethod] (bnn) at (-3.6,-3.3) %(-3.6,-3.2)
+{\textbf{Bayesian neural networks}\\(1992)};
+
+\node[bluemethod] (pgm) at (-6.5,-5.2)
+{\textbf{Graphical models}\\(1990s)};
+
+\node[bluemethod] (neal) at (-3.6,-5.2)
+{\textbf{Neal's Bayesian NNs}\\(1996)};
+
+\draw[arrow] (models) -- (bn);
+\draw[arrow] (models) -- (bnn);
+
+\draw[arrow] (bn) -- (pgm);
+\draw[arrow] (bnn) -- (neal);
+
+
+% ------------------------------------------------------------
+% Bayesian optimisation
+% ------------------------------------------------------------
+
+\node[greenmethod] (kushner) at (0,-3.3)
+{\textbf{Probabilistic optimisation}\\(1964)};
+
+\node[greenmethod] (mockus) at (0,-5.2)
+{\textbf{Bayesian global optimisation}\\(1970s)};
+
+\node[greenmethod] (ego) at (0,-6.9)
+{\textbf{EGO}\\(1998)};
+
+\node[greenmethod] (ml) at (0,-8.6)
+{\textbf{ML hyperparameters}\\(2012)};
+
+\node[greenmethod] (alpha) at (0,-10.4)
+{\textbf{AlphaGo tuning}\\(2016)};
+
+\draw[arrow] (optimisation) -- (kushner);
+\draw[arrow] (kushner) -- (mockus);
+\draw[arrow] (mockus) -- (ego);
+\draw[arrow] (ego) -- (ml);
+\draw[arrow] (ml) -- (alpha);
+
+
+% ------------------------------------------------------------
+% Search / decisions
+% ------------------------------------------------------------
+
+\node[peachmethod] (central) at (5.1,-3.3)
+{\textbf{SS Central America}\\(1980s)};
+
+\node[peachmethod] (af) at (5.1,-5.2)
+{\textbf{Air France AF447}\\(2011)};
+
+\draw[arrow] (decisions) -- (central);
+\draw[arrow] (central) -- (af);
+
+\end{tikzpicture}
+
+\caption{Selected developments and applications of Bayesian ideas in
+machine learning and decision-making.}
+\label{fig:bayes-learning-tree}
+\end{figure}
+
+
+
+
+%%%%%%%%%%%%%%%% Diagram 4 - split into 3 trees!! %%%%%%%%%%%%%%%%
+
+\begin{figure}[H]
+\centering
+
+\begin{tikzpicture}[
+    >=Latex,
+    root/.style={
+        draw,
+        rounded corners=3pt,
+        fill=gray!20,
+        font=\bfseries,
+        align=center,
+        text width=5.2cm,
+        minimum height=0.9cm
+    },
+    branch/.style={
+        draw,
+        rounded corners=3pt,
+        fill=gray!12,
+        font=\bfseries,
+        align=center,
+        text width=3.6cm,
+        minimum height=0.8cm
+    },
+    method/.style={
+        draw,
+        rounded corners=2pt,
+        fill=gray!4,
+        align=center,
+        font=\small,
+        text width=3.3cm,
+        minimum height=0.72cm
+    },
+    arrow/.style={->, thick}
+]
+
+% ROOT
+\node[root] (root) at (0,0)
+{Computational Bayesian inference};
+
+% MAIN BRANCHES
+\node[branch] (mcmc)   at (-5.2,-1.7) {MCMC};
+\node[branch] (filter) at (0,-1.7)    {Sequential inference};
+\node[branch] (approx) at (5.2,-1.7)  {Approximate inference};
+
+\draw[arrow] (root) -- (mcmc);
+\draw[arrow] (root) -- (filter);
+\draw[arrow] (root) -- (approx);
+
+% MCMC
+\node[method] (metro) at (-5.2,-3.2)
+{\textbf{Metropolis} (1953)};
+
+\node[method] (mh) at (-5.2,-4.5)
+{\textbf{Metropolis--Hastings} (1970)};
+
+\node[method] (gibbs) at (-7.0,-5.9)
+{\textbf{Gibbs sampling} (1984)};
+
+\node[method] (hmc) at (-3.4,-5.9)
+{\textbf{Hamiltonian MC} (1987)};
+
+\draw[arrow] (mcmc) -- (metro);
+\draw[arrow] (metro) -- (mh);
+\draw[arrow] (mh) -- (gibbs);
+\draw[arrow] (mh) -- (hmc);
+
+% FILTERING
+\node[method] (kalman) at (0,-3.2)
+{\textbf{Kalman filter} (1960)};
+
+\node[method] (pf) at (0,-4.5)
+{\textbf{Particle filter} (1993)};
+
+\node[method] (pmcmc) at (0,-5.9)
+{\textbf{Particle MCMC} (2010)};
+
+\draw[arrow] (filter) -- (kalman);
+\draw[arrow] (kalman) -- (pf);
+\draw[arrow] (pf) -- (pmcmc);
+
+% VARIATIONAL
+\node[method] (vi) at (5.2,-3.2)
+{\textbf{Variational \newline inference} (1999)};
+
+\draw[arrow] (approx) -- (vi);
+
+\end{tikzpicture}
+
+\caption{Selected developments in Bayesian computation after 1950.}
+\label{fig:bayes-computation-tree}
+\end{figure}
+
+
+
+
+2. Bayesian modelling
+
+
+\begin{figure}[H]
+\centering
+
+\begin{tikzpicture}[
+    >=Latex,
+    root/.style={
+        draw,
+        rounded corners=3pt,
+        fill=gray!20,
+        font=\bfseries,
+        align=center,
+        text width=5.0cm,
+        minimum height=0.9cm
+    },
+    branch/.style={
+        draw,
+        rounded corners=3pt,
+        fill=gray!12,
+        font=\bfseries,
+        align=center,
+        text width=3.6cm,
+        minimum height=0.8cm
+    },
+    method/.style={
+        draw,
+        rounded corners=2pt,
+        fill=gray!4,
+        align=center,
+        font=\small,
+        text width=3.5cm,
+        minimum height=0.72cm
+    },
+    arrow/.style={->, thick}
+]
+
+\node[root] (root) at (0,0)
+{Bayesian modelling};
+
+% THREE TYPES OF UNKNOWN OBJECT
+\node[branch] (parameters) at (-5.2,-1.7)
+{Related parameters};
+
+\node[branch] (distributions) at (0,-1.7)
+{Unknown distributions};
+
+\node[branch] (functions) at (5.2,-1.7)
+{Unknown functions};
+
+\draw[arrow] (root) -- (parameters);
+\draw[arrow] (root) -- (distributions);
+\draw[arrow] (root) -- (functions);
+
+% RELATED PARAMETERS
+\node[method] (emp) at (-5.2,-3.2)
+{\textbf{Empirical Bayes} (1956)};
+
+\node[method] (hier) at (-5.2,-4.6)
+{\textbf{Hierarchical Bayes} (1972)};
+
+\draw[arrow] (parameters) -- (emp);
+\draw[arrow] (emp) -- (hier);
+
+% UNKNOWN DISTRIBUTIONS
+\node[method] (dp) at (0,-3.2)
+{\textbf{Dirichlet process} (1973)};
+
+\node[method] (dpm) at (0,-4.6)
+{\textbf{DP mixtures} (1974)};
+
+\node[method] (unknown) at (0,-6.0)
+{\textbf{Unknown-component mixtures} (1997)};
+
+\draw[arrow] (distributions) -- (dp);
+\draw[arrow] (dp) -- (dpm);
+\draw[arrow] (dpm) -- (unknown);
+
+% FUNCTIONS
+\node[method] (function) at (5.2,-3.2)
+{\textbf{Bayesian function estimation} (1970)};
+
+\node[method] (gp) at (5.2,-4.6)
+{\textbf{Gaussian-process regression} (1978)};
+
+\draw[arrow] (functions) -- (function);
+\draw[arrow] (function) -- (gp);
+
+\end{tikzpicture}
+
+\caption{Selected developments in Bayesian modelling after 1950.
+Bayesian uncertainty expanded from parameters to distributions and functions.}
+\label{fig:bayes-modelling-tree}
+\end{figure}
+
+
+
+% I think this one is particularly nice because it shows the conceptual progression much better than a date-only timeline:
+
+% [
+% \boxed{\theta}
+% \qquad
+% \boxed{{\theta_i}}
+% \qquad
+% \boxed{F}
+% \qquad
+% \boxed{f(x)}.
+% ]
+
+So the reader immediately understands **what actually changed mathematically**.
+
+And this gives you three women in historically meaningful places in the surrounding discussion:
+
+* **Grace Wahba** — functions/splines/kernels;
+* **Sylvia Richardson** — flexible mixture models;
+* later applied hierarchical work including **Nicky Best**.
+
+---
+
+3. Bayesian learning, AI and decision-making
+\begin{figure}[H]
+\centering
+
+\begin{tikzpicture}[
+    >=Latex,
+    root/.style={
+        draw,
+        rounded corners=3pt,
+        fill=gray!20,
+        font=\bfseries,
+        align=center,
+        text width=5.5cm,
+        minimum height=0.9cm
+    },
+    branch/.style={
+        draw,
+        rounded corners=3pt,
+        fill=gray!12,
+        font=\bfseries,
+        align=center,
+        text width=3.6cm,
+        minimum height=0.8cm
+    },
+    method/.style={
+        draw,
+        rounded corners=2pt,
+        fill=gray!4,
+        align=center,
+        font=\small,
+        text width=3.5cm,
+        minimum height=0.72cm
+    },
+    arrow/.style={->, thick}
+]
+
+\node[root] (root) at (0,0)
+{Bayesian learning and decision-making};
+
+% MAIN BRANCHES
+\node[branch] (models) at (-5.2,-1.7)
+{Probabilistic models};
+
+\node[branch] (optimisation) at (0,-1.7)
+{Bayesian optimisation};
+
+\node[branch] (decisions) at (5.2,-1.7)
+{Search and decisions};
+
+\draw[arrow] (root) -- (models);
+\draw[arrow] (root) -- (optimisation);
+\draw[arrow] (root) -- (decisions);
+
+% PROBABILISTIC MODELS
+\node[method] (bn) at (-6.2,-3.2)
+{\textbf{Bayesian networks} (1980s)};
+
+\node[method] (bnn) at (-4.2,-4.6)
+{\textbf{Bayesian neural networks} (1992)};
+
+\node[method] (pgm) at (-6.2,-4.6)
+{\textbf{Graphical models} (1990s)};
+
+\draw[arrow] (models) -- (bn);
+\draw[arrow] (bn) -- (pgm);
+\draw[arrow] (models) -- (bnn);
+
+% BAYESIAN OPTIMISATION
+\node[method] (kushner) at (0,-3.2)
+{\textbf{Probabilistic optimisation} (1964)};
+
+\node[method] (mockus) at (0,-4.5)
+{\textbf{Bayesian global optimisation} (1970s)};
+
+\node[method] (ego) at (0,-5.8)
+{\textbf{EGO} (1998)};
+
+\node[method] (ml) at (0,-7.1)
+{\textbf{ML hyperparameters} (2012)};
+
+\node[method] (alpha) at (0,-8.4)
+{\textbf{AlphaGo tuning} (2016)};
+
+\draw[arrow] (optimisation) -- (kushner);
+\draw[arrow] (kushner) -- (mockus);
+\draw[arrow] (mockus) -- (ego);
+\draw[arrow] (ego) -- (ml);
+\draw[arrow] (ml) -- (alpha);
+
+% SEARCH
+\node[method] (central) at (5.2,-3.2)
+{\textbf{SS Central America} (1980s)};
+
+\node[method] (af) at (5.2,-4.6)
+{\textbf{Air France AF447} (2011)};
+
+\draw[arrow] (decisions) -- (central);
+\draw[arrow] (central) -- (af);
+
+\end{tikzpicture}
+
+\caption{Selected developments and applications of Bayesian ideas in
+machine learning and decision-making.}
+\label{fig:bayes-learning-tree}
+\end{figure}
+
+
+
+
+\newpage
+
+%%%%%%%%%%%%%%%% Diagram 3 %%%%%%%%%%%%%%%%
+\begin{landscape}
+
+\begin{figure}[H]
+\centering
+
+{\Large\bfseries Bayesian inference after 1950}
+
+\vspace{0.6cm}
+
+% ============================================================
+% COMMON TIKZ STYLE
+% ============================================================
+
+\tikzset{
+    category/.style={
+        draw,
+        rounded corners=3pt,
+        fill=gray!20,
+        font=\bfseries,
+        align=center,
+        text width=5.2cm,
+        minimum height=0.9cm
+    },
+    method/.style={
+        draw,
+        rounded corners=2pt,
+        fill=gray!5,
+        align=center,
+        font=\small,
+        text width=3.5cm,
+        minimum height=0.75cm
+    },
+    arrow/.style={
+        ->,
+        >=Latex,
+        thick
+    }
+}
+
+% ============================================================
+% COLUMN 1: COMPUTATION
+% ============================================================
+
+\begin{minipage}[t]{0.32\linewidth}
+\centering
+
+\begin{tikzpicture}
+
+\node[category] (comp) at (0,0)
+{Computational methods};
+
+% --- MCMC branch ---
+\node[method] (metro) at (-2.2,-1.6)
+{\textbf{Metropolis}\\1953};
+
+\node[method] (mh) at (-2.2,-3.0)
+{\textbf{Metropolis--Hastings}\\1970};
+
+\node[method] (gibbs) at (-3.5,-4.5)
+{\textbf{Gibbs sampling}\\1984};
+
+\node[method] (hmc) at (-0.9,-4.5)
+{\textbf{Hamiltonian MC}\\1987};
+
+\draw[arrow] (comp) -- (metro);
+\draw[arrow] (metro) -- (mh);
+\draw[arrow] (mh) -- (gibbs);
+\draw[arrow] (mh) -- (hmc);
+
+% --- Filtering branch ---
+\node[method] (kalman) at (2.2,-1.6)
+{\textbf{Kalman filter}\\1960};
+
+\node[method] (pf) at (2.2,-3.0)
+{\textbf{Particle filter}\\1993};
+
+\node[method] (pmcmc) at (2.2,-4.5)
+{\textbf{Particle MCMC}\\2010};
+
+\draw[arrow] (comp) -- (kalman);
+\draw[arrow] (kalman) -- (pf);
+\draw[arrow] (pf) -- (pmcmc);
+
+% --- VI ---
+\node[method] (vi) at (0,-6.2)
+{\textbf{Variational inference}\\1999};
+
+\draw[arrow] (comp.south)
+to[out=-90,in=90]
+(vi.north);
+
+\end{tikzpicture}
+
+\end{minipage}
+%
+\hfill
+%
+% ============================================================
+% COLUMN 2: MODELLING
+% ============================================================
+
+\begin{minipage}[t]{0.32\linewidth}
+\centering
+
+\begin{tikzpicture}
+
+\node[category] (model) at (0,0)
+{Bayesian modelling};
+
+% --- Hierarchical ---
+\node[method] (emp) at (-2.5,-1.6)
+{\textbf{Empirical Bayes}\\1956};
+
+\node[method] (hier) at (-2.5,-3.1)
+{\textbf{Hierarchical Bayes}\\1972};
+
+\draw[arrow] (model) -- (emp);
+\draw[arrow] (emp) -- (hier);
+
+% --- Functions / GP ---
+\node[method] (func) at (0,-1.6)
+{\textbf{Bayesian function estimation}\\1970};
+
+\node[method] (gp) at (0,-3.1)
+{\textbf{Gaussian-process regression}\\1978};
+
+\draw[arrow] (model) -- (func);
+\draw[arrow] (func) -- (gp);
+
+% --- Nonparametrics ---
+\node[method] (dp) at (2.5,-1.6)
+{\textbf{Dirichlet process}\\1973};
+
+\node[method] (dpm) at (2.5,-3.1)
+{\textbf{DP mixtures}\\1974};
+
+\node[method] (unknown) at (2.5,-4.7)
+{\textbf{Unknown-dimensional mixtures}\\1997};
+
+\draw[arrow] (model) -- (dp);
+\draw[arrow] (dp) -- (dpm);
+\draw[arrow] (dpm) -- (unknown);
+
+\end{tikzpicture}
+
+\end{minipage}
+%
+\hfill
+%
+% ============================================================
+% COLUMN 3: LEARNING / AI
+% ============================================================
+
+\begin{minipage}[t]{0.32\linewidth}
+\centering
+
+\begin{tikzpicture}
+
+\node[category] (learn) at (0,0)
+{Learning, prediction\\and decision-making};
+
+% --- Bayesian networks ---
+\node[method] (bn) at (-2.3,-1.6)
+{\textbf{Bayesian networks}\\1980s--1988};
+
+\node[method] (pgm) at (-2.3,-3.1)
+{\textbf{Graphical models}\\1990s--2000s};
+
+\draw[arrow] (learn) -- (bn);
+\draw[arrow] (bn) -- (pgm);
+
+% --- Bayesian neural nets ---
+\node[method] (bnn) at (2.3,-1.6)
+{\textbf{Bayesian neural networks}\\1992};
+
+\node[method] (neal) at (2.3,-3.1)
+{\textbf{Neal's Bayesian NNs}\\1996};
+
+\draw[arrow] (learn) -- (bnn);
+\draw[arrow] (bnn) -- (neal);
+
+% --- Bayesian optimisation ---
+\node[method] (kushner) at (0,-4.8)
+{\textbf{Probabilistic optimisation}\\Kushner, 1964};
+
+\node[method] (mockus) at (0,-6.3)
+{\textbf{Bayesian global optimisation}\\Mockus, 1970s};
+
+\node[method] (ego) at (0,-7.8)
+{\textbf{Efficient Global Optimisation}\\1998};
+
+\node[method] (snoek) at (0,-9.3)
+{\textbf{ML hyperparameter optimisation}\\2012};
+
+\node[method] (alpha) at (0,-10.8)
+{\textbf{AlphaGo tuning}\\2016};
+
+\draw[arrow] (learn.south)
+to[out=-90,in=90]
+(kushner.north);
+
+\draw[arrow] (kushner) -- (mockus);
+\draw[arrow] (mockus) -- (ego);
+\draw[arrow] (ego) -- (snoek);
+\draw[arrow] (snoek) -- (alpha);
+
+\end{tikzpicture}
+
+\end{minipage}
+
+\vspace{0.6cm}
+
+{\small
+\textit{Important later connections:}
+Particle MCMC combines ideas from MCMC and particle filtering;
+Gaussian processes became important surrogate models in Bayesian optimisation;
+and both MCMC and variational inference are used for inference in Bayesian
+neural networks.
+}
+
+\caption{A simplified genealogy of selected developments in Bayesian
+statistics after 1950. The diagram separates developments in computation,
+modelling, and learning and decision-making.}
+
+\label{fig:bayesian-post1950-tree}
+
+\end{figure}
+
+\end{landscape}
+
+%%%%%%%%%%%%%%%% Diagram 2 %%%%%%%%%%%%%%%%
+
+\begin{landscape}
+
+\begin{figure}[H]
+\centering
+
+\begin{tikzpicture}[
+    >=Latex,
+    root/.style={
+        draw,
+        rounded corners=3pt,
+        fill=gray!20,
+        font=\bfseries,
+        align=center,
+        text width=4.2cm,
+        minimum height=0.8cm
+    },
+    category/.style={
+        draw,
+        rounded corners=3pt,
+        fill=gray!15,
+        font=\bfseries,
+        align=center,
+        text width=3.6cm,
+        minimum height=0.75cm
+    },
+    method/.style={
+        draw,
+        rounded corners=2pt,
+        fill=gray!5,
+        align=center,
+        font=\small,
+        text width=2.8cm,
+        minimum height=0.7cm
+    },
+    direct/.style={
+        ->,
+        thick
+    },
+    influence/.style={
+        ->,
+        dashed,
+        thick,
+        gray
+    }
+]
+
+% ============================================================
+% ROOT
+% ============================================================
+
+\node[root] (root) at (0,0)
+{Bayesian inference after 1950};
+
+% ============================================================
+% THREE MAIN BRANCHES
+% ============================================================
+
+\node[category] (comp)  at (-7,-1.6)
+{Computational methods};
+
+\node[category] (model) at (0,-1.6)
+{Bayesian modelling};
+
+\node[category] (learn) at (7,-1.6)
+{Learning, prediction\\and decision-making};
+
+\draw[direct] (root) -- (comp);
+\draw[direct] (root) -- (model);
+\draw[direct] (root) -- (learn);
+
+
+% ============================================================
+% COMPUTATION
+% ============================================================
+
+% MCMC branch
+\node[method] (metro) at (-9,-3.3)
+{\textbf{Metropolis}\\1953};
+
+\node[method] (mh) at (-9,-4.6)
+{\textbf{Metropolis--Hastings}\\1970};
+
+\node[method] (gibbs) at (-10.6,-6.0)
+{\textbf{Gibbs sampling}\\1984};
+
+\node[method] (hmc) at (-7.4,-6.0)
+{\textbf{Hamiltonian MC}\\1987};
+
+\draw[direct] (comp) -- (metro);
+\draw[direct] (metro) -- (mh);
+\draw[direct] (mh) -- (gibbs);
+\draw[direct] (mh) -- (hmc);
+
+
+% Filtering branch
+\node[method] (kalman) at (-5,-3.3)
+{\textbf{Kalman filter}\\1960};
+
+\node[method] (pf) at (-5,-4.6)
+{\textbf{Particle filter}\\1993};
+
+\node[method] (pmcmc) at (-5,-6.0)
+{\textbf{Particle MCMC}\\2010};
+
+\draw[direct] (comp) -- (kalman);
+\draw[direct] (kalman) -- (pf);
+\draw[direct] (pf) -- (pmcmc);
+
+% MCMC contributes to PMCMC
+\draw[influence]
+(mh.east) to[bend left=10] (pmcmc.west);
+
+
+% VI
+\node[method] (vi) at (-7,-7.6)
+{\textbf{Variational inference}\\1999};
+
+\draw[direct]
+(comp.south) to[out=-90,in=90] (vi.north);
+
+
+% ============================================================
+% MODELLING
+% ============================================================
+
+% Hierarchical branch
+\node[method] (emp) at (-2.4,-3.3)
+{\textbf{Empirical Bayes}\\1956};
+
+\node[method] (hier) at (-2.4,-4.7)
+{\textbf{Hierarchical Bayes}\\1972};
+
+\draw[direct] (model) -- (emp);
+\draw[direct] (emp) -- (hier);
+
+
+% Function / GP branch
+\node[method] (func) at (0.8,-3.3)
+{\textbf{Bayesian function estimation}\\1970};
+
+\node[method] (gp) at (0.8,-4.7)
+{\textbf{Gaussian-process regression}\\1978};
+
+\draw[direct] (model) -- (func);
+\draw[direct] (func) -- (gp);
+
+
+% Nonparametrics branch
+\node[method] (dp) at (4,-3.3)
+{\textbf{Dirichlet process}\\1973};
+
+\node[method] (dpm) at (4,-4.7)
+{\textbf{DP mixtures}\\1974};
+
+\node[method] (rj) at (4,-6.1)
+{\textbf{Unknown-dimensional mixtures}\\1997};
+
+\draw[direct] (model) -- (dp);
+\draw[direct] (dp) -- (dpm);
+\draw[direct] (dpm) -- (rj);
+
+
+% ============================================================
+% LEARNING / AI
+% ============================================================
+
+% Bayesian networks
+\node[method] (bn) at (7,-3.3)
+{\textbf{Bayesian networks}\\1980s--1988};
+
+\node[method] (pgm) at (7,-4.7)
+{\textbf{Graphical models}\\1990s--2000s};
+
+\draw[direct] (learn) -- (bn);
+\draw[direct] (bn) -- (pgm);
+
+
+% Bayesian neural networks
+\node[method] (bnn) at (10.2,-3.3)
+{\textbf{Bayesian neural networks}\\1992};
+
+\node[method] (neal) at (10.2,-4.7)
+{\textbf{Neal's Bayesian NNs}\\1996};
+
+\draw[direct] (learn) -- (bnn);
+\draw[direct] (bnn) -- (neal);
+
+
+% Bayesian optimisation -- use vertical space
+\node[method] (kushner) at (7,-6.5)
+{\textbf{Stochastic optimisation}\\1964};
+
+\node[method] (mockus) at (7,-7.9)
+{\textbf{Bayesian global optimisation}\\1970s};
+
+\node[method] (ego) at (7,-9.3)
+{\textbf{Efficient Global Optimisation}\\1998};
+
+\node[method] (snoek) at (7,-10.7)
+{\textbf{ML hyperparameter optimisation}\\2012};
+
+\node[method] (alphago) at (7,-12.1)
+{\textbf{AlphaGo tuning}\\2016};
+
+\draw[direct]
+(learn.south) to[out=-90,in=90] (kushner.north);
+
+\draw[direct] (kushner) -- (mockus);
+\draw[direct] (mockus) -- (ego);
+\draw[direct] (ego) -- (snoek);
+\draw[direct] (snoek) -- (alphago);
+
+
+% ============================================================
+% CROSS-CONNECTIONS
+% ============================================================
+
+% GP -> Bayesian optimisation
+\draw[influence]
+(gp.east)
+to[bend left=15]
+node[midway, above, sloped, font=\scriptsize]
+{GP surrogate}
+(ego.west);
+
+% MCMC -> Bayesian neural networks
+\draw[influence]
+(hmc.east)
+to[bend right=12]
+(bnn.west);
+
+% VI -> Bayesian neural networks
+\draw[influence]
+(vi.east)
+to[bend right=12]
+(bnn.south west);
+
+
+% ============================================================
+% LEGEND
+% ============================================================
+
+\node[align=left,font=\scriptsize] at (0,-12.2)
+{
+\tikz{\draw[direct] (0,0)--(0.8,0);}
+\; methodological development
+\qquad\qquad
+\tikz{\draw[influence] (0,0)--(0.8,0);}
+\; later connection / influence
+};
+
+\end{tikzpicture}
+
+\caption{A simplified genealogy of selected developments in Bayesian statistics
+after 1950. Solid arrows indicate a broadly direct methodological development;
+dashed arrows indicate important later connections rather than a claim of
+direct historical descent.}
+
+\label{fig:bayesian-post1950-tree}
+
+\end{figure}
+
+\end{landscape}
+
+
+%%%%%%%%%%%%%%%% Diagram 1 %%%%%%%%%%%%%%%%
+\begin{landscape}
+
+\begin{figure}[H]
+\centering
+
+
+\begin{tikzpicture}[
+    scale=0.5,
+    transform shape,
+    node distance=0.65cm and 0.8cm,
+    >=Latex,
+    root/.style={
+        draw,
+        rounded corners=3pt,
+        fill=gray!20,
+        font=\bfseries,
+        align=center,
+        minimum width=5.5cm,
+        minimum height=0.9cm
+    },
+    category/.style={
+        draw,
+        rounded corners=3pt,
+        fill=gray!15,
+        font=\bfseries,
+        align=center,
+        text width=4.6cm,
+        minimum height=0.85cm
+    },
+    method/.style={
+        draw,
+        rounded corners=2pt,
+        fill=gray!5,
+        align=center,
+        font=\small,
+        text width=3.5cm,
+        minimum height=0.75cm
+    },
+    direct/.style={
+        ->,
+        thick
+    },
+    influence/.style={
+        ->,
+        dashed,
+        thick,
+        gray
+    }
+]
+
+% ============================================================
+% ROOT
+% ============================================================
+
+\node[root] (root)
+{\textbf{Bayesian inference after 1950}};
+
+% Main categories
+\node[category, below left=1.2cm and 5.6cm of root] (comp)
+{Computational methods};
+
+\node[category, below=1.2cm of root] (model)
+{Bayesian modelling};
+
+\node[category, below right=1.2cm and 5.6cm of root] (learn)
+{Learning, prediction\\and decision-making};
+
+\draw[direct] (root) -- (comp);
+\draw[direct] (root) -- (model);
+\draw[direct] (root) -- (learn);
+
+
+% ============================================================
+% COMPUTATIONAL BRANCH
+% ============================================================
+
+\node[method, below left=0.9cm and 1.5cm of comp] (metro)
+{\textbf{Metropolis}\\1953};
+
+\node[method, below=0.7cm of metro] (mh)
+{\textbf{Metropolis--Hastings}\\1970};
+
+\node[method, below left=0.7cm and 0.15cm of mh] (gibbs)
+{\textbf{Gibbs sampling}\\1984};
+
+\node[method, below right=0.7cm and 0.15cm of mh] (hmc)
+{\textbf{Hamiltonian MC}\\1987};
+
+\draw[direct] (comp) -- (metro);
+\draw[direct] (metro) -- (mh);
+\draw[direct] (mh) -- (gibbs);
+\draw[direct] (mh) -- (hmc);
+
+
+% Sequential filtering branch
+
+\node[method, below right=0.9cm and 1.5cm of comp] (kalman)
+{\textbf{Kalman filter}\\1960};
+
+\node[method, below=0.7cm of kalman] (pf)
+{\textbf{Particle filter}\\1993};
+
+\node[method, below=0.7cm of pf] (pmcmc)
+{\textbf{Particle MCMC}\\2010};
+
+\draw[direct] (comp) -- (kalman);
+\draw[direct] (kalman) -- (pf);
+\draw[direct] (pf) -- (pmcmc);
+
+% MCMC also feeds into Particle MCMC
+\draw[influence] (mh.east) to[bend left=15] (pmcmc.west);
+
+
+% Variational inference
+\node[method, below=5.2cm of comp] (vi)
+{\textbf{Variational inference}\\1999};
+
+\draw[direct] (comp.south) to[out=-90,in=90] (vi.north);
+
+
+% ============================================================
+% MODELLING BRANCH
+% ============================================================
+
+% Empirical / hierarchical
+\node[method, below left=0.9cm and 1.5cm of model] (emp)
+{\textbf{Empirical Bayes}\\1956};
+
+\node[method, below=0.7cm of emp] (hier)
+{\textbf{Hierarchical Bayes}\\1972};
+
+\draw[direct] (model) -- (emp);
+\draw[direct] (emp) -- (hier);
+
+
+% Functions / Gaussian processes
+\node[method, below=0.9cm of model] (wahba)
+{\textbf{Bayesian function estimation}\\1970};
+
+\node[method, below=0.7cm of wahba] (gp)
+{\textbf{Bayesian GP regression}\\1978};
+
+\draw[direct] (model) -- (wahba);
+\draw[direct] (wahba) -- (gp);
+
+
+% Bayesian nonparametrics
+\node[method, below right=0.9cm and 1.5cm of model] (dp)
+{\textbf{Dirichlet process}\\1973};
+
+\node[method, below=0.7cm of dp] (dpm)
+{\textbf{DP mixtures}\\1974};
+
+\node[method, below=0.7cm of dpm] (rj)
+{\textbf{Unknown-dimensional mixtures}\\1997};
+
+\draw[direct] (model) -- (dp);
+\draw[direct] (dp) -- (dpm);
+\draw[direct] (dpm) -- (rj);
+
+
+% ============================================================
+% LEARNING / AI BRANCH
+% ============================================================
+
+% Bayesian networks
+\node[method, below left=0.9cm and 1.7cm of learn] (bn)
+{\textbf{Bayesian networks}\\1980s--1988};
+
+\node[method, below=0.7cm of bn] (pgm)
+{\textbf{Probabilistic graphical models}\\1990s--2000s};
+
+\draw[direct] (learn) -- (bn);
+\draw[direct] (bn) -- (pgm);
+
+
+% Bayesian neural networks
+\node[method, below=0.9cm of learn] (bnn)
+{\textbf{Bayesian neural networks}\\1992};
+
+\node[method, below=0.7cm of bnn] (neal)
+{\textbf{Neal's Bayesian NNs}\\1996};
+
+\draw[direct] (learn) -- (bnn);
+\draw[direct] (bnn) -- (neal);
+
+
+% Bayesian optimisation
+\node[method, below right=0.9cm and 1.7cm of learn] (kushner)
+{\textbf{Stochastic optimisation}\\Kushner, 1964};
+
+\node[method, below=0.7cm of kushner] (mockus)
+{\textbf{Bayesian global optimisation}\\1970s};
+
+\node[method, below=0.7cm of mockus] (ego)
+{\textbf{Efficient Global Optimisation}\\1998};
+
+\node[method, below=0.7cm of ego] (snoek)
+{\textbf{ML hyperparameter optimisation}\\2012};
+
+\node[method, below=0.7cm of snoek] (alphago)
+{\textbf{AlphaGo tuning}\\2016};
+
+\draw[direct] (learn) -- (kushner);
+\draw[direct] (kushner) -- (mockus);
+\draw[direct] (mockus) -- (ego);
+\draw[direct] (ego) -- (snoek);
+\draw[direct] (snoek) -- (alphago);
+
+
+% ============================================================
+% CROSS-BRANCH CONNECTIONS
+% ============================================================
+
+% Gaussian processes feed Bayesian optimisation
+\draw[influence]
+    (gp.east)
+    to[bend left=12]
+    node[midway, above, sloped, font=\scriptsize]
+    {GP surrogate models}
+    (ego.west);
+
+% MCMC / VI enable Bayesian neural networks
+\draw[influence]
+    (hmc.east)
+    to[bend right=15]
+    (bnn.west);
+
+\draw[influence]
+    (vi.east)
+    to[bend right=12]
+    (bnn.south west);
+
+
+% ============================================================
+% LEGEND
+% ============================================================
+
+\node[
+    align=left,
+    font=\scriptsize,
+    below=0.8cm of vi,
+    xshift=6.0cm
+] (legend)
+{
+\tikz{\draw[direct] (0,0)--(0.8,0);}
+\; methodological development
+\qquad
+\tikz{\draw[influence] (0,0)--(0.8,0);}
+\; later connection / influence
+};
+
+\end{tikzpicture}
+
+\caption{A simplified genealogy of selected developments in Bayesian
+statistics after 1950. Solid arrows indicate a broadly direct methodological
+development; dashed arrows indicate important later connections rather than
+a claim of direct historical descent.}
+
+\label{fig:bayesian-post1950-tree}
+\end{figure}
+
+\end{landscape}
+
+
+
+
+%%%%%%%%%% -- tha three tables 
+\newpage
+
 % Add to the preamble if not already included:
 % \usepackage{booktabs}
 % \usepackage{tabularx}
