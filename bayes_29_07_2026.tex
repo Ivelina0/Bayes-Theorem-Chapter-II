@@ -1,5 +1,4 @@
-
-\section{The Theory that would not die: Bayesian Probability}
+\section{The Theory that would not die: Bayesian Probability}\label{sec:bayes}
 
 
 \noindent
@@ -893,7 +892,185 @@ neuroscientist Lisa Feldman Barrett \& psychologist Daniel Kahneman's view of th
 
 \newpage
 
-\subsection{Bayesian inference after 1950: computation, modelling and machine learning
+%%%%%%%%%%%%%%%5 version 2- 3 pages
+\subsection{V3 3 pages The computational and modelling revolution in Bayesian inference
+(c.~1950--present)}
+\label{sec:bayes-post1950}
+
+By the middle of the twentieth century, the central principle of Bayesian
+inference was already well established. The major developments that followed
+were therefore less about changing Bayes' theorem itself than about making it
+\textbf{computable}, extending the kinds of objects that could be
+\textbf{modelled}, and applying Bayesian reasoning to increasingly complex
+problems in science and machine learning.
+
+% ============================================================
+\subsubsection{The computational revolution}
+
+For much of its earlier history, Bayesian inference was practical only when
+the required posterior distributions and integrals could be calculated
+analytically. Electronic computers changed this dramatically. One of the
+most important developments originated in mathematical physics rather than
+statistics. In 1953 Nicholas Metropolis, \textbf{Arianna Rosenbluth},
+Marshall Rosenbluth, \textbf{Augusta Teller} and Edward Teller introduced a
+Monte Carlo method for sampling from complicated probability distributions
+using the MANIAC computer at Los Alamos \cite{metropolis1953}. Arianna
+Rosenbluth was closely involved in implementing the algorithm, although the
+method subsequently became known simply as the ``Metropolis algorithm''
+\cite{gubernatis2005}. W.~K. Hastings generalised it in 1970
+\cite{hastings1970}, producing the \textbf{Metropolis--Hastings algorithm}.
+These methods became fundamental to Bayesian statistics because a difficult
+posterior distribution could now be explored by simulation rather than
+calculated exactly.
+
+The broader family became known as \textbf{Markov chain Monte Carlo (MCMC)}.
+Further developments included Gibbs sampling, used by Geman and Geman in
+Bayesian image restoration in 1984 \cite{geman1984}, and Hamiltonian Monte
+Carlo, introduced by Duane et al.\ in 1987 in lattice field theory
+\cite{duane1987}. Gelfand and Smith's influential 1990 paper helped establish
+MCMC as a general method for Bayesian statistical computation
+\cite{gelfandsmith1990}. Software subsequently made these methods accessible
+to a much wider community. The \textbf{BUGS} project---\emph{Bayesian
+inference Using Gibbs Sampling}---and later systems such as Stan allowed
+researchers to specify complicated probability models without constructing
+each sampling procedure from scratch \cite{lunn2009}. Statistician
+\textbf{Nicky Best} was among the important contributors to the development
+and dissemination of WinBUGS and applied Bayesian modelling.
+
+A second computational branch concerned quantities that change through time.
+Kalman's 1960 filtering method arose in engineering and control theory
+\cite{kalman1960}, but for linear-Gaussian models it can be interpreted as
+exact sequential Bayesian updating. Gordon, Salmond and Smith extended this
+idea to nonlinear and non-Gaussian systems with their influential 1993
+\textbf{particle filter} \cite{gordon1993}. Here a probability distribution
+is represented by many simulated ``particles'', which are repeatedly
+propagated, weighted against new observations and resampled. Particle methods
+also introduced new problems, including weight and genealogical degeneracy.
+In 2010 Andrieu, Doucet and Holenstein combined particle filtering with MCMC
+to produce \textbf{particle MCMC}, allowing simultaneous inference about
+hidden states and unknown parameters \cite{andrieu2010}.
+
+Not all modern Bayesian computation relies on sampling. In
+\textbf{variational inference}, a complicated posterior distribution is
+replaced by a simpler approximation chosen through optimisation. Jordan,
+Ghahramani, Jaakkola and Saul gave an influential treatment of variational
+methods for graphical models in 1999 \cite{jordan1999}. The method became
+particularly important in machine learning because optimisation can often be
+much faster than MCMC for very large models, although this speed introduces
+additional approximation error \cite{blei2017}.
+
+% ============================================================
+\subsubsection{The modelling revolution}
+
+Computers also allowed Bayesian statisticians to construct increasingly
+flexible models. Rather than considering every unknown parameter separately,
+\textbf{hierarchical Bayesian models} allow parameters from related groups to
+share information through common higher-level distributions. Herbert Robbins'
+1956 work on \textbf{empirical Bayes} had already explored the idea that
+information from many related observations could help determine the
+distribution governing their parameters \cite{robbins1956}. Lindley and
+Smith's 1972 work subsequently became an important landmark in hierarchical
+Bayesian modelling \cite{lindleysmith1972}. Such models produce
+\emph{partial pooling}: estimates for different hospitals, schools or regions
+can borrow information from one another without assuming that all groups are
+identical.
+
+Bayesian ideas were also extended beyond fixed finite-dimensional parameter
+vectors. In 1973 Thomas Ferguson introduced the \textbf{Dirichlet process},
+a prior distribution whose unknown object is itself a probability distribution
+\cite{ferguson1973}. This became one of the foundations of
+\textbf{Bayesian nonparametrics}. Antoniak developed related mixture models
+in 1974 \cite{antoniak1974}, while later work allowed even quantities such as
+the number of mixture components to be treated as unknown. For example,
+\textbf{Sylvia Richardson} and Peter Green developed influential
+reversible-jump MCMC methods for Bayesian mixture models with an unknown
+number of components \cite{richardsongreen1997}. The term ``nonparametric''
+therefore does not mean that there are no parameters, but that model
+complexity need not be fixed in advance.
+
+Another important development treated an unknown \textbf{function} as a
+random object. In 1970 George Kimeldorf and \textbf{Grace Wahba} established
+a correspondence between Bayesian estimation of stochastic processes and
+smoothing splines \cite{kimeldorfwahba1970}. Wahba's subsequent work became
+fundamental to smoothing, regularisation and reproducing-kernel methods.
+Anthony O'Hagan's Bayesian work on flexible curve fitting in 1978 formed part
+of the development of what is now called \textbf{Gaussian-process
+regression} \cite{ohagan1978}. Gaussian processes place probability
+distributions over functions and are closely connected to kernel methods.
+Kernel methods themselves are not necessarily Bayesian, but Gaussian
+processes provide an important Bayesian interpretation of kernel-based
+function learning.
+
+% ============================================================
+\subsubsection{Bayesian ideas in machine learning and decision-making}
+
+From the 1980s onward, these computational and modelling ideas became
+increasingly important in artificial intelligence. Judea Pearl's work helped
+establish \textbf{Bayesian networks}, in which graphs encode probabilistic
+dependencies between variables \cite{pearl1988}. Such models developed into
+the broader field of probabilistic graphical models, with later researchers
+including \textbf{Daphne Koller} helping connect graphical probability models
+with machine learning \cite{kollerfriedman2009}.
+
+Neural networks also acquired a Bayesian interpretation. David MacKay's 1992
+work and Radford Neal's research during the 1990s developed
+\textbf{Bayesian neural networks}, in which uncertainty is placed over network
+weights rather than estimating only one fitted set of parameters
+\cite{mackay1992,neal1996}. These models illustrate why advances in
+computation were essential: their posterior distributions are generally far
+too complicated to obtain analytically and therefore require methods such as
+MCMC or variational inference.
+
+A related but distinct development was \textbf{Bayesian optimisation}, which
+uses a probabilistic model not merely to estimate an unknown quantity but to
+decide which expensive experiment or calculation should be performed next.
+Early contributions were made by Harold Kushner in the 1960s and Jonas Mockus
+in the 1970s, followed by the influential \emph{Efficient Global
+Optimization} method of Jones, Schonlau and Welch in 1998
+\cite{kushner1964,jones1998}. The method later became important for choosing
+machine-learning hyperparameters \cite{snoek2012}. DeepMind, for example,
+used Bayesian optimisation when tuning versions of \textbf{AlphaGo}, although
+AlphaGo itself was principally based on neural networks, reinforcement
+learning and tree search rather than Bayesian inference \cite{chen2018}.
+
+Bayesian methods also continued to influence practical decision-making outside
+machine learning. In the search for \textbf{Air France Flight AF447},
+Lawrence Stone, \textbf{Colleen Keller}, Thomas Kratzke and Johan Strumpfer
+constructed a Bayesian probability distribution for the location of the
+wreckage, incorporating both prior information and evidence from earlier
+unsuccessful searches \cite{stone2014}. The wreckage was found during the
+renewed search in 2011. Such examples return modern Bayesian computation to
+the basic idea underlying Bayes' theorem itself: probabilities represent
+current uncertainty, new evidence changes those probabilities, and the
+updated distribution can guide what should be done next.
+
+\medskip
+
+Thus the post-1950 history of Bayesian statistics can be viewed as three
+connected developments:
+
+\[
+\boxed{
+\begin{array}{lll}
+\textbf{Computation} &:&
+\text{how can difficult posterior distributions be calculated?}\\[1mm]
+\textbf{Modelling} &:&
+\text{what kinds of unknown objects can carry probability distributions?}\\[1mm]
+\textbf{Learning and decisions} &:&
+\text{how can uncertainty be used for prediction and action?}
+\end{array}}
+\]
+
+The computer did not change Bayes' theorem. Instead, it transformed the scale
+and complexity of the problems to which Bayesian reasoning could be applied.
+
+
+
+
+
+\newpage
+
+\subsection{V1 5 pages: Bayesian inference after 1950: computation, modelling and machine learning
 (c.~1950--present)}
 \label{sec:bayes-post1950}
 

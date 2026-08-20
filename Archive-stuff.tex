@@ -1,0 +1,322 @@
+
+
+\subsection{TODO into 1: When Bayes Became Computable: Monte Carlo, Metropolis--Hastings, and Gibbs Sampling}
+\label{sec:mcmc-history}
+
+During World War II, Alan Turing and I. J. Good demonstrated that Bayesian updating could be operationalised through sequential evidence weighting—using log-odds, \emph{decibans}, and Good--Turing smoothing to solve cryptanalytic problems under strict mechanical constraints. 
+
+However, these wartime methods relied either on discrete evidence accumulation or continuous analytical approximations. In the post-war decades, as Bayesian inference expanded into complex, high-dimensional parameter spaces $\Theta \subseteq \mathbb{R}^d$, calculating posterior expectations $\mathbb{E}_\pi[h(\theta)] = \int_\Theta h(\theta)\pi(\theta \mid y)d\theta$ required evaluating the marginal likelihood (normalising constant):
+
+\textcolor{red}{Reference to Bayesian into subsection once written up}
+
+\begin{equation}
+    p(y) = \int_{\Theta} p(y \mid \theta)\pi_{0}(\theta)\,d\theta.
+    \label{eq:marginal-likelihood}
+\end{equation}
+In high dimensions, standard numerical quadrature scales as $\mathcal{O}(K^d)$ for a grid of size $K$, rendering exact evaluation computationally intractable - the modern problem of the \emph{curse of dimensionality}.
+
+While we will detail a small subsection of the history and methods developed, more details about the history of the MCMC methods can be found in \cite{robert2011short, grimmett2014probability, wiki:mcmc, wiki:metropolishastings}
+
+
+\noindent
+\fcolorbox{red}{red!10}{%
+  \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+    \raggedright
+    \textcolor{red}{%
+      \textbf{TODO:} Add
+      
+      \begin{enumerate}
+        \item overall examples of where mcmc methods are used today - locating the flight?
+        \item maybe more details about what inference is vs bayesian inference and why we need it? -> what do 18yo students actually know about this?
+        \item explaining in simple terms the consequences of the theorems + their connection to CLT --> elaborate further + add proofs from books + mention Markov Chains intro 1040s
+        \item Links to the full algorithms in appendix or code on github. 
+        \item any images of the mcmc e.g. locality theorem of gibbs. 
+        \item link to Markov Chain CLT with metropolis hastings algo --> using it
+        \item What is a transition kernel density and what are the conditions for it? 
+      \end{enumerate}
+    }%
+  }%
+}
+
+% -----------------------------------------------------------------------------
+\subsubsection{Physics Origins: The Metropolis--Hastings Framework (1953--1970)}
+\label{subsec:metropolis-hastings}
+
+The computational breakthrough behind modern Markov chain Monte Carlo (MCMC) originated not in statistics, but in physical chemistry. Nicholas Metropolis, Arianna Rosenbluth, Marshall Rosenbluth, Augusta Teller, and Edward Teller \cite{metropolis1953} sought to calculate macroscopic thermodynamic quantities for systems of $N$ interacting particles in $d$ dimensions ($d \in \{2, 3\}$).
+
+Let $x = (x_1, \dots, x_N) \in \mathcal{X}$ denote a spatial configuration with potential energy $E(x)$. At thermodynamic equilibrium, states follow the canonical Boltzmann distribution:
+\begin{equation}
+    \pi(x) = \frac{\widetilde{\pi}(x)}{Z} = \frac{\exp\left\{-\beta E(x)\right\}}{Z}, \qquad \text{where } \beta = \frac{1}{k_{\mathrm{B}}T}.
+\end{equation}
+Evaluating expected physical properties $\mathbb{E}_{\pi}[h(X)]$ required computing the ratio of two high-dimensional integrals over the partition function $Z = \int_{\mathcal{X}} \exp\{-\beta E(x)\} dx$. Standard Monte Carlo sampling $X_i \sim \text{Uniform}(\mathcal{X})$ failed because uniform samples in dense states almost always placed particles unrealistically close together, driving $E(x) \to \infty$ and yielding negligible weights $\exp\{-\beta E(x)\} \approx 0$.
+
+To bypass evaluating $Z$, Metropolis et al. (1953) \cite{metropolis1953} introduced a guided random walk using a symmetric proposal distribution $q(y \mid x) = q(x \mid y)$. While published under five authors, historical accounts attribute the mathematical derivation to Marshall Rosenbluth and the implementation on the MANIAC I computer to Arianna Rosenbluth \cite{gubernatis2005}. W. K. Hastings (1970) \cite{hastings1970} generalised this to asymmetric proposals $q(y \mid x) \neq q(x \mid y)$, transforming a physical simulation technique into a general mathematical tool for statistical sampling.
+
+\begin{proposition}[Cancellation of Normalising Constants \cite{robert2004mcmc}]
+\label{prop:cancellation-constant}
+Let $\widetilde{\pi}(\theta) = p(y \mid \theta)\pi_0(\theta)$ be an unnormalised target density with normalising constant $Z = p(y)$. For any proposal $q(\cdot \mid \theta)$, the Metropolis--Hastings acceptance probability $\alpha_{\mathrm{MH}}(\theta, \theta')$ satisfies:
+\begin{equation}
+    \alpha_{\mathrm{MH}}(\theta, \theta') = \min\left\{1, \; \frac{\pi(\theta') q(\theta \mid \theta')}{\pi(\theta) q(\theta' \mid \theta)}\right\} = \min\left\{1, \; \frac{\widetilde{\pi}(\theta') q(\theta \mid \theta')}{\widetilde{\pi}(\theta) q(\theta' \mid \theta)}\right\}.
+\end{equation}
+\end{proposition}
+
+\noindent This cancellation is the foundation of MCMC computation. It allows samples to be drawn from complex target posterior distributions knowing only the unnormalised joint density $p(y \mid \theta)\pi_0(\theta)$, entirely bypassing the intractable high-dimensional integration required to evaluate $p(y)$.
+
+\begin{theorem}[Detailed Balance and Ergodicity \cite{meyn2012mcke, tierney1994}]
+\label{thm:mcmc-ergodic}
+If a transition kernel $P(x, dy)$ satisfies detailed balance $\pi(dx) P(x, dy) = \pi(dy) P(y, dx)$, then $\pi$ is invariant. Furthermore, if the resulting Markov chain is $\pi$-irreducible, aperiodic, and positive Harris recurrent, then for any $\pi$-integrable function $h$:
+\begin{equation}
+    \lim_{M \to \infty} \frac{1}{M} \sum_{m=1}^{M} h(X_m) = \mathbb{E}_\pi[h(X)] \quad \text{a.s.}
+\end{equation}
+\end{theorem}
+
+\noindent Detailed balance theorem offers a tractable, local condition to ensure that the chain preserves the target distribution $\pi$. Ergodicity provides the formal theoretical guarantee that sample path averages will almost surely converge to true posterior expectations as the chain runs infinitely long.
+
+% -----------------------------------------------------------------------------
+\subsubsection{Image Restoration and Gibbs Sampling (1984)}
+\label{subsec:gibbs-sampling}
+
+Independently of Hastings' statistical formulation, Stuart and Donald Geman (1984) \cite{geman1984} addressed the problem of recovering a clean digital image $F = (F_s)_{s \in \mathcal{S}}$ over a grid $\mathcal{S}$ given noisy observations $G$, via the posterior $\pi(f \mid g) \propto p(g \mid f) \pi_0(f)$.
+
+To capture local spatial correlations, Geman and Geman modeled the prior $\pi_0(f)$ as a Markov Random Field (MRF) over local neighbourhoods $\partial s$.
+
+\begin{theorem}[Hammersley--Clifford Theorem \cite{besag1974spatial, geman1984}]
+\label{thm:hammersley-clifford}
+A strictly positive random field $F$ on a finite lattice $\mathcal{S}$ is a Markov Random Field if and only if its joint distribution $\pi_0(f)$ is a Gibbs distribution:
+\begin{equation}
+    \pi_0(f) = \frac{1}{Z} \exp\left\{ -\frac{1}{T} \sum_{C \in \mathcal{C}} V_C(f) \right\},
+\end{equation}
+where $T > 0$ is temperature, $\mathcal{C}$ is the collection of local pixel cliques, and $V_C(f)$ are clique potential functions.
+\end{theorem}
+
+\noindent This theorem builds a crucial theoretical bridge between local spatial specifications and global joint probability fields. It proves that specifying simple, local interactions is mathematically equivalent to defining a valid joint distribution over the entire lattice.
+
+For a lattice of $d$ pixels with $K$ discrete intensity levels, $Z$ involves $K^d$ terms (e.g., $256^{512 \times 512}$), rendering direct evaluation impossible. Geman and Geman introduced what they named the \emph{Gibbs sampler}—in honor of Josiah Willard Gibbs—noting that the full conditional distribution of a pixel $F_s$ given $F_{-s}$ depends solely on its local neighbourhood $\partial s$:
+\begin{equation}
+    \pi(f_s \mid f_{-s}) = \pi(f_s \mid f_{\partial s}) = \frac{\exp\left\{ -\frac{1}{T} \sum_{C : s \in C} V_C(f) \right\}}{\sum_{u \in \mathcal{F}_s} \exp\left\{ -\frac{1}{T} \sum_{C : s \in C} V_C(u, f_{-s}) \right\}},
+\end{equation}
+
+
+where $F_{-s}$ denotes the values of all pixels on the grid except pixel $s$. By updating each coordinate iteratively from its full conditional distribution, the chain targets the full joint distribution:
+\begin{align}
+    X_1^{(m+1)} &\sim \pi(x_1 \mid X_2^{(m)}, X_3^{(m)}, \dots, X_d^{(m)}), \\
+    &\;\;\vdots \notag \\
+    X_d^{(m+1)} &\sim \pi(x_d \mid X_1^{(m+1)}, X_2^{(m+1)}, \dots, X_{d-1}^{(m+1)}).
+\end{align}
+
+
+\begin{proposition}[Gibbs Update as Exact Metropolis--Hastings \cite{robert2004mcmc}]
+\label{prop:gibbs-as-mh}
+A Gibbs update proposing $y = (y_i, x_{-i}) \sim \pi(y_i \mid x_{-i})$ is equivalent to a Metropolis--Hastings step with acceptance probability identically equal to 1:
+\begin{equation}
+    \alpha(x,y) = \min\left\{1, \; \frac{\pi(y) q(x \mid y)}{\pi(x) q(y \mid x)}\right\} = \min\left\{1, \; \frac{\pi(x_{-i})\pi(y_i \mid x_{-i}) \cdot \pi(x_i \mid x_{-i})}{\pi(x_{-i})\pi(x_i \mid x_{-i}) \cdot \pi(y_i \mid x_{-i})}\right\} = 1.
+\end{equation}
+\end{proposition}
+\noindent This unifies Gibbs sampling within the broader Metropolis--Hastings framework. It shows that sampling directly from full conditionals avoids rejected moves entirely ($\alpha = 1$), removing the need to manually choose and tune proposal densities.
+
+% -----------------------------------------------------------------------------
+\subsubsection{The Mainstream Statistical Revolution and Applications (1987--Present)}
+\label{subsec:mcmc-applications}
+
+The bridge between physical/image models and mainstream Bayesian statistics was completed by Tanner and Wong (1987) \cite{tannerwong1987} via \emph{Data Augmentation} for latent variables, and synthesized by Gelfand and Smith (1990) \cite{gelfandsmith1990}. Gelfand and Smith demonstrated that Gibbs sampling could routinely calculate marginal posterior distributions across arbitrary hierarchical Bayesian models.
+
+The subsequent release of declarative MCMC engines like BUGS (Bayesian inference Using Gibbs Sampling) language \cite{gilks1994} laid the foundation for modern probabilistic programming by demonstrating how to specify complex hierarchical statistical models using Markov chain Monte Carlo (MCMC) methods. Key application domains include:
+
+\begin{itemize}
+    \item \textbf{Hierarchical Bayesian Models:} Sequential sampling of hyper-parameters and group parameters in multi-level structures \cite{gelman2013bayesian}.
+    \item \textbf{Latent Variable \& Missing Data Models:} Treating unobserved states $Z$ as parameters via Data Augmentation to sample from $\pi(\theta \mid z, y)$ and $\pi(z \mid \theta, y)$ \cite{tannerwong1987}.
+    \item \textbf{Spatial Statistics \& Image Processing:} Estimating spatial autoregressions and Markov Random Fields in disease mapping and geostatistics \cite{besag1974spatial}.
+    \item \textbf{Phylogenetics \& Population Genetics:} Traversing tree topologies and estimating evolutionary rates from genomic sequences \cite{yang2014molecular}.
+\end{itemize}
+
+
+
+% End, updated 21-07-2026 -----------------------------------------------------------------------------
+
+\subsection{Bayes through time: state-space models, Kalman filtering and particle filters}
+
+
+Kalman Filters developed for Apollo Space mission:  applied in Apollo navigation.
+https://www.youtube.com/watch?v=MMFpaNm-1EI
+
+
+
+
+Standard MCMC assumes a \emph{static} posterior distribution $\pi(\theta \mid y)$. However, when observations arrive sequentially over time ($y_{1:t}$), re-running MCMC at each step $t$ is computationally prohibitive. 
+
+\cite{sequentialMCinvitation2022}
+
+This necessitates \emph{sequential Bayesian filtering}: evaluating $p(x_t \mid y_{1:t})$ recursively via prediction and update steps. The following section explores how exact updates (Kalman Filters) and particle approximations (Sequential Monte Carlo) extend Bayesian inference into time-evolving dynamical systems.
+
+% \subsection{The path from distributions to optimisation: variational methods}
+
+% - women, other countries
+
+% \subsection{Bayesian Statistics powers Generative Language Models}
+
+\newpage
+
+% % --- START OF FIT-TO-PAGE DECISION TREE ---
+% \begin{figure}[htbp]
+% \centering
+
+% % Color Palette
+% \definecolor{primary}{HTML}{1A365D}    % Deep Blue
+% \definecolor{decision}{HTML}{2C5282}   % Slate Blue
+% \definecolor{leaf}{HTML}{276749}       % Forest Green
+
+% % Guaranteed page-width fit
+% \resizebox{\linewidth}{!}{%
+% \begin{tikzpicture}[
+%     auto,
+%     node distance = 0.9cm and 0.8cm,
+%     font = \sffamily\small,
+%     % Decision Box (Rhombus/Diamond)
+%     question/.style = {
+%         diamond,
+%         draw=decision,
+%         fill=decision!12,
+%         thick,
+%         text width=2.8cm,
+%         align=center,
+%         inner sep=0pt,
+%         drop shadow={opacity=0.15, shadow xshift=1pt, shadow yshift=-1pt}
+%     },
+%     % Algorithm/Leaf Box (Rectangle)
+%     leaf/.style = {
+%         rectangle,
+%         rounded corners=3pt,
+%         draw=leaf,
+%         fill=leaf!12,
+%         thick,
+%         text width=3.2cm,
+%         align=center,
+%         minimum height=0.7cm,
+%         inner sep=3pt,
+%         drop shadow={opacity=0.15, shadow xshift=1pt, shadow yshift=-1pt}
+%     },
+%     branch/.style = {
+%         font=\sffamily\bfseries\scriptsize,
+%         color=primary
+%     },
+%     line/.style = {
+%         draw=primary,
+%         -Stealth,
+%         thick
+%     }
+% ]
+
+% % ==================== NODES ====================
+
+% % Level 1: Q1 Likelihood
+% \node [question] (q1) {\textbf{Q1: Likelihood}\\Is $p(x|z)$ computable?};
+% \node [leaf, left=0.8cm of q1] (lfi) {\textbf{Likelihood-Free Inference}\\Classical ABC / Neural SBI};
+
+% % Level 2: Q2 Data Type
+% \node [question, below=0.8cm of q1] (q2) {\textbf{Q2: Data Type}\\Dynamic / streaming?};
+
+% % Branch Q2 -> YES (Streaming Sub-tree)
+% \node [question, right=0.8cm of q2] (q2a) {\textbf{Q2a: State}\\Continuous or Discrete?};
+% \node [leaf, above right=0.1cm and 0.8cm of q2a] (hmm) {\textbf{HMM}\\Forward-Backward / Viterbi};
+
+% \node [question, below=0.7cm of q2a] (q2b) {\textbf{Q2b: Dynamics}\\Linear \& Gaussian?};
+% \node [leaf, right=0.8cm of q2b] (kf) {\textbf{Kalman Filter (KF)}};
+
+% \node [question, below=0.7cm of q2b] (q2c) {\textbf{Q2c: Dynamics}\\Severity of non-linearity?};
+% \node [leaf, right=0.8cm of q2c] (ekf) {\textbf{EKF / UKF}};
+
+% \node [question, below=0.7cm of q2c] (q2d) {\textbf{Q2d: Parameters}\\Need static params ($\theta$)?};
+% \node [leaf, right=0.8cm of q2d] (smc) {\textbf{SIR Particle Filter}};
+% \node [leaf, below=0.3cm of smc] (pmcmc) {\textbf{PMCMC / SMC$^2$}};
+
+% % Branch Q2 -> NO (Static Data)
+% \node [question, below=3.8cm of q2] (q3) {\textbf{Q3: Data Scale}\\Massive dataset ($N > 10^5$)?};
+
+% % Branch Q3 -> YES (Massive N)
+% \node [question, right=0.8cm of q3] (q3a) {\textbf{Q3a: Latents}\\High-D continuous generative model?};
+% \node [leaf, above right=0.1cm and 0.8cm of q3a] (vae) {\textbf{Amortized VI (VAE)}};
+% \node [leaf, below right=0.1cm and 0.8cm of q3a] (svi) {\textbf{Stochastic VI / SGLD}};
+
+% % Branch Q3 -> NO (Moderate/Small Data)
+% \node [question, below=1.8cm of q3] (q4) {\textbf{Q4: Parameters}\\Continuous or Discrete?};
+
+% % Branch Q4 -> Discrete
+% \node [question, right=0.8cm of q4] (q4a) {\textbf{Q4a: Target}\\Multimodal / Combinatorial?};
+% \node [leaf, above right=0.1cm and 0.8cm of q4a] (asmc) {\textbf{Annealed SMC}};
+% \node [leaf, below right=0.1cm and 0.8cm of q4a] (gibbs) {\textbf{Gibbs / MH}};
+
+% % Branch Q4 -> Continuous
+% \node [question, below=1.6cm of q4] (q4b) {\textbf{Q4b: Dimension}\\High-D ($D > 20$) or Correlated?};
+% \node [leaf, right=0.8cm of q4b] (hmc) {\textbf{HMC / NUTS}\\($\nabla_z \log p(x,z)$)};
+% \node [leaf, below=0.3cm of hmc] (rwm) {\textbf{Random-Walk MH / Slice}};
+
+
+% % ==================== PATHS & CONNECTIONS ====================
+
+% % Main Spine
+% \draw [line] (q1) -- node [branch, left] {NO} (lfi);
+% \draw [line] (q1) -- node [branch, right] {YES} (q2);
+% \draw [line] (q2) -- node [branch, right] {NO (Static)} (q3);
+% \draw [line] (q3) -- node [branch, right] {NO} (q4);
+
+% % Dynamic Branch (Q2)
+% \draw [line] (q2) -- node [branch, above] {YES} (q2a);
+% \draw [line] (q2a) |- node [branch, near start, above] {Discrete} (hmm);
+% \draw [line] (q2a) -- node [branch, right] {Continuous} (q2b);
+% \draw [line] (q2b) -- node [branch, above] {YES} (kf);
+% \draw [line] (q2b) -- node [branch, right] {NO} (q2c);
+% \draw [line] (q2c) -- node [branch, above] {Mild} (ekf);
+% \draw [line] (q2c) -- node [branch, right] {Severe} (q2d);
+% \draw [line] (q2d) -- node [branch, above] {NO} (smc);
+% \draw [line] (q2d) |- node [branch, near start, right] {YES} (pmcmc);
+
+% % Massive Scale Branch (Q3)
+% \draw [line] (q3) -- node [branch, above] {YES} (q3a);
+% \draw [line] (q3a) |- node [branch, near start, above] {YES} (vae);
+% \draw [line] (q3a) |- node [branch, near start, below] {NO} (svi);
+
+% % Parameter Space Branches (Q4)
+% \draw [line] (q4) -- node [branch, above] {Discrete / Mixed} (q4a);
+% \draw [line] (q4) -- node [branch, right] {Continuous} (q4b);
+
+% \draw [line] (q4a) |- node [branch, near start, above] {YES} (asmc);
+% \draw [line] (q4a) |- node [branch, near start, below] {NO} (gibbs);
+
+% \draw [line] (q4b) -- node [branch, above] {YES} (hmc);
+% \draw [line] (q4b) |- node [branch, near start, right] {NO} (rwm);
+
+% \end{tikzpicture}%
+% }
+% \caption{Master Decision Tree for Selecting Bayesian Inference Methods.}
+% \label{fig:bayes_decision_tree}
+% \end{figure}
+% --- END OF FIT-TO-PAGE DECISION TREE ---
+
+\newpage
+
+
+
+% \subsection{Dark side of Bayes Theorem vs additional Bayes developments?}
+
+% Sally Clark 
+% https://theconversation.com/bayes-theorem-the-maths-tool-we-probably-use-every-day-but-what-is-it-76140
+
+
+% Data Privacy Issues - inverse engineer NHS data.
+% -- cases where somehting has happened 
+
+% neuclear weapon from Neumann.. 
+
+% medical paradox - https://www.youtube.com/watch?v=lG4VkPoG3ko 
+% % Can remove if not including this section
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.5\linewidth]{Medical paradox.png}
+%     \caption{Medical Paradox}
+%     \label{fig:placeholder}
+% \end{figure}
+
+
+
+
+

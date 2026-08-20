@@ -1,0 +1,1088 @@
+% \section{The Central Limit Theorem}
+\section{Laws, Limits, and Randomness: A Mathematical History of Probability} \label{chapter:four_CLT}
+% \subsection*{Related topics: Probability and Statistics}
+
+\begin{comment}
+\subsection{Historical Ties to CLT -- Kabi}
+
+\begin{itemize}
+    \item Prehistory in ancienct civilisations
+    \item Statistics before the 1800s -  systematic collection of data by Western states:
+    \begin{itemize}
+        \item England: Bills of Mortality (1592), Political arithmetic (1662)
+        \item Spain: Census of Peru (1548) and other North American colonies (1576)
+        \item Sweden: pastors were ordered to collect births and deaths data (1686)
+        \item US: Decennial census written into the Constitution (1790)
+    \end{itemize}
+    \item Jury of judgment
+    \begin{itemize}
+        \item Revolutionary France (1790s) - 10:2 majority
+        \item Condorcet's jury theorem: everyone has the same reliability $p$, the averaged reliability converges to $p$, and the probability of a correct verdict converges to 1 if $p>1/2$. (LLN for Binomial distribution)
+        \item Majority changed many times throughout the 19th century.
+    \end{itemize}
+    \item Historical Gambling?
+\end{itemize}
+
+
+\subsection{The Three Eras of Formal Development}
+
+\begin{itemize}
+    \item Prehistory: before the 18th Century 
+    \begin{itemize}
+        \item[Asya:] De Moivre, Bernoulli, Cadano
+    \end{itemize}
+    \item Developments in the 19th century
+    \begin{itemize}
+        \item[Huda:] Laplace, Gauss etc (1800s)
+        \item[Eve:] St Petersburg School, Chebyshev, Markov (late 1800s)
+    \end{itemize}
+    \item Modern days: post 20th Century
+    \begin{itemize}
+        \item[Yuhan:] Levy, Feller, Kolmogorov
+        \item [Maria:] Late 1900s and 2000s: stochastic gradient descend, LLN in high-dimensional datasets, bootstrapping.
+    \end{itemize}
+
+\end{itemize}
+
+
+\subsection{Applications}
+
+\begin{itemize}
+    \item TBC
+\end{itemize}
+\end{comment}
+
+\subsection{Historical Context} 
+
+% \subsubsection{Pascal's Triangle}
+\subsubsection{The Arithmetic Triangle Across Cultures}
+
+
+% In the 17th century, \textbf{Blaise Pascal} studied the properties of an infinite triangular array where each number is the sum of the two numbers directly above it in the previous row. Named after the French mathematician, the rows of Pascal's triangle correspond to the coefficients of the binomial expansion $(a + b)^n$. Providing a direct way to compute the entries of the triangle, the value of the binomial coefficient at the $n$th row and the $k$th position is given by the formula:
+
+% \begin{equation*}
+%     \binom{n}{k} = \frac{n!}{k!(n-k)!} 
+% \end{equation*}
+% where $0\leq k \leq n$, and $n!$ denotes the factorial of $n$.
+% Despite this crucial contribution to mathematics being accredited to Pascal, supposed evidence of the triangle has appeared in many cultures much before the 17th century, emerging in India, Persia, and China.
+
+% \vspace{1em}
+\noindent \textbf{Pascal’s Triangle and Binomial Coefficients}
+\vspace{0.5em}
+
+In the 17\textsuperscript{th} century, \textbf{Blaise Pascal} studied the properties of an infinite triangular array in which each entry is the sum of the two entries directly above it in the preceding row, as seen in Figure \ref{fig:pascal_rows}. Now known as \textit{Pascal’s Triangle}, named after the French mathematician, each row of Pascal's triangle corresponds to the coefficients of the binomial expansion $(a + b)^n$.
+
+\begin{figure}[H]
+\centering
+\[
+\begin{array}{cccccccccc}
+     &   &   &   &   & 1 &   &   &   &   \\
+     &   &   &   & 1 &   & 1 &   &   &   \\
+     &   &   & 1 &   & 2 &   & 1 &   &   \\
+     &   & 1 &   & 3 &   & 3 &   & 1 &   \\
+     & 1 &   & 4 &   & 6 &   & 4 &   & 1 \\
+\end{array}
+\]
+\caption{First five rows of Pascal’s Triangle.}
+\label{fig:pascal_rows}
+\end{figure}
+
+\vspace{-0.3cm}
+Each entry in the triangle corresponds to a \textit{binomial coefficient}, which gives the number of ways to choose $k$ elements from a set of $n$ elements, in other words each row corresponds to a value of \(n\) in the binomial expansion of \((a + b)^n\), and the \(k\)-th entry in the row is the binomial coefficient:
+\[
+(a + b)^n = \sum_{k=0}^{n} \binom{n}{k} a^{n-k} b^k
+\]
+\[
+\binom{n}{k} = \frac{n!}{k!(n-k)!}, \quad \text{where } 0 \leq k \leq n
+\]
+where $n!$ denotes the factorial of $n$.
+
+Although Pascal’s name is most commonly associated with the triangle in Western mathematics, the same triangular array had appeared independently in earlier mathematical traditions across India, Persia, and China, centuries before Pascal’s formal study.
+
+
+\vspace{1em}
+\noindent \textbf{Early Origins in India: Pingala’s Meru-Prastara (300 BCE) }
+\vspace{0.5em}
+
+
+In India 300 BCE, \textbf{Pingala}, a famous poet and mathematician, wrote 'Chandahsastra', illustrating the first concept of Pascal's triangle. His book was a technique for linking mathematics with Sanskrit poetry, mapping short and long syllables to binary digits. The study of Sanskrit poetry led to the early ideas of binary number systems, combinatorics, and Fibonacci numbers. Specifically, Pingala's text highlighted the number of different arrangements of short and long syllables, drawing a link to the binomial coefficients and implicitly discovering Pascal's triangle. During the 10th century CE, \textbf{Halayudha}, another Indian scholar, proposed that Pingala's final sutra resembles \textbf{\textit{'mere-prastara'}}, or '\textit{the staircase of mount meru'}, which some argue is the first known evidence of Pascal's triangle. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\linewidth]{figs/Pingala.png}
+    \caption{Pingala's \textit{Mere-prastara} 300 BCE}
+    \label{fig:pingala}
+\end{figure}
+\vspace{-0.25cm}
+ 
+%\vspace{1em}
+\noindent \textbf{Islamic Golden Age Contributions: Al-Karaji and Omar Khayyam}
+\vspace{0.5em}
+
+\textbf{Omar Khayyam}, also a mathematician and poet as well as an astronomer, utilised the binomial theorem to redesign the work of Persian mathematician \textbf{Al-Karaji} during 11th century Iran. Al-Karaji laid the foundations for algebra and combinatorics, being one of the first to use binomial coefficients to expand expressions in the form $(a+b)^n$, in a now lost book believed to have been titled \textit{Al-Fakhri}. Developments to the triangular array were made by Khayyam a few decades later, especially in relation to algebraic identities. Their work depicts the well-known triangle that appeared in the Islamic world centuries earlier and how it plays a crucial role in the evolution of algebraic operations and binomial coefficients.
+
+
+\vspace{1em}
+\noindent \textbf{Independent Development in China: Jia Xian to Yang Hui}
+\vspace{0.5em}
+
+In ancient China, the triangle was documented by the 11th century mathematician \textbf{Jia Xian} who used it to extract square and cube roots to compute binomial coefficients. His texts included a drawn version which was fortunately analyzed by \textbf{Yang Hui} in the 13th century before his book became lost. Yang Hui's work \textit{Xiangjie Jiuzhang Suanfa} in 1261, credits Jia Xian and contains a method of obtaining the triangle illustrating how each number is a result of the two above it. In 1303, \textit{Jade Mirror Of The Four Unknown} by \textbf{Zhu Shijie} credits his work again, replicating what became known in China as \textit{Yang Hui's Triangle}. These contributions highlight the independent advancements made by Chinese mathematicians and their contributions to the early progressions of algebra and binomial expansions.  
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.2\textwidth]{figs/traingle_yanghui.jpg}
+    \caption{Yanghui triangle ca. 1238–1298.}
+    \label{fig:pascal}
+\end{figure}
+
+% After many appearances over Europe in the 13th century, the triangle was studied by Blaise Pascal in his book \textit{Treatise on the Arithmetic Triangle} 1665. By combining previous knowledge of Pingala, Omar Khayyam, and Yang Hui, he gained credit for the triangle in the western world. Pascal's triangle is a staple principle of early mathematics that became a foundational tool in the 17th century in formalising probability theory. It was marked as one of the earliest systematic uses of combinatorics in probability when Pascal and Fermat used it to solve the \textbf{\textit{Problem of Points}}, a famous game of chance. As Pascsal's work was extended by mathematicians such as De Moivre and Jacob Bernoulli, they observed the binomial distribution's relation to the bell-shaped curve, laying the foundational knowledge of the Central Limit Theorem. Thus, the discovery of the triangle, over many cultures and many centuries, served as a small stepping stone towards a fundamental result in modern statistics, as well as bridging the gap between algebra and probability.
+
+After appearing independently in several cultures, the triangular array was formally studied by \textbf{Blaise Pascal} in his 1665 work, \textit{Treatise on the Arithmetic Triangle}. Drawing on earlier contributions from \textbf{Pingala} (India), \textbf{Omar Khayyam} (Persia), and \textbf{Yang Hui} (China), Pascal popularised the triangle in the Western world, where it became known by his name.
+
+Pascal’s Triangle became a fundamental tool in 17\textsuperscript{th}-century mathematics, particularly in the development of probability theory. Its structure provided a systematic way to compute binomial coefficients, enabling early applications of combinatorics to problems involving chance.
+
+One of its first major applications was in solving the \textbf{\textit{Problem of Points}}--a famous gambling problem discussed in correspondence between Pascal and Fermat. This marked one of the earliest formal uses of combinatorics in probabilistic reasoning.
+
+His work also laid the groundwork for further developments by mathematicians such as \textbf{Jacob Bernoulli} and \textbf{Abraham De Moivre}, who investigated the behavior of the binomial distribution. Their insights revealed its convergence toward the bell-shaped curve—what we now recognise as the normal distribution—thus setting the stage for the \textbf{Central Limit Theorem}.
+
+In this way, the triangle-shaped by many cultures and rediscovered across centuries--served not only as a tool for algebraic expansion, but also as a stepping stone in the mathematical formulation of uncertainty. It ultimately bridged early combinatorics with the birth of modern probability and statistics.
+
+\subsubsection{Games of Chance and the Problem of Points}
+
+%\vspace{1em}
+\noindent \textbf{Historical Background of the Problem of Points.}
+\vspace{0.5em}
+% ... SETUP ... \\
+
+Consider a game between two players, \(A\) and \(B\), who agree to compete for a fixed prize pot. The game is played as a sequence of independent rounds--
+such as flipping a coin -- where one player wins each round. The objective is to be the first player to win a fixed number of rounds, say \(\mathbf{n}\), in order to claim the entire prize.
+
+Let the probability that player \(A\) wins any individual round be \(p_A\), and similarly \(p_B\) for player \(B\), where:
+\[
+p_A + p_B = 1.
+\]
+In the classical fair game, both players have equal probability of winning a round:
+\[
+p_A = p_B = \frac{1}{2}.
+\]
+
+Now suppose the game is interrupted before either player reaches the winning threshold of \(n\) rounds. Let the \textbf{current scores} be \(a\) for \(A\) and \(b\) for \(B\), with:
+\[
+a < n, \quad b < n.
+\]
+At this point, the central question-known as the \textbf{Problem of Points}--is:
+
+\begin{center}
+    \textit{How should the prize money be fairly divided between the two players, given the current score and the rules of the game?}
+\end{center}
+
+This problem was famously solved in the 17\textsuperscript{th} century through the correspondence between Blaise Pascal and Pierre de Fermat, and is considered one of the foundational problems in the development of probability theory.
+
+To resolve the problem fairly, we must consider two core principles: \textbf{(1)} what constitutes a fair division of the pot, and \textbf{(2)} how likely each player is to win the game if play were to continue from the current score. The \textit{fair share} is then determined by computing the number of all possible future outcomes that would result in victory for each player, weighted by their probabilities of winning each round.
+
+\vspace{0.5em}
+
+Despite its emerging popularity in the 17th century, the problem of points is a concept that had been studied centuries prior. Italian mathematician \textbf{Luca Pacioli} attempted to solve the problem in his 1494 textbook, by dividing the stakes on the basis of the rounds previously won by each player. This result was debunked in the mid-16th century by \textbf{Niccolo Tartaglia}. He noticed that if a player were to win the first round, they would obtain the entire prize pot, though a one-point lead in a long game certainly does not imply a winner.
+He believed that there was no solution where both players would be convinced of the fairness of the outcome.
+
+The problem arose again in 1654 when it was proposed to Pascal by \textbf{Chevalier de Mere}. Pascal discussed this problem thoroughly with Fermat in a series of letters, and they came up with different, yet complementary solutions, both of which would lay the foundations of modern probability theory. 
+
+\vspace{1em}
+\noindent\textbf{Fermat’s Method of Enumeration.}
+\vspace{1em}
+
+Fermat approached the problem by counting all possible future game sequences, introducing \textbf{combinatorial analysis}. If Player \(A\) \textbf{requires} \(a\) additional wins and Player \(B\) \textbf{requires} \(b\), then the game could last at most \(a + b - 1\) more rounds. There are \(2^{a+b-1}\) possible outcomes, assuming each round is a fair 50/50 trial.
+
+Fermat created a table of all outcome sequences and identified the number of favorable paths leading to each player's victory. He then split the pot proportionally:
+\[
+\text{Share of player } A = \frac{\text{\# of favorable paths for A}}{2^{a+b-1}}.
+\]
+
+His solution was counting-based and neglects the idea that these sequences do not each have the \textit{same probability}. However, his method is appreciated when the game favors counts over probabilities or when a fixed number of rounds remain. Despite Fermat's assumption of a uniform probability space and fixed-length pathways, his solution focused on future additional rounds rather than the previous ones, a quality that Pascal carried into his work. 
+
+\vspace{1em}
+\noindent\textbf{Pascal’s Method of Recursion.}
+\vspace{1em}
+
+Pascal's approach was considered more modern, using \textit{recursive reasoning} based on expected value. It considered all possible pathways, taking the actual probabilities into account, something Fermat did not do. Pascal considered: 
+
+\begin{quote}
+    \textit{What if the game were to end after one more round - how would a single round affect the division of the prize pot?}
+\end{quote}
+
+By examining the probabilities of just the next round, he was able to recursively compute the fair share to each player at any point in the game. He used the \textit{expected values} to calculate the new fair share, for player A, with the \textbf{recursive formula}:
+
+\begin{equation*}
+    V(a, b) = \frac{1}{2}V(a-1, b) + \frac{1}{2}V(a, b-1)
+\end{equation*}
+His solution became easier to compute and more applicable, as in many cases the pathways are not fixed length. Philosophically motivated, Pascal's model focuses on the immediate future to determine what is fair, influencing the calculation of expected payoff in modern probability and game theory. 
+
+Through the manipulation of identities involving Pascal's triangle, he further demonstrated the correct \textbf{division of stakes} (\textit{Player A : Player B}), is given by:
+
+\begin{equation*}
+\sum_{k=0}^{b-1} \binom{a+b-1}{k} : \sum_{k=b}^{a+b-1} \binom{a+b-1}{k}
+\end{equation*} 
+%where   $\binom{a+b-1}{k}$  represents the combination operator. 
+%\vspace{0.5em}
+
+The \textbf{division of stakes problem} in the 17th century was the first evidence of explicit reasoning for what we now know as the expected value. Pascal's triangle is used as an essential combinatorial tool in calculating the probabilities of the remaining rounds, modeled by the binomial distribution. 
+
+\vspace{0.5em}
+
+It is clear that, although the main motivating force for a solution was made by Pascal, Fermat provided the concept of $a+b-1$  additional rounds. Fermat and Pascal's solution to the problem of points would go on to be considered the foundation of probability theory, the discovery of expected value, and the beginning of game theory. The problem gave early insights into fair division and the mathematical treatment of \textbf{uncertainty}, becoming a significant subject in Pascal's work \textit{Treatise on the Arithmetic Triangle}, and shaping the beginning of a systematic approach to probabilistic thinking.
+
+% \newpage
+\noindent \textbf{Gambler's Ruin}
+\vspace{0.5em}
+
+In the 17th century, games of chance and gambling culture became not only a past time but a grounds for mathematical thinking. One of the most enduring problems in the history of probability is gamblers ruin. Introduced in 1656 in a letter from Pascal to Fermat, the problem states: 
+% \vspace{-0.5em}
+\begin{quote}
+    ``\textit{Let two men play with three dice \dots the winner is the first to reach twelve points; what are the relative chances of each player winning?''}.
+\end{quote}
+
+The letter was forwarded onto the Dutch mathematician and scientist \textbf{Christiaan Huygens} (1629-1695), who reformulated the problem in his book \textit{On Reasoning in Games of Chance} 1657, the first formal treatise on probability. Through simple coin-toss scenarios, the problem has implications in random walks and finance, capturing the notion that although a game might be fair, risk of ruin is inevitable under certain conditions. 
+
+Huygens analysis of expected values revealed that a gambler could lose due to their finite capital and accumulation of variance even in favorable games. Overtime, many versions of the problem surfaced, such as the scenario in which two players start with equal points, transferring them until one is \textit{ruined} by reaching zero points, often applied to a gambler opposing a casino.
+
+\vspace{1em}
+\noindent \textbf{De Moivre's Method of Ruin Probabilities }
+\vspace{1em}
+
+In 1711, De Moivre solved the gambler's ruin problem in a clever and generalisable way by considering the specific nominal value of each point. Let us assume a gambler starts with $i$  points whereas there opponent starts with $N - i$  points. In each round, the gambler will win and gain one point or lose and transfer one point to their opponent, with probabilities $p$ and $q$ respectively, where:
+\begin{equation}  q=1-p \end{equation}
+
+The game ends when one player is \textit{ruined} or gains all $N$ points. Let $P(i)$ denote the probability that the gambler will win the game. The probability that the gambler obtains all $N$  points in a fair or unfair game is:
+
+\[
+P(i) = 
+\begin{cases}
+\displaystyle\frac{1 - \left( \frac{q}{p} \right)^i}{1 - \left( \frac{q}{p} \right)^N}, & \text{if } p \ne q \\
+\\
+\displaystyle\frac{i}{N}, & \text{if } p = q = 0.5
+\end{cases}
+\quad \text{for } 0 \leq i \leq N
+\]
+\vspace{0.5em}
+
+\textit{(Note: $P(i)$ is the probability of ruin.})
+
+\vspace{0.5em}
+
+De Moivre's result echoed Pascal's earlier reasoning, providing identical outcomes when applied to games of chance. By rigorously formalising the problem using recursive methods and probability theory, he laid the foundation for modern stochastic analysis. De Moivre's formulation, as well as the contributions of Pascal and Huygens to the gambler's ruin problem, not only anticipated later developments made by Feller in 1970, but also sparked applications for Markov chains, financial risk modeling, and the theory of random walks.
+
+%\vspace{-1.5em}
+
+\subsection{The Law of Large Numbers}
+
+%\vspace{-1.5em}
+
+\subsubsection{Early Formulation}
+Jacob Bernoulli (1655 - 1705) made many contributions to the foundations of mathematics over his life, with his most famous work deriving the first version of the Law of Large Numbers (LLN) in \cite{Bernoulli1713}. His work titled ``Ars Conjectandi'', published by his nephew, Nicolas Bernoulli, 8 years after his death, is now respected as a greatly significant contribution to the theory of probability. The book contains significant work on expected value and includes much on his theory of permutations and combinations.
+
+The fourth section of this book is credited as being the first version and rigorous proof of the LLN. Once referred to as his 'Golden Theorem', now the Weak Law of Large Numbers or Bernoulli's Theorem, states that the results of observation would approach the theoretical probability as more trials are held. For example, according to the LLN, if you flip a coin multiple times, the proportion of heads will get closer to 0.5 as the number of flips increases. Motivated by a desire to understand the estimation of underlying probabilities, usually in the context of games of chance, Jacob Bernoulli spent 20 years of his life formulating the proof produced in Ars Conjectandi for binary random variables and the LLN. 
+
+Bernoulli explains his golden theorem through a theoretical scenario of drawing black and white balls from an urn consecutively, with replacement, in an attempt to estimate the true proportion of black and white balls in the urn. As the amount of balls drawn becomes greater, Bernoulli suggests that the estimation of proportion gets closer to the true ratio of black to white balls. He suggests that a more accurate estimation of the proportion can be achieved through a larger number of trials.
+
+The LLN is applicable to many fields from financial risk assessments to the estimation of probabilities in medical research. Large datasets and simulations are favored in statistical research as they can demonstrate that despite having many fluctuations, a greater number of data points will still result in a relatively reliable average.
+
+%\vspace{-2em}
+% \subsubsection{The St Petersburg Paradox -- see applicatons section for touch up }
+
+% During 1713, Nicolas Bernoulli invented a paradox from a game of chance. However, it was his cousin Daniel Bernoulli who solved the paradox almost 25 years later. In 1738, Daniel Bernoulli's work \textit{'Exposition of a new theory on the measurement of risk' } was published in the \textit{'Commentarii Academiae Scientiarum Imperialis Petropolitanae'}. 
+
+% Simply, the \textbf{St Petersburg paradox} depicts a casino game where a fair coin is tossed with the stake of £2. As long as a player flips a tail, the stakes are doubled and the coin is flipped again, until a head is finally tossed and the game ends. To calculate the expected payout of this game, we would have to sum the reward money multiplied by the probability of flipping a tail for each round. Therefore, under the assumption that the casino has unlimited payout and the game can continue as long as the coin tosses show tails, the expected payout would appear as:
+
+% \begin{equation*}
+%     \dfrac{1}{2}\times 2 + \dfrac{1}{4} \times 4 +\dfrac{1}{8} \times 8 \times \ldots = 1+1+1+ \ldots =\infty .
+% \end{equation*}
+
+
+% The paradox arises through questioning; 
+
+% \vspace{-1em}
+% \begin{center}
+%     \textit{What is the fair amount of money that the casino could charge a player to enter the game?}.
+% \end{center}
+
+% Given the expected value is infinity, most people going off this alone would pay any amount for the opportunity to play, however we can see that in practice this would definitely not be the case. There is an apparent discrepancy between the amount people are realistically willing to spend to play versus the games infinite expected value. 
+
+% ..... Expected Utility Problem
+
+% There are many resolutions to this paradox, the most famous being the concept of expected utility, applied by Daniel Bernoulli. He suggests the value of money is not equal from person to person, nor is it linear. For example, the gain of £100 will mean substantially more to a poor person compared to a rich person. Expected utility theory is rooted in the notion that there is more to prize money than monetary value, as the value of money may not be based on the price but the utility (satisfaction) it yields. Diminishing marginal utility shows how the satisfaction of each additional unit decreases as consumption increases. Bernoulli recognised that even though the reward money is doubled each round, the utility of the player does not progress in the same linear relationship, as the satisfaction gained from winning each round will gradually get less and less. Bernoulli solved the paradox with a utility model using the logarithmic function, where \textit{w} is the individuals wealth.
+
+% \begin{equation*}
+%     U(w) = \log(w)
+% \end{equation*}
+
+% The function captures the concept of diminishing marginal utility, demonstrating how the utility gained from each additional unit will be less than that of the previous one. The formula for expected utility is as follows where $W$ is the gamblers total wealth, $c$ is the cost to play the game and $n$ is the amount of rounds won, gaining the player $2^n$ in wealth. 
+
+% After playing the game, the players wealth becomes: 
+% \begin{equation*}
+%     W' = W - c + 2^n
+% \end{equation*}
+
+% Assuming we play for free, $c = 0$, the utility gain becomes:
+% \begin{equation*}
+%     U = \log(W + 2^n) - \log(W)
+% \end{equation*}
+
+% And expected utility gain is:
+% \begin{equation*}
+%     \Delta E(U) = \sum_{n=1}^{\infty} \dfrac{1}{2^n}
+%     \left[\log(w+2^n )-\log(w)\right]
+% \end{equation*}
+
+% As \textit{n} grows, the logarithmic function grows slowly compared to $2^n$. The numerator can be simplified to $n\log(2)$ so the expression behaves as $\dfrac{n\log(2)}{2^n}$.  As $\sum_{n=1}^{\infty} \dfrac{n}{2^n}$ is a convergent series with a value of 2, the expected utility gain is finite and the paradox is resolved.
+
+% However, theorems such as the LLN and CLT are not applicable to this paradox. As we have seen, the expected value of the St Petersburg Paradox is infinite, as well as its variance. Since the expected value is not finite, the LLN does not apply because there is no guarantee that the average after many games would converge to a finite number. Similarly, due to the infinite expected value and variance, the distribution of the average of multiple games will not approach a normal distribution, hence the CLT also does not hold. The distribution of the paradox is heavy-tailed, further violating the assumptions of the CLT, as the expected value will never settle and the large payouts will dominate the behavior of the distribution. This paradox is a famous example that fails to meet the criteria and lies outside of the conditions where the LLN and the CLT are valid.
+%}
+% \subsubsection*{Generalisations of LLN theorem}
+% \begin{itemize}
+%     \item  (Eve) Poisson (1837) and Chebyshev's (1867) Weak Law of LN - theorem and proof
+%     \item Khinchin’s LLN (1929) and Kolmogorov’s SLLN (1930s) for i.i.d. random variables
+%     \item Applications - Markov (1906) - markov chains - Extending LLNs to dependent sequences. Development of monte carlo methods - LLN guarantees convergence of simulated averages to expected values. Using Sample means in parameter estimation (MLE and methdd of moments)
+% \end{itemize}
+% \subsection{Generalisations and Formalisations of the LLN (1800s–1900s)
+
+
+\subsubsection{The Weak Laws of Large Numbers}
+
+% The basic idea behind the \textit{Law of Large Numbers (LLN)} was already in place thanks to Jakob Bernoulli’s \textit{Golden Theorem} in \emph{Ars Conjectandi} (1713), \cite{Bernoulli1713}. However, m
+Many mathematicians throughout the 19\textsuperscript{th} and 20\textsuperscript{th} centuries deepened Jakob Bernoulli’s LLN results, rigorously generalising them and providing modern foundations for probability theory. These developments introduced and clarified fundamental concepts still central to undergraduate probability and measure theory courses today -- such as \textit{independence}, \textit{randomness}, and \textit{convergence}.
+
+
+% \newpage
+% \medskip
+% \vspace{2em}
+\noindent\textbf{Poisson’s Approximation to the Binomial}
+\vspace{0.5em}
+
+In 1837, the French mathematician and physicist \textbf{Siméon-Denis Poisson} coined the term \textbf{``law of large numbers''} (\textit{la loi des grands nombres}) in his treatise \emph{Recherches sur la probabilité des jugements} \citep{Poisson1837}. Mathematically, Poisson worked with a model of independent Bernoulli trials with small probability of success. 
+
+\begin{figure}[t!h]
+    \centering
+\includegraphics[width=0.4\linewidth]{figs/poisson.jpeg}
+    \caption{Portrait of Siméon-Denis Poisson by E. Marcellot, 1804}
+    \label{fig:poisson}
+\end{figure}
+
+
+\begin{theorem}[Poisson Limit Theorem, Poisson 1837]
+Let \( X_1, X_2, \dots, X_n \) be independent Bernoulli random variables with success probability \( p_n \), and let \newline \( S_n = \sum_{i=1}^n X_i \sim \text{Binomial}(n, p_n) \). Suppose that
+\[
+\lim_{n \to \infty} n p_n = \lambda > 0.
+\]
+Then, for every \( k \in \mathbb{N}_0 \), the binomial probability mass function converges to the \newline \textbf{Poisson distribution} with parameter \( \lambda \):
+\[
+\lim_{n \to \infty} \mathbb{P}(S_n = k) = \frac{e^{-\lambda} \lambda^k}{k!}.
+\]
+\end{theorem}
+
+\noindent The proof to this theorem can be found in Chapter 3 of \cite{papoulis1991probability}.
+
+This is essentially the same result as Bernoulli’s LLN, but Poisson was the first to articulate it under the now-standard terminology and with practical framing. This Poisson limit theorem not only served as an approximation to binomial probabilities in practical applications, but also bridged the LLN with the modeling of \textit{rare events} when exact binomial calculations were computationally infeasible. His formulation gave the LLN broader relevance for real-world statistical inference--particularly \textit{when events were individually unlikely but frequent in aggregate}. Poisson was the first mathematician to take LLN from games and theory into real-world applications, along side Belgian-French astronomer, mathematician, statistician and sociologist  \textbf{Adolphe Quetelet}, such as decision making for jury trials, demographics, and life insurance.
+
+% \medskip
+% \newpage
+\noindent\textbf{Chebyshev's Generalisation of LLN}
+\vspace{0.5em}
+
+
+A major leap in generality came with the work of the Russian mathematician \textbf{Pafnuty Chebyshev}. In 1867, Chebyshev proved a version of the Law of Large Numbers that applied to arbitrary \textit{independent and identically distributed} (i.i.d.) random variables with \textbf{finite variance}, moving beyond the Bernoulli/binomial cases of his predecessors. Chebyshev's contribution was not only the generalisation itself, but also the use of what is now known as \textbf{Chebyshev's inequality}, given by 
+
+\[
+\mathbb{P}(|X - \mu| < k\sigma) \geq 1 - \frac{1}{k^2}, \quad \text{for all } k > 0, 
+\]
+
+\noindent to bound the probability of large deviations from the mean.
+
+
+% Seen \\{\color{magenta} Include reference to chebyshev's inequality?}
+
+
+\begin{theorem}[Chebyshev's Weak Law of Large Numbers, 1867]
+Let $X_1, X_2, \dots, X_n$ be independent and identically distributed (i.i.d.) random variables with finite mean $\mu = \mathbb{E}[X_i]$ and finite variance $\sigma^2 = \text{Var}(X_i) < \infty$. Define the sample mean by
+\[
+\overline{X}_n = \frac{1}{n} \sum_{i=1}^n X_i.
+\]
+Then, for any $\varepsilon > 0$,
+\[
+\mathbb{P}\left( \left| \overline{X}_n - \mu \right| \geq \varepsilon \right) \leq \frac{\sigma^2}{n \varepsilon^2},
+\]
+which implies that
+\[
+\overline{X}_n \xrightarrow{P} \mu \quad \text{as } n \to \infty.
+\]
+\end{theorem}
+
+The proof of this theorem can be seen in many undergraduate textbooks, but some recommended ones are \cite{grimmett2014probability}, \cite{grinstead2012introduction} and \cite{ross2020first}.
+
+\medskip
+
+This result, known as the \textit{Weak Law of Large Numbers}, shows that the sample mean converges to the expected value in probability, under minimal assumptions. Specifically, it requires only that the random variables are \textit{independent, identically distributed}, and possess a \textit{finite variance} -- that is, \( \mathbb{E}[X_i] = \mu < \infty \) and \( \operatorname{Var}(X_i) = \sigma^2 < \infty \). Chebyshev's ideas paved the way for more sophisticated limit theorems in probability, including the Central Limit Theorem, which we will discuss later on, and various strong laws of large numbers developed later by Khinchin, Kolmogorov, and others.
+
+% \medskip
+\vspace{1em}
+\noindent\textbf{Khinchin’s LLN Under Minimal Conditions}
+\vspace{0.5em}
+
+A significant advancement in the theory of large numbers came from the Russian mathematician \textbf{Aleksandr Khinchin} in 1929, in his \emph{"Ueber das Gesetz der grossen Zahlen"} \citep{Khinchin1929}. Building on Chebyshev’s earlier work, Khinchin proved that the Weak Law of Large Numbers still holds under a strictly weaker assumption: \textit{it is sufficient for the random variables to have a finite mean -- no assumption on the variance is necessary}.
+
+This result greatly broadened the applicability of the LLN to distributions with heavy tails (e.g., Cauchy-type variables truncated to have a finite mean but infinite variance), and it refined our understanding of the minimal conditions under which statistical averages converge.
+
+\begin{theorem}[Khinchin's Weak Law of Large Numbers, 1929]
+Let $X_1, X_2, \dots$ be independent and i.i.d. with a finite mean $\mu = \mathbb{E}[X_i] < \infty$ (but possibly infinite variance). Define the sample mean by
+\[
+\overline{X}_n = \frac{1}{n} \sum_{i=1}^n X_i.
+\]
+Then,
+\[
+\overline{X}_n \xrightarrow{P} \mu \quad \text{as } n \to \infty.
+\]
+\end{theorem}
+
+The proof, which uses truncation techniques and tail bounds instead of Chebyshev’s inequality, shows that the convergence in probability of the average of the sample to the expected value requires only the existence of the first moment. The proof of this can be found in many graduate textbooks; see, for example, \cite{billingsley2013convergence}, which discusses weak convergence in detail, and \cite{proschan2018essentials} for background on the various modes of convergence.
+
+\medskip
+
+Khinchin’s theorem thus provides the most general form of the Weak Law of Large Numbers (WLLN) for i.i.d. sequences and forms the theoretical basis for many practical statistical techniques. It is specifically useful in simulation and computational statistics, such as \textbf{Monte Carlo integration}, where the sample average \( \overline{X}_n \) is used to estimate \( \mathbb{E}[X] \). Khinchin’s WLLN guarantees that this estimate converges to the true expectation even when the underlying distribution has infinite variance. 
+
+In fields like \textbf{insurance, finance, and network traffic modeling}, data often exhibit heavy-tailed behavior. Khinchin’s WLLN assures practitioners that empirical averages remain valid estimators as long as the mean exists, even if the variance does not. In many cases, this law provides practitioners with the ability to rely on convergence in probability of averages without requiring second-order properties of the data. 
+
+\vspace{-1em}
+
+\subsubsection{Kolmogorov's Strong Law of Large Numbers (1933)}
+
+% \medskip
+%\vspace{1em}
+\noindent\textbf{From Borel’s Coin Tosses to Cantelli’s Lemmas}
+\vspace{0.5em}
+
+So far, all versions of the LLN discussed have been “weak” laws, concerning convergence in probability. A stronger mode of convergence is \textbf{almost sure (a.s.) convergence}, which guarantees that the sequence of sample averages converges to the expected value with probability one. A result of this form is called a \textbf{Strong Law of Large Numbers (SLLN)}. The strong law is strictly stronger than the weak law: \textit{almost sure convergence implies convergence in probability, but not vice versa.}
+
+The first SLLN was proved by \textbf{Émile Borel} in 1909 in \cite{Borel1909}, for the case of i.i.d. Bernoulli($p$) trials. His result showed that with probability one, the relative frequency of successes converges to the probability of success. Borel’s approach was number-theoretic and focused on binary expansions of real numbers in $[0,1]$.
+
+Building on this, \textbf{Francesco Cantelli} in 1917, \cite{Cantelli1917}, extended the strong law to more \textit{general sequences of random variables under moment conditions}. His proof introduced analytic tools and what would later be formalised as the \textbf{Borel–Cantelli lemma}.
+
+% \medskip
+\vspace{1em}
+\noindent\textbf{Kolmogorov’s Axiomatic Breakthrough}
+\vspace{0.5em}
+
+The transition from the Weak to the Strong Law of Large Numbers was one of the most important milestones in the formalisation of modern probability theory. The pivotal contribution came from the Russian mathematician \textbf{Andrey Kolmogorov} in 1933, whose monograph \emph{Grundbegriffe der Wahrscheinlichkeitsrechnung} laid the \newline axiomatic foundations of probability via measure theory \citep{Kolmogorov1933}. Within this framework, Kolmogorov rigorously established a version of the Law of Large Numbers that ensures \textit{almost sure convergence} -- that is, convergence of the sample mean for almost every realisation of the sequence of random variables (refer to \cite{proschan2018essentials} for background on the various modes of convergence).
+
+\begin{theorem}[Kolmogorov's Strong Law of Large Numbers, 1933]
+Let \( X_1, X_2, \dots \) be a sequence of i.i.d. random variables with finite mean \( \mu = \mathbb{E}[X_i] < \infty \). Then,
+\[
+\frac{1}{n} \sum_{i=1}^n X_i \xrightarrow{\text{a.s.}} \mu \quad \text{as } n \to \infty.
+\]
+That is, with probability 1,
+\[
+\lim_{n \to \infty} \frac{1}{n} \sum_{i=1}^n X_i = \mu.
+\]
+\end{theorem}
+
+The proof of this theorem can be found in Section 7.5 of \cite{grimmett2014probability} and Section 6 of \cite{billingsley2013convergence}. Some applications of both the WLLN and Strong Law of Large Numbers (SLLN) can be found in Section 7 of \cite{proschan2018essentials}.
+
+Kolmogorov’s SLLN represents a significant strengthening of the Weak Law: rather than merely guaranteeing that the sample mean converges to the true mean in probability, it asserts that this convergence occurs \emph{almost surely} -- that is, for \textbf{\textit{almost every sample path}}. In other words, deviations from the expected value are not just uncommon; they eventually vanish entirely for nearly all infinite sequences of outcomes.
+
+Developed alongside his groundbreaking \textbf{\textit{axiomatic foundation of probability theory}}, Kolmogorov’s formulation of the SLLN cemented the modern understanding of convergence and formalised probability as a rigorous branch of real analysis. Most remarkably, Kolmogorov proved that for i.i.d.\ sequences, the SLLN holds \emph{if and only if} the first absolute moment is finite: \( \mathbb{E}[|X_1|] < \infty \). This established the minimal condition under which sample averages converge almost surely to the mean-a result that remains a cornerstone of both theoretical probability and its wide-ranging  \newline applications.
+
+% \medskip
+% \newpage
+\noindent\textbf{Summary: From Early Results to Rigorous Foundations}
+
+\proofbox{
+
+\centering
+Let \( X_1, X_2, \dots \) be an infinite sequence of identically distributed, Lebesgue integrable random variables. Define the sample mean:
+\[
+\overline{X}_n = \frac{1}{n}(X_1 + X_2 + \dots + X_n),
+\quad \text{with } \mathbb{E}[X_1] = \mathbb{E}[X_2] = \cdots = \mu.
+\]
+
+\medskip
+
+\textbf{Weak law of large numbers:}
+\[
+\forall \, \varepsilon > 0, \quad \lim_{n \to \infty} \Pr\left( \left| \overline{X}_n - \mu \right| > \varepsilon \right) = 0
+\]
+
+\medskip
+
+\textbf{Strong law of large numbers:}
+\[
+\Pr\left( \lim_{n \to \infty} \overline{X}_n = \mu \right) = 1
+\]
+
+}
+
+\vspace{0.5em}
+% \begin{center}
+% \fbox{
+% \parbox{0.95\textwidth}{
+% \centering
+% Let \( X_1, X_2, \dots \) be an infinite sequence of identically distributed, Lebesgue integrable random variables. Define the sample mean:
+% \[
+% \overline{X}_n = \frac{1}{n}(X_1 + X_2 + \dots + X_n),
+% \quad \text{with } \mathbb{E}[X_1] = \mathbb{E}[X_2] = \cdots = \mu.
+% \]
+
+% \medskip
+
+% \textbf{Weak law of large numbers:}
+% \[
+% \forall \, \varepsilon > 0, \quad \lim_{n \to \infty} \Pr\left( \left| \overline{X}_n - \mu \right| > \varepsilon \right) = 0
+% \]
+
+% \medskip
+
+% \textbf{Strong law of large numbers:}
+% \[
+% \Pr\left( \lim_{n \to \infty} \overline{X}_n = \mu \right) = 1
+% \]
+% }
+% }
+% \end{center}
+
+
+
+% \noindent\textbf{Significance of Kolmogorov’s SLLN.}  
+% Kolmogorov’s proof required deep analytical techniques, including the use of **Kolmogorov’s maximal inequality** and the **Borel–Cantelli lemma**. His result was also foundational in establishing almost sure convergence as a central mode of convergence in probability theory.
+
+% \begin{itemize}
+%   \item \textit{Pathwise Reliability:} Kolmogorov's SLLN assures us that long-run averages converge not just “on average,” but with overwhelming certainty along each random sequence. This is critical in areas like time series analysis, stochastic processes, and ergodic theory.
+  
+%   \item \textit{Foundational Role in Ergodic Theory:} The SLLN can be viewed as a special case of Birkhoff’s Ergodic Theorem, and is often used to justify that time averages reflect statistical expectations in physical and dynamical systems.
+  
+%   \item \textit{Machine Learning and Reinforcement Learning:} In learning algorithms that rely on long-run rewards or update rules (e.g., stochastic gradient descent or Q-learning), Kolmogorov’s SLLN supports almost sure convergence of empirical performance metrics.
+  
+%   \item \textit{Measure-Theoretic Probability Courses:} The SLLN is often one of the first major theorems in graduate probability theory that showcases the power of measure theory and sigma-algebras, helping students transition from intuitive probability to rigorous analysis.
+% \end{itemize}
+
+
+
+
+%%%%%%%%%%% ---- CLT ---- %%%%%%%%%%%
+
+
+\subsection{The Central Limit Theorem}
+% \subsubsection{Early formulations and advancements}
+% \begin{itemize}
+%     \item (Yuhan) De Moivre–Laplace Theorem (1733–1810) - normal approximation to the binomial dist
+
+%     \item Laplace's use of generating functions for astronomy
+%     \item Gauss's normal distribution and the method of least squares - the bell curve via least squares justification.
+%     \item Lindeberg and Feller - necessary and sufficient conditions for CLT while Lyapunov states and proves the rigourous general CLT first. 
+% \end{itemize}
+
+The development of Central Limit Theorem (CLT) was a gradual process, with contributions from many brilliant mathematicians over centuries. The work by Hans \cite{fischer2010history} provides a detailed historical and mathematical explanation of the development of the CLT throughout the years. This section explores the key figures and their contributions to the CLT.
+
+\vspace{-0.5em}
+\subsubsection{First Glimpse of the Bell Curve: De Moivre–Laplace Theorem}
+Early mathematicians were fascinated by games of chance; they wanted to predict outcomes and calculate probabilities accurately. One common problem involved binomial distributions, which describe the number of successes in a fixed number of independent trials, $n$, each with the same probability of success. 
+
+% For instance,, consider flipping a fair coin 100 times. What is the probability of getting 50 heads? Or 55 heads? And what happens if flipping 100,000,000 times?
+
+For instance, consider flipping a fair coin \( n \) times. What is the probability of observing exactly \( k \) heads? While exact binomial calculations are feasible for small \( n \), they become increasingly cumbersome for large \( n \). Questions such as \textit{“what is the probability of getting 50 heads out of 100 tosses?”} or \textit{“what happens when we flip a coin a million times?”} demand more efficient tools.
+
+The need for a simpler way to calculate these probabilities drove the work of \textbf{Abraham de Moivre} and later \textbf{Pierre-Simon Laplace}. They sought a continuous approximation to the discrete binomial distribution that would be easier to work with, especially for large $n$.
+
+\textbf{Abraham de Moivre} (1667--1754) was from a French family. From 1684 he studied mathematics in Paris, and then left for England at the age of 21, where he lived for the rest of his life, working with gamblers, actuaries, and astronomers (Figure \ref{fig:demoivre}.
+
+\begin{figure}[t!h]
+    \centering
+    \includegraphics[width=0.3\linewidth]{figs/demoivre.jpg}
+    \caption{Portrait of de Moivre by Joseph Highmore, 1736}
+    \label{fig:demoivre}
+\end{figure}
+
+In his seminal work \emph{The Doctrine of Chances} \cite{demoivre1738doctrine}, De Moivre first derived the normal curve as a limit of the binomial distribution. He discovered that as the number of trials \( n \) increases, its shape begins to resemble a smooth, bell-shaped curve. De Moivre's approximation enabled the estimation of binomial probabilities without computing cumbersome factorials.
+
+\noindent Building upon this, \textbf{Pierre-Simon Laplace} generalised de Moivre's findings in his \emph{Théorie Analytique des Probabilités} \cite{laplace1812theorie} (Analytical Theory of Probabilities), providing a more rigorous treatment and extending its applicability. This became known as the \textbf{De Moivre–Laplace Theorem}.
+% \vspace{-0.5em}
+
+\begin{theorem}[De Moivre–Laplace Theorem, 1738]
+If $k$ is the number of successes in $n$ independent Bernoulli trials, each with probability of success $p$, then for large $n$, the distribution of $k$ can be approximated by a normal distribution with mean $\mu = np$ and variance $\sigma^2 = np(1-p)$:
+$$\binom{n}{k} p^k (1-p)^{n-k} \approx \frac{1}{\sqrt{2\pi np(1-p)}} e^{-\frac{(k-np)^2}{2np(1-p)}}$$
+\end{theorem}
+
+This theorem was revolutionary because it showed that the normal distribution, previously observed in some measurement errors, had a fundamental connection to random events. It provided a powerful tool for approximating binomial probabilities without extensive calculations.
+
+\vspace{-0.5em}
+
+\subsubsection{Generating functions (1749--1827)}
+In the 18th century, the emerging field of modern astronomy was shaped by a growing demand for precision. Laplace, a polymath in mathematics, astronomy, and statistics, aimed to bring analytical rigor to the problem of observational error. He sought a general mathematical framework to quantify and manage uncertainty in scientific measurements.
+
+Laplace's profound contribution to this problem, outlined in his monumental work \emph{Théorie Analytique des Probabilités} \cite{laplace1812theorie}, lay in his sophisticated use of generating functions to analyse the sum of independent errors. While earlier work by de Moivre had shown the normal curve as an approximation for binomial sums, Laplace extended this concept significantly, demonstrating its broader applicability to the aggregation of diverse error sources.
+
+% \vspace{-0.5em}
+\begin{definition}
+Let \( X \) be a discrete random variable taking values in \( \mathbb{N}_0 \). The \textbf{probability generating function (pgf)} of \( X \) is defined as:
+\[
+G_X(t) = \mathbb{E}[t^X] = \sum_{k=0}^\infty \mathbb{P}(X = k)t^k, \quad \text{for } t \in [0,1].
+\]
+\end{definition}
+
+The pgf compactly encodes the entire distribution of \( X \) in its Taylor coefficients. In particular, the \( k \)-th derivative evaluated at \( t = 0 \) gives:
+\[
+\mathbb{P}(X = k) = \frac{G_X^{(k)}(0)}{k!}.
+\]
+
+% A generating function is a mathematical series that encodes information about a sequence of numbers (in this case, probabilities) within its coefficients.
+% For a discrete random variable $X$, its probability generating function is $G_X(t) = E[t^X] = \sum_k P(X = k)t^k$.
+
+\vspace{-0.5em}
+
+Laplace recognised that the total error in an astronomical measurement was often the sum of many small, independent errors arising from different sources (e.g., instrument calibration, atmospheric refraction, observer's reaction time). Even if the distribution of each individual error was unknown or complex, he showed that the distribution of their sum would tend towards a normal distribution as the number of error sources increased. This was a profound generalisation of the principles underlying the Central Limit Theorem.
+
+\vspace{-1em}
+
+\subsubsection{Shaping the Bell Curve: Gauss and the Least Squares Method}
+
+In 1801, a small space object named \textbf{Ceres} was found, but it quickly disappeared behind the sun. Astronomers had only a few initial measurements of its path, and these measurements were not perfect. The big problem was: \textit{How could they use these few, slightly wrong numbers to figure out where Ceres would go next, so they could find it again?}
+
+\textbf{Carl Friedrich Gauss} saw this important problem and wanted to find a proper way to get the most likely true answer from measurements that had errors. Gauss came up with an answer in 1809. In his work \emph{Theoria Motus Corporum Coelestium}, Gauss fisrt proposed the \textbf{Method of Least Squares}, a mathematical approach to estimating unknown quantities from imperfect measurements. %This method says that the \textit{"best fit"} for the numbers is the one where the sum of the squared differences between the guess and the actual measurements is as small as possible. 
+The key idea is to choose the values of the parameters, $\theta$, that minimise the sum of squared deviations between the observed data and the values predicted by a model:
+\[
+\min_{\theta} \sum_{i=1}^n (y_i - f(x_i; \theta))^2.
+\]
+
+In other words, suppose that you have many dots on a graph and you want to draw a line that best fits them. "Least squares" tells you to draw the line that makes the total of all the vertical distances from the dots to the line, when each distance is squared, as tiny as possible. This way, bigger mistakes count more, which helps find a better fit.
+
+Gauss didn’t stop at proposing a fitting method; he sought to understand the \emph{probabilistic implications} of the Least Squares. He then asked: \textit{if Least Squares is the best way to find answers, what does that tell us about the errors themselves?} He showed that if measurement errors are \textit{independent, symmetrically distributed}, and \textit{small errors are more likely than large ones}, then the only error distribution that makes the least squares estimator $\hat{\theta} $ ( $\approx \theta $) the \emph{most likely} (i.e., the \emph{maximum likelihood estimator}) is the \textbf{normal distribution}:
+\[
+f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{x^2}{2\sigma^2}\right).
+\]
+
+This connection helped solidify the \textbf{normal distribution} as a universal model for measurement error and variability in the natural sciences. Combined with Laplace’s work on error aggregation, Gauss’s contribution helped shape the statistical foundation of the \textbf{Central Limit Theorem} and inferential statistics.
+% But Gauss's brilliance went further. He then asked: if Least Squares is the best way to find answers, what does that tell us about the errors themselves? He discovered that if errors act in simple ways (like small errors being more common and balanced), then using Least Squares means those errors must follow the bell curve – the Normal Distribution. This was a big discovery: the bell curve wasn't just a random shape, but a natural result of how errors behave when you use the best method to combine data.
+
+\subsubsection{Unveiling the Universal Bell Curve: Central Limit Theory}
+By the late 19th and early 20th centuries, mathematicians knew the normal distribution showed up repeatedly. But their proofs often relied on specific conditions like dealing with coin flips, or assuming errors were perfectly independent and identical. The big question became: \textit{Can we prove the Central Limit Theorem holds true for any collection of independent random events?} The rigour of mathematics drove these mathematicians to explore and precisely \emph{define the minimum conditions} for the ``Central Limit Theorem''.
+\smallskip
+
+\vspace{0.5em}
+\noindent \textbf{Lyapunov's First Big Step (1901)}
+\vspace{0.5em}
+
+\textbf{Alexander Lyapunov}, a Russian mathematician, took a major leap in 1901. He gave one of the first proofs for the Central Limit Theorem that worked for a much wider range of random events. He provided one of the first general conditions under which the sum of \emph{independent but not necessarily identically distributed} random variables converges to the normal distribution.
+
+% Lyapunov's idea was: If you have a long list of $n$ independent random events denoted by $X_1, \ldots, X_i, \ldots, X_n$, each with its own average ($\mu_i$) and spread ($\sigma_i^2$), and if no single event is ``too extreme'', then when you add them up and scale the sum correctly (the scaled sum is denoted by $Z_n$), the result will turn into a standard bell curve:
+% $$Z_n = \frac{\sum_{i=1}^{n} (X_i - \mu_i)}{\sqrt{\sum_{i=1}^{n} \sigma_i^2}}.$$
+% As $n$ gets very large, $Z_n$ gets closer and closer to a standard normal distribution (a bell curve with mean 0 and standard deviation 1).
+\begin{theorem}[Lyapunov's Central Limit Theorem, 1901]
+Let \( X_1, X_2, \ldots, X_n \) be a sequence of independent random variables with finite means \( \mu_i = \mathbb{E}[X_i] \) and finite variances \( \sigma_i^2 = \mathbb{V}[X_i] \). Define the total variance:
+\[
+s_n^2 = \sum_{i=1}^n \sigma_i^2.
+\]
+
+Assume that \( s_n^2 \to \infty \) as \( n \to \infty \), and for some \( \delta > 0 \), the Lyapunov condition holds:
+\[
+\lim_{n \to \infty} \frac{1}{s_n^{2+\delta}} \sum_{i=1}^{n} \mathbb{E}\left[ |X_i - \mu_i|^{2+\delta} \right] = 0.
+\]
+
+Then the normalised sum
+\[
+Z_n = \frac{\sum_{i=1}^{n} (X_i - \mu_i)}{s_n}
+\]
+converges in distribution to the standard normal distribution:
+\[
+Z_n \xrightarrow{d} \mathcal{N}(0,1).
+\]
+\end{theorem}
+
+Lyapunov’s condition essentially controls the \textbf{size of the “tails”} of the distributions, ensuring that no single variable is too erratic or has extreme influence on the total sum. His theorem was a major generalisation, expanding the reach of the CLT to \textbf{sums of unequal, heteroscedastic random variables}. It paved the way for further developments such as the Lindeberg--Feller theorem, which refined and weakened these assumptions even further. 
+
+% Lyapunov's rule was strong and a big step forward. It basically said that the ``tails'' of the individual events' distributions (where extreme values are) couldn't be too ``fat''.
+
+\vspace{1em}
+\noindent \textbf{Lindeberg and Feller: Pinpointing the Exact Conditions (1922-1935)}
+\vspace{0.5em}
+
+While Lyapunov had already laid a strong foundation for the Central Limit Theorem (CLT), it was \textbf{Jarl Waldemar Lindeberg} in 1922, and later \textbf{William Feller} in 1935 pushed this further. They discovered conditions that were not only \emph{sufficient} but also \emph{necessary} for the CLT to hold.
+
+
+The central innovation is the \textbf{Lindeberg condition}, a precise way to rule out the possibility that a few extreme values dominate the sum. It ensures that no individual summand has a disproportionately large variance relative to the whole sum.
+
+Formally, for every small positive number $\epsilon > 0$, as $n$ gets very large, the following expression must get closer and closer to zero:
+$$\lim_{n \to \infty} \frac{1}{s_n^2} \sum_{i=1}^{n} E[(X_i - \mu_i)^2 \mathbf{1}_{ \{|X_i - \mu_i| > \epsilon s_n \} }] = 0$$
+where $s_n^2 = \sum_{i=1}^{n} \sigma_i^2$ (the total spread of the sum), and $\mathbf{1}_{ \{A \} }$ is the indicator function that takes the value 1 if event A is true, and 0 if false. 
+% This rule makes sure that as you add more events, the impact of any single, unusual event becomes too small to matter in the total sum. 
+This condition guarantees that the contribution of large deviations vanishes as \( n \to \infty \), so the total sum is well-behaved and converges to the normal distribution.
+
+%\noindent \textbf{Feller's Theorem: Necessity of CLT}
+
+% Feller's key contribution is typically stated as part of the Lindeberg-Feller Central Limit Theorem, which combines both sufficiency and necessity.
+The Feller's theorem is as follows.
+
+\begin{theorem}[Lindeberg--Feller Central Limit Theorem, 1922--1935]
+Let \( X_1, X_2, \ldots, X_n \) be a sequence of independent random variables with finite means \( \mu_i = \mathbb{E}[X_i] \) and finite variances \( \sigma_i^2 = \mathbb{V}[X_i] \). Define the total variance:
+\[
+s_n^2 = \sum_{i=1}^n \sigma_i^2.
+\]
+
+Assume that \( s_n^2 \to \infty \) as \( n \to \infty \).
+
+Then the normalised sum
+\[
+Z_n = \frac{\sum_{i=1}^{n} (X_i - \mu_i)}{s_n}
+\]
+converges in distribution to the standard normal distribution,
+\[
+Z_n \xrightarrow{d} \mathcal{N}(0,1),
+\]
+\textbf{if and only if} the Lindeberg condition holds: for every \( \epsilon > 0 \),
+\[
+\lim_{n \to \infty} \frac{1}{s_n^2} \sum_{i=1}^{n} \mathbb{E}\left[ (X_i - \mu_i)^2 \cdot \mathbf{1}_{\{|X_i - \mu_i| > \epsilon s_n\}} \right] = 0.
+\]
+\end{theorem}
+These rigorous conditions completed the classical theory of the CLT. The result explains why the normal distribution appears so ubiquitously: from physical measurement errors to stock price fluctuations, average behaviours converge to the bell curve, but only under the right assumptions.
+
+\vspace{1em}
+\noindent\textbf{Comparing Lyapunov and Lindeberg–Feller Theorems}
+% \vspace{0.5em}
+% \vspace{-1em}
+\begin{itemize}
+    \item \textbf{Lyapunov’s CLT (1901)} is a powerful and elegant sufficient condition: it works when the random variables are \textit{independent and have uniformly bounded moments} beyond second order (i.e., there exists a \( \delta > 0 \) such that the \( (2 + \delta) \)-th moment is finite). It is relatively easy to verify, but is not necessary.
+
+    \item \textbf{Lindeberg–Feller CLT (1922–1935)} provides a \emph{necessary and sufficient} condition for convergence to the normal distribution. It uses the Lindeberg condition -- which precisely controls how much “weight” can be in the tails.
+\end{itemize}
+\textbf{Use case}: Lyapunov’s theorem is easier to apply when moment conditions are known, but Lindeberg-Feller is the ultimate test for convergence: if it fails, the CLT fails.
+Proofs for both theorems can be found in graduate textbooks, some of which are \cite{billingsley2013convergence} and \cite{feller1971introduction}.
+
+% These strong math proofs made the Central Limit Theorem one of the most powerful and widely used ideas in all of statistics and probability. It provides a solid reason for why the bell curve shows up everywhere, from errors in science to the average height of people, and countless other things in our world.
+
+
+\subsection{Applications}
+
+The Limit Theorems play a \textit{central} role in modern mathematical developments. While its classical history is associated with European mathematicians, as noted in the previous section, the contributions and applications from the late 20th century to the present day also include developments by underrepresented groups. In this section, we highlight the impact of the LLN and CLT through various applied fields, and the people behind these results. 
+
+Additional code examples of the applications are available on the \href{https://github.com/Ivelina0/History-of-Mathematics}{project's GitHub repository}.
+
+\subsubsection{The St. Petersburg Paradox (1713–1738)}
+
+The \textbf{St. Petersburg paradox} is a famous historical problem in probability theory, introduced in 1713 by \textbf{Nicolas Bernoulli} and later discussed in depth by his cousin \textbf{Daniel Bernoulli} in 1738 in his work \textit{Exposition of a New Theory on the Measurement of Risk} \cite{Bernoulli1738}.
+
+\medskip
+
+\noindent
+The game is defined as follows:
+
+\begin{itemize}
+    \item A player pays an \textit{entry fee} to play a coin-tossing game.
+    \item A fair coin is tossed repeatedly until a head appears.
+    \item If the first head appears on the \(n\)-th toss, the player receives a payout of \( 2^n \) pounds.
+\end{itemize}
+
+\noindent
+Thus, the random variable \( X \) representing the payout satisfies:
+\[
+\mathbb{P}(X = 2^n) = \left( \frac{1}{2} \right)^n, \quad n = 1, 2, 3, \dots
+\]
+
+\medskip
+
+\noindent
+The expected value, the expected payoff, of the game is:
+\[
+\mathbb{E}[X] = \sum_{n=1}^{\infty} 2^n \cdot \left( \frac{1}{2} \right)^n = \sum_{n=1}^{\infty} 1 = \infty
+\]
+
+% \medskip
+
+\noindent
+\textbf{The Paradox:} 
+% The paradox arises through questioning:
+
+\vspace{-0.5em}
+\begin{quote}
+    \textit{What is the fair amount of money that the casino could charge a player to enter the game?}
+\end{quote}
+
+\noindent
+Most rational individuals would only be willing to pay a modest fee (e.g., £5 or £10) -- certainly not an infinite amount. But mathematically, the player should be willing to pay any finite amount to play the game since the expected returns from the game are unlimited. This highlights a disconnect between theoretical expectation and practical decision-making.
+
+
+% This disconnect between mathematical expectation and human behaviour motivated Daniel Bernoulli’s pioneering work on \textbf{expected utility}.
+
+\medskip
+
+\noindent
+\textbf{Resolution:} 
+Bernoulli argued that the \textit{value} of money is not linear. For example, gaining £100 has more significance for a poor individual than for a millionaire. This observation led him to propose a concave \textbf{utility function} that models diminishing marginal utility:
+\[
+U(w) = \log(w),
+\]
+where \(w\) is a person's wealth.
+
+\medskip
+
+Suppose a player has initial wealth \(W\) and pays an entry fee \(c\) to play. If the player wins \(2^n\), their final wealth is:
+\[
+W' = W - c + 2^n.
+\]
+
+Assuming the game is free to play (\(c = 0\)), the utility gain is:
+\[
+U = \log(W + 2^n) - \log(W).
+\]
+
+The expected utility gain becomes:
+\[
+\Delta \mathbb{E}[U] = \sum_{n=1}^{\infty} \frac{1}{2^n} \left[\log(W + 2^n) - \log(W)\right].
+\]
+
+Although \(2^n\) grows exponentially, the logarithmic function grows slowly. This keeps the utility increments small as \(n\) increases. In fact, for small \(n\), we can approximate the difference:
+\[
+\log(W + 2^n) - \log(W) = \log\left(1 + \frac{2^n}{W}\right) \approx \frac{2^n}{W} \quad \text{for small } n,
+\]
+but this approximation breaks down for large \(n\), and the true utility growth remains bounded. It turns out:
+\[
+\Delta \mathbb{E}[U] \sim \sum_{n=1}^\infty \frac{n \log(2)}{2^n} = 2 \log(2),
+\]
+a finite value. Bernoulli’s formulation resolves the paradox by showing that while the \emph{expected monetary payout} is infinite, the \emph{expected utility} remains finite.
+
+\medskip
+
+\noindent
+\textbf{Connection to the LLN and CLT:} The St. Petersburg game serves as an early example of a situation where the classical limit theorems of probability theory do not apply:
+\begin{itemize}
+    \item The \textbf{LLN} requires at least a finite first moment (\( \mathbb{E}[X] < \infty \)) to guarantee convergence of averages.
+    \item The \textbf{CLT} requires a finite second moment (\( \mathbb{E}[X^2] < \infty \)) to ensure convergence in distribution to the normal law.
+\end{itemize}
+
+In the case of the St. Petersburg game, the extreme values dominate, leading to a \textbf{heavy-tailed distribution} that violates the regularity assumptions required by these limit theorems. The paradox serves as an early historical example that motivated the development of more robust theories of risk and utility, well before the formalisation of probability convergence.
+
+% \medskip
+
+% \noindent
+% Thus, the paradox anticipated modern ideas:
+% \begin{itemize}
+%     \item Applying \textbf{utility theory} and bounded rationality to model human risk aversion
+%     \item Recognising the \textbf{limitation of expectation}  in infinite-variance contexts.
+%     \item Limitations of classical probabilistic laws in the face of infinite moments.
+% \end{itemize}
+
+%}
+% \vspace{1em}
+% \noindent \textbf{Monte Carlo integration}
+% \vspace{0.5em}
+\vspace{-1em}
+
+\subsubsection{Brownian Motion as a Scaling Limit of Random Walks}
+
+\textbf{Brownian motion} is a central object in probability theory and mathematical physics. It is a continuous-time stochastic process that models the random movement of particles in a fluid, describing any quantity that undergoes constant, small, random fluctuations.
+Brownian motion arises as the scaling limit of symmetric random walks, a direct consequence of the CLT. 
+A random walk is a stochastic process described by the successive sum of independent, identically distributed random variables. More formally:
+\begin{definition}[Random walk]
+    Suppose that $X_1, X_2, \ldots$ is a sequence of $\mathbb{R}^d$-valued i.i.d random variables. A random walk started at $S_0\in\mathbb{R}^d$ is the sequence $(S_n)_{n\geq 0}$ given by
+    \begin{equation*}
+        S_n = S_0 + X_1 + X_2 + \ldots + X_n, \qquad n \geq 1.
+    \end{equation*}
+    The quantities $(X_n)$ are the steps of the random walk.
+\end{definition}
+
+\textbf{Persi Diaconis}, a mathematician of Sephardic Jewish descent, has extensively studied the probabilistic structures of random processes, including convergence to Brownian motion. 
+%
+\textbf{Jean-Pierre Kahane}, a French-Jewish mathematician, contributed to harmonic analysis and probabilistic methods on groups, including the behaviour of random walks. Their work reflects how diverse backgrounds have contributed to our deep understanding of the LLN and CLT's manifestation in continuous-time processes like Brownian motion.
+
+The \textbf{random walk} is a simple example that beautifully demonstrates both the LLN and the CLT. As we increase the number of steps, the average position stabilises (LLN), the fluctuations form a bell curve (CLT), and with proper scaling, the walk turns into Brownian motion - a continuous limit of a discrete process:
+
+\begin{enumerate}
+    \item \textbf{Random Walks and the LLN.} \\
+    Consider a simple symmetric random walk:
+    \[
+    S_n =  \sum^n_{i=1} X_i , \quad X_i \in \{-1, +1\}, \quad \mathbb{P}(X_i = 1) = \mathbb{P}(X_i = -1) = \frac{1}{2}
+    \]
+    By the LLN:
+    \[
+    \frac{S_n}{n} \xrightarrow{a.s.} 0
+    \]
+    The average \textit{position} converges almost surely to zero.
+
+    \item \textbf{Random Walks and the CLT.} \\
+    By the CLT:
+    \[
+    \frac{S_n}{\sqrt{n}} \xrightarrow{d} \mathcal{N}(0, 1)
+    \]
+    While the average \textit{position} converges to 0, the fluctuations grow like \( \sqrt{n} \), forming a bell-shaped distribution.
+
+    \item \textbf{From Random Walk to Brownian Motion.} \\
+    Define a rescaled process:
+    \[
+    W_n(t) = \frac{1}{\sqrt{n}} \sum_{i=1}^{\lfloor nt \rfloor} X_i,
+    \]
+    where the floor function $\lfloor nt \rfloor$ gives the greatest integer less than or equal to $nt$.
+    Then, as \( n \to \infty \), \( W_n(t) \xrightarrow{d} B(t) \), where \( B(t) \) is standard Brownian motion. This convergence is known as \textbf{Donsker's Theorem}, a functional version of the CLT.
+\end{enumerate}
+%}
+\vspace{-1em}
+
+\subsubsection{Markov Chains}
+
+A ``\textbf{Markov chain}'' or Markov process is a discrete-time stochastic process on a state space that satisfies the Markov property \citep{geyer1998markov}.
+A \textbf{stochastic process} is a sequence $X_1,X_2,\ldots$ of random elements of a state space (a state space is a fixed set where the random variables take values). In simple terms, the \textbf{Markov property} means that the future is independent of the past given the present state. 
+Hence, 
+\begin{quote}
+    \textit{A Markov chain is a discrete-time stochastic process $X_1,X_2,\ldots$ that takes values in a state space, and has the property that the conditional distribution of $X_{n+1}$ given the past, $X_1,\ldots,X_n$ depends only on the present state $X_n$.}
+\end{quote}
+
+There are two main components of a Markov chain: the initial distribution and the transition probabilities. The former is the marginal distribution of $X_1$. Meanwhile, the latter refers to the conditional distribution of $X_{n+1}$ given $X_n$. It is common to assume that the Markov chain has stationary transition probabilities, meaning that there is only one conditional distribution since they are the same for all $n$. Furthermore, a Markov chain is \textit{stationary} if the joint distribution of $(X_n,X_{n+1},\ldots,X_{n+1})$ does not change when translated over time, that is, it does not depend on $n$ for each fixed $k$. Note that a Markov chain having stationary transition probabilities is not necessarily stationary.
+
+\textbf{Andrey Markov} (1856-1922) was a Russian mathematician known for his developments on the theory of stochastic processes, particularly the aforementioned Markov chains. 
+Markov is even more famous for removing the \textbf{independence assumption} in the LLN. In 1906, motivated by a public dispute with the Moscow mathematician \textbf{Pavel Nekrasov}, Markov introduced what we now call \textbf{Markov chains} to show that statistical regularity does not require independent trials. Nekrasov had claimed that independence was necessary for the LLN - a claim Markov viewed as erroneous, especially since Nekrasov was linking it to philosophical arguments about free will. 
+
+To refute this, Markov considered a sequence of dependent trials where the probability of each outcome depends on the previous outcome (the simplest Markov chain) and proved that even here, the long-run frequency of states converges to a constant distribution. In other words, he \textit{proved a weak law of large numbers without independence}, establishing what we now recognise as an ergodic theorem for Markov chains, an astonosing achievement, as for over 200 years we had relied on the assumption of independence of trials. This result was groundbreaking: it provided a connection from the LLN theory to the realm of \textbf{stochastic processes} and demonstrated that ``mixing'' (as in a Markov chain with a \textit{unique stationary distribution}) can substitute independence in producing stable averages. In summary. Markov’s work laid the groundwork for \textbf{ergodic theory}; he even proved a CLT for Markov chains a bit later.
+
+The Central Limit Theorem is for \textbf{Harris ergodic Markov chains}; chains that are irreducible and recurrent. That is, the chain can reach any part of the state space and will return to a small subset infinitely often, with probability 1. Let $X=X_0,X_1,X_2,\ldots$ be a Harris ergodic Markov chain with invariant probability distribution $\pi$ and support $\mathcal{X}$. Let $f$ be a function and define $\overline{\mu}_n = \frac{1}{n} \sum_{i=1}^n f(X_i)$. In a general sense, the CLT states that
+\begin{equation*}
+    \sqrt{n}(\overline{\mu}_n-E_\pi f) \xrightarrow{d} \mathcal{N}(0, \sigma_f^2)
+\end{equation*}
+as $n \rightarrow \infty$, where $\sigma^2_f = \mathbb{V}\left[f(X_0)\right] + 2 \sum_{i=1}^{\infty}cov\left[f(X_0),f(X_i)\right] < \infty$.
+
+A fun fact is that Markov initially used the idea of Markov chains to analyse letter patterns in \textbf{Alexander Pushkin}'s poetry \textit{"Eugene Onegin"}, not in finance or physics. The idea was that the probability of the next letter in a word depends on the previous letter. This idea has fuelled the rise of Search Engines like Yahoo and Google, as well as \textbf{Natural Language Processing (NLP) algorithms} in modern day, and more specifically has given a foundation for the Neural Network architecture that models current GPTs, like ChatGPT and Gemini.
+
+
+% \vspace{1em}
+% \noindent \textbf{Brownian Motion as a Scaling Limit of Random Walks}
+\vspace{-1em}
+
+\subsubsection{Monte Carlo integration}
+
+A common class of numerical problems in statistical inference is integration problems, where an exact analytical solution is either difficult or impossible to attain. Hence, we can rely on numerical solutions, such as simulations, to calculate the quantities of interest. Monte Carlo is a popular choice as one of those methods, used for the generic problem of evaluating the integral
+\begin{equation}
+\label{eq:mcintegral}
+    \mathbb{E}_\pi[f(X)] = \int_\mathcal{X} f(x)\pi(x)dx,
+\end{equation} 
+where $\mathcal{X}$ denotes the support of the random variable $X$ (the set where $X$ takes its values), and in most cases it equals the support of the density function $\pi$.
+% The name ``Monte Carlo'' originates from the 
+
+
+The name ``Monte Carlo'' originates from the famous Monte Carlo Casino in Monaco, reflecting the method’s reliance on randomness and chance, similar to gambling -- since the technique uses random sampling to estimate deterministic quantities.
+
+To approximate $\mu$, we draw a sample $(X_1, \ldots, X_n)$ independently from the density $\pi$ and use as an approximation to the integral \eqref{eq:mcintegral} the sample average
+\begin{equation*}
+    \overline{\mu}_n = \frac{1}{n} \sum_{i=1}^n f(X_i).
+\end{equation*}
+%
+By the \textbf{Strong Law of Large Numbers}, we have
+\begin{equation*}
+    \overline{\mu}_n \xrightarrow{\text{a.s.}} \mu = \mathbb{E}_\pi[f(X)] \quad \text{as } n \to \infty,
+\end{equation*}
+which ensures that the Monte Carlo estimate converges almost surely to the true expected value $\mu$ as the sample size increases.
+
+% since the Strong Law of Large Numbers indicates that $\overline{\mu}_n$ converges almost surely to $\mu := E_f[g(X)]$. 
+
+
+The variance of the approximation can also be estimated from the sample by 
+\begin{equation*}
+    \sigma_n^2 = \frac{1}{n^2} \sum_{i=1}^n [f(X_i) - \overline{\mu}_n]^2.    
+\end{equation*}
+Let $\sigma^2 = \mathbb{V}_\pi(f(X)) < \infty$. Then \textbf{Central Limit Theorem} tells us that, for large $n$,
+% \begin{equation*}
+%     \frac{\overline{\mu}_n - \mu}{\sqrt{\sigma_n^2}}
+% \end{equation*}
+% ...
+\begin{equation*}
+    \sqrt{n}(\overline{\mu}_n - \mu) \xrightarrow{d} \mathcal{N}(0, \sigma^2),
+\end{equation*}
+or equivalently,
+\begin{equation*}
+    \frac{\overline{\mu}_n - \mu}{\hat{\sigma}_n / \sqrt{n}} \xrightarrow{d} \mathcal{N}(0, 1),
+\end{equation*}
+% where the sample variance is estimated as:
+% \begin{equation*}
+%     \hat{\sigma}_n^2 = \frac{1}{n-1} \sum_{i=1}^n \left(g(X_i) - \overline{\mu}_n\right)^2.
+% \end{equation*}
+
+% will approximately follow a standard normal distribution, which allows us to construct confidence bounds on the approximation to the expected value, or integral, of interest.
+
+This result allows us to construct confidence intervals around the estimate $\overline{\mu}_n$ and quantify the uncertainty of our approximation.
+\cite{robert2010introducing} is a friendly reference for an introduction to Monte Carlo methods and their implementation in the programming language R. 
+
+These limit theorems also provide part of the mathematical foundation for more sophisticated simulation methods. In particular, analogous laws of large numbers and central limit theorems for Markov chains underpin Markov chain Monte Carlo (MCMC), in which dependent samples are generated to explore complicated probability distributions. MCMC became especially important for Bayesian inference after the 1950s; its historical development, beginning with the Metropolis algorithm, is discussed in Section~\ref{sec:bayes}.
+
+% A special case of the general LLN and CLT for Markov chains, which became crucial in the mid-20\textsuperscript{th} century for solving complex numerical problems, is the class of \textit{Markov Chain Monte Carlo (MCMC)} methods. These algorithms are designed to draw samples from complex probability distributions by constructing a Markov chain whose \textit{stationary distribution} matches the \textit{target}. One of the most well-known and widely used examples is the \textit{\textbf{Metropolis--Hastings algorithm (MH)}}, which laid the groundwork for modern \textbf{Bayesian inference} and \textbf{probabilistic machine learning}.
+
+% Although the Metropolis algorithm was named after \textbf{Nicholas Metropolis}, the original 1953 paper Equation of State Calculations by Fast Computing Machines lists \textbf{Arianna Wright Rosenbluth}, a physicist and computer scientist, as the primary author of the algorithm’s implementation. Rosenbluth programmed the method for one of the earliest digital computers, MANIAC I, and was instrumental in making the method computationally viable.
+
+Another important figure was \textbf{Augusta Maria "Mici" Teller}, a Jewish Hungarian-American scientist who also contributed to the development of early computing and the application of statistical physics to numerical simulations.
+
+% Together, these women played crucial roles in transforming the MH algorithm into a practical tool, foundational to modern Bayesian statistics and machine learning.
+
+% \vspace{1em}
+% \noindent \textbf{Markov Chains}
+% \vspace{0.5em}
+\vspace{-1em}
+
+\subsubsection{Some more advanced examples}
+
+
+% \vspace{1em}
+\noindent \textbf{Bootstrap Resampling}
+\vspace{0.3em}
+
+Bootstrapping is a statistical technique that estimates the distribution of an estimator by resampling the data (with replacement). It allows estimation of the sampling distribution of the statistic using random sampling methods, without requiring strong parametric assumptions. Bootstrap simulates the sampling distribution empirically, as opposed to the CLT which uses theoretical properties of the population distribution.
+%
+When the quantity of interest is the sample mean, the CLT can directly be used to show the consistency of bootstrapping for estimating its distribution.
+
+\vspace{0.3em}
+\noindent \textbf{Lévy’s Introduction to Heavy Tails and $\alpha$-Stable Distributions}
+\vspace{0.3em}
+
+The classical CLT assumes finite variance, but many applications, such as finance and physics, exhibit heavy-tailed behaviour. L\'evy's work around 1920-1940 on stable distributions extended the CLT to allow for infinite variance, giving rise to the $\alpha$-stable distributions. 
+
+\textbf{Gopinath Kallianpur} (1925–2015) was an Indian-American mathematician and statistician known primarily for his work in stochastic processes, stochastic differential equations (SDEs), and stochastic filtering  \citep{kallianpur2015obituary}. His contributions were crucial in extending the CLT to infinite-dimensional and functional settings, especially within stochastic analysis. For example, in \cite{kallianpur1992segal} they prove a central limit theorem for an interacting system of spatially extended neurons. Kallianpur's work allowed generalisations of the CLT in modern probability, particularly in Functional Central Limit Theorems, Gaussian measures on infinite-dimensional spaces, CLT-based asymptotic analysis in filtering, and applications in stochastic PDEs and signal processing.
+
+% \vspace{1em}
+% \noindent \textbf{Functional CLT: Extensions to Banach Spaces and Stochastic PDEs}
+% \vspace{0.5em}
+
+% The Functional Central Limit Theorem (FCLT) generalises the CLT to stochastic processes, often in infinite-dimensional function spaces. These generalisations are fundamental in fields like mathematical physics, stochastic partial differential equations (SPDEs), and empirical process theory. 
+% Arlie Petters, a Belizean-American mathematical physicist, has worked on stochastic models in astrophysics and gravitational lensing, involving random field theory and differential geometry. 
+% %
+% Chuu-Lian Terng, a Taiwanese-American mathematician, has contributed to the theory of integrable systems and infinite-dimensional geometry. Their advanced theoretical work connects deeply with the broader framework of CLT extensions in functional and geometric settings.
+
+%}
+\vspace{-1em}
+\subsubsection{Conclusions}
+
+% \medskip
+
+%% SHORTENED THE TEXT SO IT ALL FITS ONTO 24TH PAGE -----
+The Law of Large Numbers and Central Limit Theorem -- two fundamental limit theorems -- have shaped modern mathematics and its applications. Highlighting the contributions of underrepresented mathematicians gives overdue recognition to those who advanced these theories, applied them in new domains, and promoted equity in mathematical education and research.
+
+% OG MARIA CONCLUSION -----
+% The Law of Large Numbers and the Central Limit Theorem has shaped modern mathematics and its applications. Highlighting the work of underrepresented mathematicians brings visibility to contributions that are too often overlooked. These mathematicians not only extended the theoretical boundaries of the CLT but also applied its principles to new domains, created more inclusive educational environments, and challenged prevailing assumptions. Recognising their work enriches both the mathematical community and our understanding of equity in intellectual development.
+
+% Additional resources for the curious reader can be found 
+
+
+% Extra resources for the keen readers who want further details: 
+% - Monte Carlo Strategies in Scientific Computing. Springer-Verlag: New York., 2001, by J.S. Liu.
+% - Monte Carlo Methods in Bayesian Computation, New York: Springer-Verlag, 2000, by Chen, M. H., Shao Q. M., and Ibrahim, J. G.
+% - A History of the
+% Central Limit
+% Theorem
+% - Stochastic
+% Differential Equations
+% An Introduction with Applications Oskal
+% - An Introduction to
+% Statistical Computing Voss
+% - 
+
+
+% {\color{gray}
+% Suggested: Examples to keep in mind that we can refer to as we give examples: Coin tossing and betting. Gambler's ruin and St Petersburg Paradox, Markov chains and Random Walks, expected utility , ???
+% add simulation?
+
+% \begin{enumerate}
+%     \item What the person is trying to answer/ the problem he is solving? - give examples and applications if there are any. It does not have to be a rigorous explanation. It could just be a game prompting the idea or them trying to make a previous mathematician's statement rigorous. Give quotes, images, or references to anything that you think is relevant. 
+%     \item Maybe add a why (if you can find anything).
+%     \item How did they answer the question? What was their solution to the problem? What theorem did they introduce and what were their assumptions? - State the theorem without proof. Link to proofs.
+%     \item Give a non-mathematical, intuitive explanation of what they theorem means. 
+%     \item Applications - numerical/empirical vs. analytical solutions. -EVE to ask where to host code experiments. 
+% \end{enumerate}
+% }
