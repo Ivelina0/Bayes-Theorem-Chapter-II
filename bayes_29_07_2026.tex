@@ -628,20 +628,52 @@ developed an explicitly frequency-based interpretation. The mathematical develop
 probability axiomatically as a measure on a space of events
 \cite{hilbert1900,BorelEmile1909,vonmisesss1919,kolmogorovaudrey1933}.
 
-But the question of inverse probability persisted: \textit{what exactly may be assigned a probability?} If $\theta$ is unknown but fixed quantity, can we meaningfully speak of $P(\theta\mid D)$? During the following decades of the 20-th century, several different answers were developed.
+% But the question of inverse probability persisted: \textit{what exactly may be assigned a probability?} If $\theta$ is unknown but fixed quantity, can we meaningfully speak of $P(\theta\mid D)$? During the following decades of the 20-th century, several different answers were developed.
+\noindent
+But the question of inverse probability persisted:
+
+\begin{center}
+{\setlength{\fboxsep}{10pt}
+\fcolorbox{gray!50}{gray!8}{
+\begin{minipage}{0.88\textwidth}
+\centering
+
+\textbf{\textit{What exactly may be assigned a probability?}}
+
+\vspace{0.3cm}
+
+% \textbf{If $\theta$ is unknown but fixed, can we meaningfully speak of $P(\theta\mid D)$?}
+
+\textbf{If $\theta$ is a fixed quantity whose true value we do not know, can we assign probabilities to the different values that $\theta$ might take?}
+
+\end{minipage}
+}}
+\end{center}
+
+\noindent
+During the following decades of the twentieth century, several different answers were developed.
+
 
 \paragraph{Fisher: likelihood instead of inverse probability (1922--1935).}
 
 Ronald Aylmer Fisher (1890--1962) developed a non-Bayesian framework of statistical inference in which \href{https://youtu.be/zgir07qRdGw?si=F4FiON4TNKXERrvz}{\textbf{likelihood}} provided a way of comparing possible values of an unknown parameter without assigning probabilities to those values. He then developed \href{https://youtu.be/Pk7kDdWuG1Q?si=ULzKm_jphNl_5-zk}{\textbf{maximum likelihood estimation}} and introduced concepts for assessing how much information about a parameter could be extracted from data, including \textbf{sufficiency}, \textbf{efficiency} and \textbf{statistical information}. In parallel, he developed \textbf{significance testing} and \textbf{fiducial inference} as an alternative way of making inferential statements about unknown parameters without introducing Bayesian prior probabilities \cite{fisher1922foundations,fisher1925statistical,fisher1930inverse, fisher1935fiducial,aldrich1997}. While his rejection of inverse probability was explicit. In 1930 he described it as a doctrine that appeared to \begin{quote} ``a succession of sound writers to be \textit{fundamentally false and devoid of foundation}'' \cite[p.~528]{fisher1930inverse}. \end{quote}
 
-At Rothamsted, Fisher worked closely with his first statistical assistant, \textbf{Winifred Alice Mackenzie (1896--1954)}, who co-authored studies on rainfall, bacterial counts and crop variation, including an important 1923 paper connected with the early development of analysis of variance  \cite{fishermackenzie1923,tayloraldrich2022}. Historians have additionally documented the \textit{\textbf{substantial workforce of women employed as computing assistants at Rothamsted}}, whose computational labour was rarely acknowledged in conventional accounts of the development of statistics \cite{parolini2015}.
+At Rothamsted, Fisher worked closely with his first statistical assistant, \textbf{Winifred Alice Mackenzie (1896--1954)}, who co-authored studies on rainfall, bacterial counts and crop variation, including an important 1923 paper connected with the early development of analysis of variance  \cite{fishermackenzie1923,tayloraldrich2022}. Dr Giuditta Parolini, a sustainability data scientist, wrote that \textit{\textbf{``over 200 women worked as computing assistants at Rothamsted''}}, analysing the results of field and laboratory experiments and  agricultural surveys by hand \cite{parolini2015}. Entry-level pay for these women was even lower than that of the female cleaners at Rothamsted \cite{langkjaerbain2018}.
 
 
 
-\paragraph{Neyman and Pearson: hypothesis testing and error control
-(1928--1937).}
 
-Jerzy Neyman (1894--1981) and Egon Pearson (1895--1980) developed another non-Bayesian approach to statistical inference. Their work between 1928 and 1933 treated hypothesis testing as a decision between a \textbf{null hypothesis} $H_0$ and an \textbf{alternative hypothesis} $H_1$ \cite{neymanpearson1928,neymanpearson1933}. Instead of assigning initial probabilities to the hypotheses themselves, they asked how often a testing rule would make the wrong decision if the same experiment were performed many times under the same conditions:
+% \paragraph{Neyman and Pearson 
+
+% \footnote{While Karl Pearson founded the world's first university statistics department was founded in 1911 at University College London (UCL), his PhD student \href{https://en.wikipedia.org/wiki/Florence_Nightingale_David}{Florence Nightingale David}, who would publish her work under the nickname F.N. David, was the first woman professor in the department. Her research focused heavily on classic frequentist tools like goodness-of-fit tests, the behaviour of correlation coefficients, and tests for randomness.}
+
+% : 
+
+% \paragraph{Neyman and Pearson\footnote{While Karl Pearson founded the world's first university statistics department was founded in 1911 at University College London (UCL), his PhD student \href{https://en.wikipedia.org/wiki/Florence_Nightingale_David}{Florence Nightingale David}, who would publish her work under the nickname F.N. David, was the first woman professor in the department. Her research focused heavily on classic frequentist tools like goodness-of-fit tests, the behaviour of correlation coefficients, and tests for randomness.}: hypothesis testing and error control (1928--1937).}
+
+\paragraph{Neyman and Pearson: hypothesis testing and error control (1928--1937).}
+
+Jerzy Neyman (1894--1981) and Egon Pearson\footnote{ Karl Pearson founded the world's first university statistics department was founded in 1911 at University College London (UCL). His student \href{https://en.wikipedia.org/wiki/Florence_Nightingale_David}{\textbf{Florence Nightingale David}}, who would publish her work under the nickname F.N. David, later became the first woman professor in the department. Her research focused heavily on classic frequentist tools like goodness-of-fit tests, the behaviour of correlation coefficients, and tests for randomness.} (1895--1980) developed another non-Bayesian approach to statistical inference. Their work between 1928 and 1933 treated hypothesis testing as a decision between a \textbf{null hypothesis} $H_0$ and an \textbf{alternative hypothesis} $H_1$ \cite{neymanpearson1928,neymanpearson1933}. Instead of assigning initial probabilities to the hypotheses themselves, they asked how often a testing rule would make the wrong decision if the same experiment were performed many times under the same conditions:
 
 \begin{equation}
 \underbrace{P(\text{reject }H_0 \mid H_0 \text{ is true})}_{\text{Type I error }(\alpha)}
@@ -649,7 +681,8 @@ Jerzy Neyman (1894--1981) and Egon Pearson (1895--1980) developed another non-Ba
 \underbrace{P(\text{do not reject }H_0 \mid H_1 \text{ is true})}_{\text{Type II error }(\beta)}.
 \end{equation}
 
-The \textbf{power} of the test is the probability of correctly rejecting
+The \textbf{power}\footnote{Dr Nic has an excellent YouTube video explaining \href{https://youtu.be/edzQQFNzFjM?si=ZIDEkYKkMHhuys9M}{
+Type 1 and Type 2 errors} in more detail.} of the test is the probability of correctly rejecting
 $H_0$ when $H_1$ is true:
 
 \begin{equation}
@@ -657,15 +690,16 @@ P(\text{reject }H_0 \mid H_1 \text{ is true})
 =
 1-\beta.
 \end{equation}
-
-Dr Nic has an excellent YouTube video explaining \href{https://youtu.be/edzQQFNzFjM?si=ZIDEkYKkMHhuys9M}{
-Type 1 and Type 2 errors} in more detail. 
+ 
 Neyman applied the same idea to his 1937 theory of \textbf{confidence intervals} \cite{neyman1937}. Fisher and Neyman--Pearson are now often grouped together as ``frequentist'', although their interpretations of statistical testing differed substantially. Later textbooks on Statisitcs often combined Fisherian p-values/significance testing with Neyman–Pearson terminology and error-control machinery, despite disagreements between their founders \cite{lehmann2011,perezgonzalez2015}.
+
 
 \paragraph{Wrinch, Haldane and Jeffreys: probabilities of hypotheses
 (1919--1946).}
 
-Meanwhile, Dorothy Wrinch\footnote{You can find Dr. Marjorie Senechal's talk on \textbf{Dorothy Wrinch} in the \href{https://youtu.be/KsbenEkuaw8?si=zAg_2lpAXTZuWOG6}{YouTube Video} where she states that \textit{"Dorothy was the first person to have any ideas that proteins have a structure."} } (1894--1976) and Harold Jeffreys (1891--1989) were developing almost the opposite framework. Between 1919 and 1923 they treated probability as a logic for reasoning about scientific propositions  \cite{wrinchjeffreys1919,wrinchjeffreys1921,wrinchjeffreys1923}. In 1921 they wrote that
+% Meanwhile, Dorothy Wrinch\footnote{You can find Dr. Marjorie Senechal's talk on \textbf{Dorothy Wrinch} in the \href{https://youtu.be/KsbenEkuaw8?si=zAg_2lpAXTZuWOG6}{YouTube Video} where she states that \textit{"Dorothy was the first person to have any ideas that proteins have a structure."} } (1894--1976) and Harold Jeffreys (1891--1989) were developing almost the opposite framework. Between 1919 and 1923 they treated probability as a logic for reasoning about scientific propositions  \cite{wrinchjeffreys1919,wrinchjeffreys1921,wrinchjeffreys1923}. In 1921 they wrote that
+
+Meanwhile, Dorothy Wrinch (1894--1976) and Harold Jeffreys (1891--1989) were developing almost the opposite framework. Between 1919 and 1923 they treated probability as a logic for reasoning about scientific propositions  \cite{wrinchjeffreys1919,wrinchjeffreys1921,wrinchjeffreys1923}. In 1921 they wrote that
 
 \begin{quote}
 ``an inference drawn from a simple scientific law may have a very high
