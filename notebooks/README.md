@@ -23,6 +23,18 @@ pip install -r requirements.txt
 jupyter notebook
 ```
 
+**Windows + OneDrive note:** if this repo lives under a long OneDrive-synced path,
+`pip install` can fail partway through with `OSError: [Errno 2] No such file or
+directory` on deeply nested package files (seen with `jupyterlab` and `jedi`), because
+the full destination path exceeds Windows' ~260-character limit. If that happens,
+create the venv at a short path outside the repo instead, e.g.:
+
+```powershell
+python -m venv C:\venvs\bayes-theorem-ii
+C:\venvs\bayes-theorem-ii\Scripts\activate
+pip install -r requirements.txt
+```
+
 ## Notes
 
 - Notebooks use only real, hardcoded or library-bundled data (no network fetches at
