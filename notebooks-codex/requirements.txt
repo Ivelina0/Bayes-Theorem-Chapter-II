@@ -1,0 +1,12 @@
+numpy
+scipy
+pandas
+matplotlib
+seaborn
+scikit-learn
+statsmodels
+arviz
+ipykernel
+pymc
+nbclient
+nbformat
